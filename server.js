@@ -1,22 +1,28 @@
-let { graphql, buildSchema } = require('graphql');
+let { importSchema } = require('graphql-import');
+let { makeExecutableSchema } = require('@graphql-tools/schema');
+let { graphql } = require('graphql');
+let resolvers = require('./resolver/index');
 
-// Construct a schema, using GraphQL schema language
-let schema = buildSchema(`
-  
-`);
+const GraphQlStart = async () => {
+	// Create Schema from files
+	const typeDefs = importSchema('schema/types.gql');
+	const schema_resolvers = {};
+	const schema = makeExecutableSchema({ typeDefs, schema_resolvers });
 
-// The rootValue provides a resolver function for each API endpoint
-let rootValue = {
-    hello: () => {
-        return 'Hello world!';
-    },
+	// Import resolvers
+	let rootValue = await resolvers.resolvers();
+
+	// Return data for graphql to start
+	return {
+		schema,
+		source: '{ hello1 }',
+		rootValue,
+	};
 };
 
-// Run the GraphQL query '{ hello }' and print out the response
-graphql({
-    schema,
-    source: '{ hello }',
-    rootValue
-}).then((response) => {
-    console.log(response);
+//Init Graphql
+GraphQlStart().then((data) => {
+	graphql(data).then((response) => {
+		console.log(response);
+	});
 });
