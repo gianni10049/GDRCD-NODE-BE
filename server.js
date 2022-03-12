@@ -2,9 +2,7 @@ let { graphql, buildSchema } = require('graphql');
 
 // Construct a schema, using GraphQL schema language
 let schema = buildSchema(`
-  type Query {
-    hello: String
-  }
+  
 `);
 
 // The rootValue provides a resolver function for each API endpoint
