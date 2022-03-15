@@ -1,4 +1,5 @@
 type Query {
-    hello: String
-    hello1: String
-  }
+	hello: String
+	hello1: String
+	rollDice(numDice: Int!, numSides: Int): [Int]
+}
