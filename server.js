@@ -1,4 +1,5 @@
 let express = require('express');
+const db = require('./models');
 let { importSchema } = require('graphql-import');
 let { makeExecutableSchema } = require('@graphql-tools/schema');
 let resolvers = require('./resolver/index');
@@ -32,6 +33,9 @@ GraphQlStart().then((data) => {
 			graphiql: true,
 		})
 	);
+
+	db.sequelize.sync();
+
 	app.listen(4000);
 	console.log('server run on http://localhost:4000/graphql');
 });
