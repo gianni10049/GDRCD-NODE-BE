@@ -1,7 +1,8 @@
+let express = require('express');
 let { importSchema } = require('graphql-import');
 let { makeExecutableSchema } = require('@graphql-tools/schema');
-let { graphql } = require('graphql');
 let resolvers = require('./resolver/index');
+const { graphqlHTTP } = require('express-graphql');
 
 const GraphQlStart = async () => {
 	// Create Schema from files
@@ -15,14 +16,22 @@ const GraphQlStart = async () => {
 	// Return data for graphql to start
 	return {
 		schema,
-		source: '{ hello1 }',
-		rootValue,
+		root: rootValue,
 	};
 };
 
 //Init Graphql
 GraphQlStart().then((data) => {
-	graphql(data).then((response) => {
-		console.log(response);
-	});
+	let app = express();
+
+	app.use(
+		'/graphql',
+		graphqlHTTP({
+			schema: data.schema,
+			rootValue: data.root,
+			graphiql: true,
+		})
+	);
+	app.listen(4000);
+	console.log('server run on http://localhost:4000/graphql');
 });
