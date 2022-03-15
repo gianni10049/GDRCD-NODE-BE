@@ -1,6 +1,10 @@
+let { RolledDices } = require('./../models');
+
 const schema1 = {
-	hello: () => {
-		return 'Hello world!';
+	hello: async () => {
+		await RolledDices.create({
+			rolled: 'test,test,test',
+		});
 	},
 };
 

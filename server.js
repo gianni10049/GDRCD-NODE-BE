@@ -22,7 +22,7 @@ const GraphQlStart = async () => {
 };
 
 //Init Graphql
-GraphQlStart().then((data) => {
+GraphQlStart().then(async (data) => {
 	let app = express();
 
 	app.use(
@@ -34,8 +34,10 @@ GraphQlStart().then((data) => {
 		})
 	);
 
-	db.sequelize.sync();
-
-	app.listen(4000);
-	console.log('server run on http://localhost:4000/graphql');
+	db.sequelize.sync().then(() => {
+		app.listen(4000);
+		console.log(
+			'DB started, GRAPHQL server runned on http://localhost:4000/graphql'
+		);
+	});
 });
