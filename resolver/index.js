@@ -24,7 +24,6 @@ const loadPaths = async () => {
 		let paths = [];
 
 		for (let file of files) {
-			console.log(file);
 			if (file !== 'index.js') {
 				paths.push(file);
 			}
