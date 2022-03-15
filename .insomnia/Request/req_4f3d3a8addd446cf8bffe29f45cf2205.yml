@@ -1,0 +1,28 @@
+_id: req_4f3d3a8addd446cf8bffe29f45cf2205
+type: Request
+parentId: wrk_aa0a436ed9ef4f98ac4d2fc997366fc8
+modified: 1647352183468
+created: 1647351903613
+url: http://{{ _.host }}:{{ _.port }}/{{ _['graphql-page'] }}
+name: rollDice
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query RollDice($numDice: Int!, $numSides: Int)
+    {\n  rollDice(numDice: $numDice, numSides:
+    $numSides)\n}","variables":{"numDice":3,"numSides":3},"operationName":"RollDice"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_be1c752a7ac946dcbf78d8610ab51cde
+authentication: {}
+metaSortKey: -1647351903613
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

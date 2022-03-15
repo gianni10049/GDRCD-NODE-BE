@@ -1,0 +1,18 @@
+_id: env_0f5055119718461296fab25ea87107ca
+type: Environment
+parentId: env_e8199a46f1abcf053c7cc6b4393d3f24016a3bbc
+modified: 1647352060377
+created: 1647351971047
+name: localhost
+data:
+  host: localhost
+  port: "4000"
+  graphql-page: graphql
+dataPropertyOrder:
+  "&":
+    - host
+    - port
+    - graphql-page
+color: "#bd2e2e"
+isPrivate: false
+metaSortKey: 1647351971047
