@@ -4,6 +4,7 @@ let { importSchema } = require('graphql-import');
 let { makeExecutableSchema } = require('@graphql-tools/schema');
 let resolvers = require('./resolver/index');
 const { graphqlHTTP } = require('express-graphql');
+const cors = require('cors');
 
 const GraphQlStart = async () => {
 	// Create Schema from files
@@ -24,7 +25,7 @@ const GraphQlStart = async () => {
 //Init Graphql
 GraphQlStart().then(async (data) => {
 	let app = express();
-
+	app.use(cors());
 	app.use(
 		'/graphql',
 		graphqlHTTP({

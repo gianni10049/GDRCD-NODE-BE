@@ -1,3 +1,17 @@
 type Query {
-	registration: String
+	fake: String
+}
+
+type Mutation {
+	registration(
+		username: String!
+		email: String!
+		password: String!
+		password_confirm: String!
+	): registrationResponse
+}
+
+type registrationResponse {
+	response: String!
+	responseStatus: Boolean!
 }

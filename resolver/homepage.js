@@ -1,15 +1,8 @@
-let { Account } = require('./../models');
+const { AccountController } = require('../controllers/Account');
 
 const schema1 = {
-	registration: async () => {
-		await Account.create({
-			username: 'testAccount',
-			email: 'test@test.it',
-			password: 'brobro',
-			active: 1,
-		});
-
-		return 'Hello World!';
+	registration: async (data) => {
+		return AccountController.registration(data);
 	},
 };
 
