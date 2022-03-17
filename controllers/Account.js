@@ -1,13 +1,14 @@
 const bcrypt = require('bcrypt');
 let { Account } = require('./../models');
 const jwt = require('jsonwebtoken');
+const { createToken } = require('./Utils');
 
 class AccountController {
 	static validateEmail = (email) => {
 		return String(email)
 			.toLowerCase()
 			.match(
-				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 			);
 	};
 
@@ -108,12 +109,7 @@ class AccountController {
 				if (check) {
 					account_data.password = undefined;
 
-					token = await jwt.sign(
-						{ account: account_data },
-						process.env.TOKEN_KEY,
-						undefined,
-						undefined
-					);
+					token = await createToken({ account_id: account_data.id });
 
 					response = 'Logged in!';
 					status = 'success';
