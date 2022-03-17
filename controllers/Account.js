@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 let { Account } = require('./../models');
+const jwt = require('jsonwebtoken');
 
 class AccountController {
 	static validateEmail = (email) => {
@@ -17,7 +18,7 @@ class AccountController {
 			status = 'error';
 
 		// If submitted username
-		if (username) {
+		if (username && password) {
 			let username_check = await Account.count({
 				where: {
 					username: username,
@@ -86,6 +87,68 @@ class AccountController {
 		};
 	}
 
-	static async login(data) {}
+	static async login(data) {
+		let { username, password } = data;
+
+		let response,
+			token,
+			status = 'error';
+
+		if (username && password) {
+			let account_data = await Account.findOne({
+				where: {
+					username: username,
+				},
+			});
+
+			if (account_data) {
+				let hashed_pass = account_data.password,
+					check = await bcrypt.compare(password, hashed_pass);
+
+				if (check) {
+					account_data.password = undefined;
+
+					token = await jwt.sign(
+						{ account: account_data },
+						process.env.TOKEN_KEY,
+						undefined,
+						undefined
+					);
+
+					response = 'Logged in!';
+					status = 'success';
+				} else {
+					response = 'Wrong password.';
+				}
+			} else {
+				response = 'Username not exist.';
+			}
+		} else {
+			response = 'Fullfill all input.';
+		}
+
+		return {
+			token: token,
+			response: response,
+			responseStatus: status,
+		};
+	}
+
+	static async verifyToken(token) {
+		if (!token) {
+			return false;
+		}
+
+		try {
+			return await jwt.verify(
+				token,
+				process.env.TOKEN_KEY,
+				undefined,
+				undefined
+			);
+		} catch (err) {
+			return false;
+		}
+	}
 }
 exports.AccountController = AccountController;

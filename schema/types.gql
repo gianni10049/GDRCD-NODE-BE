@@ -1,5 +1,5 @@
 type Query {
-	fake: String
+	login(username: String!, password: String!): loginResponse
 }
 
 type Mutation {
@@ -13,5 +13,11 @@ type Mutation {
 
 type registrationResponse {
 	response: String!
+	responseStatus: String!
+}
+
+type loginResponse {
+	response: String!
+	token: String!
 	responseStatus: String!
 }

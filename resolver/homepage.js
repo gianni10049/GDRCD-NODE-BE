@@ -1,9 +1,12 @@
 const { AccountController } = require('../controllers/Account');
 
-const schema1 = {
+const homepage = {
 	registration: async (data) => {
 		return await AccountController.registration(data);
 	},
+	login: async (data) => {
+		return await AccountController.login(data);
+	},
 };
 
-exports.schema1 = schema1;
+exports.homepage = homepage;
