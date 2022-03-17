@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 let { Account } = require('./../models');
-const jwt = require('jsonwebtoken');
-const { createToken } = require('./Utils');
+const { createToken, sendMail, makeRandomString } = require('./Utils');
 
 class AccountController {
 	static validateEmail = (email) => {
@@ -130,21 +129,51 @@ class AccountController {
 		};
 	}
 
-	static async verifyToken(token) {
-		if (!token) {
-			return false;
+	static async recPass(data) {
+		let { email } = data,
+			response,
+			responseStatus = 'error';
+
+		if (email) {
+			let account = await Account.findOne({
+				where: {
+					email: email,
+				},
+			});
+
+			if (account) {
+				let password = makeRandomString(8);
+
+				const hashedPassword = await bcrypt.hash(password, 5);
+
+				await Account.update(
+					{ password: hashedPassword },
+					{
+						where: {
+							id: account.id,
+						},
+					}
+				);
+
+				await sendMail({
+					subject: 'Recupero password account.',
+					to: [email],
+					html: `La tua nuova password è "${password}".`,
+				});
+
+				response = 'Email sended successfully!';
+				responseStatus = 'success';
+			} else {
+				response = 'Email not associated with any account.';
+			}
+		} else {
+			response = 'Not email provided.';
 		}
 
-		try {
-			return await jwt.verify(
-				token,
-				process.env.TOKEN_KEY,
-				undefined,
-				undefined
-			);
-		} catch (err) {
-			return false;
-		}
+		return {
+			response: response,
+			responseStatus: responseStatus,
+		};
 	}
 }
 exports.AccountController = AccountController;

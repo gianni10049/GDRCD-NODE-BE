@@ -7,6 +7,9 @@ const homepage = {
 	login: async (data) => {
 		return await AccountController.login(data);
 	},
+	recPass: async (data) => {
+		return await AccountController.recPass(data);
+	},
 };
 
 exports.homepage = homepage;
