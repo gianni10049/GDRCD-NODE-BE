@@ -19,6 +19,6 @@ type genericResponse {
 
 type loginResponse {
 	response: String!
-	token: String!
+	token: String
 	responseStatus: String!
 }
