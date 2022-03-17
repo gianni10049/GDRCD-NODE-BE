@@ -14,7 +14,7 @@ class AccountController {
 		let { username, email, password, password_confirm } = data;
 
 		let response,
-			status = false;
+			status = 'error';
 
 		// If submitted username
 		if (username) {
@@ -27,7 +27,14 @@ class AccountController {
 			// If username not exist
 			if (!username_check) {
 				// If email is valid
-				if (this.validateEmail(email)) {
+
+				let email_check = await Account.count({
+					where: {
+						email: email,
+					},
+				});
+
+				if (!email_check) {
 					// If password and confirm are the same
 					if (password === password_confirm) {
 						// Password min 8 char
@@ -38,23 +45,20 @@ class AccountController {
 								/[a-z]/g.test(password) &&
 								/[A-Z]/g.test(password)
 							) {
-								let salt = Math.floor(Math.random() * 99);
-
 								const hashedPassword = await bcrypt.hash(
 									password,
-									salt
+									5
 								);
 
 								await Account.create({
 									username: username,
-									salt: salt,
 									email: email,
 									password: hashedPassword,
 									active: 1,
 								});
 
-								response = 'All Right!';
-								status = true;
+								response = 'Registered!';
+								status = 'success';
 							} else {
 								response =
 									'Password error. One small letter, one big letter and one number needed.';
@@ -67,7 +71,7 @@ class AccountController {
 						response = 'Password not the sames.';
 					}
 				} else {
-					response = 'Email not valid.';
+					response = 'Email alredy used.';
 				}
 			} else {
 				response = 'Username alredy used.';
@@ -81,5 +85,7 @@ class AccountController {
 			responseStatus: status,
 		};
 	}
+
+	static async login(data) {}
 }
 exports.AccountController = AccountController;

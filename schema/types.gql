@@ -13,5 +13,5 @@ type Mutation {
 
 type registrationResponse {
 	response: String!
-	responseStatus: Boolean!
+	responseStatus: String!
 }
