@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+let { LogMail } = require('./../models');
 
 const createToken = async (data) => {
 	return await jwt.sign(data, process.env.TOKEN_KEY);
@@ -42,6 +43,16 @@ const sendMail = async (data) => {
 		text: text, // plain text body
 		html: html, // html body
 	});
+
+	for (let receiver of to) {
+		await LogMail.create({
+			from: process.env.SMTP_SENDER, // sender address
+			to: receiver, // list of receivers
+			subject: subject, // Subject line
+			text: text, // plain text body
+			html: html, // html body
+		});
+	}
 
 	return true;
 };
