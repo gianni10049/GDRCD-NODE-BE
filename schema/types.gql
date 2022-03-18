@@ -2,6 +2,7 @@ type Query {
 	login(username: String!, password: String!): loginResponse
 	recPass(email: String!): genericResponse
 	charactersList(token: String!): [characterData]
+	setCharacter(token: String!, characterId: Int!): loginResponse
 }
 
 type Mutation {
@@ -25,7 +26,11 @@ type loginResponse {
 }
 
 type characterData {
+	id: ID
 	name: String
 	surname: String
 	age: Int
+	miniavatar: String
+	profilePic: String
+	nickname: String
 }

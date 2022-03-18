@@ -108,7 +108,7 @@ class AccountController {
 				if (check) {
 					account_data.password = undefined;
 
-					token = await createToken({ account_id: account_data.id });
+					token = await createToken({ account: account_data });
 
 					response = 'Logged in!';
 					status = 'success';

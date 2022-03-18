@@ -16,6 +16,10 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
+			nickname: {
+				allowNull: false,
+				type: Sequelize.STRING,
+			},
 			surname: {
 				allowNull: false,
 				type: Sequelize.STRING,
@@ -23,6 +27,16 @@ module.exports = {
 			age: {
 				allowNull: false,
 				type: Sequelize.INTEGER,
+			},
+			miniavatar: {
+				allowNull: true,
+				defaultValue: null,
+				type: Sequelize.STRING,
+			},
+			profilePic: {
+				allowNull: true,
+				defaultValue: null,
+				type: Sequelize.STRING,
 			},
 			active: {
 				allowNull: false,

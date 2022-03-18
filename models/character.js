@@ -24,11 +24,20 @@ module.exports = (sequelize, Sequelize) => {
 			name: {
 				type: Sequelize.STRING,
 			},
+			nickname: {
+				type: Sequelize.STRING,
+			},
 			surname: {
 				type: Sequelize.STRING,
 			},
 			age: {
 				type: Sequelize.INTEGER,
+			},
+			miniavatar: {
+				type: Sequelize.STRING,
+			},
+			profilePic: {
+				type: Sequelize.STRING,
 			},
 			active: {
 				type: Sequelize.BOOLEAN,
