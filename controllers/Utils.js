@@ -43,7 +43,7 @@ const sendMail = async (data) => {
 		html: html, // html body
 	});
 
-	console.log('Mail Sended successfully!');
+	return true;
 };
 
 function makeRandomString(length) {
