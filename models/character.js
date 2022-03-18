@@ -18,6 +18,9 @@ module.exports = (sequelize, Sequelize) => {
 				type: Sequelize.INTEGER,
 				autoIncrement: true,
 			},
+			account: {
+				type: Sequelize.INTEGER,
+			},
 			name: {
 				type: Sequelize.STRING,
 			},

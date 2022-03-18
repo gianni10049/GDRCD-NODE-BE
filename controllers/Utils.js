@@ -83,7 +83,7 @@ function makeRandomString(length) {
 	return result;
 }
 
-exports.validateToken = verifyToken;
+exports.verifyToken = verifyToken;
 exports.createToken = createToken;
 exports.sendMail = sendMail;
 exports.makeRandomString = makeRandomString;
