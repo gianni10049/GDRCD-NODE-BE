@@ -1,6 +1,11 @@
 type Query {
+	tokenControl(
+		token: String!
+		character_needed: Boolean
+		account_needed: Boolean
+	): genericResponse
 	login(username: String!, password: String!): loginResponse
-	recPass(email: String!): genericResponse
+	recPass(email: String!): toastResponse
 	charactersList(token: String!): [characterData]
 	setCharacter(token: String!, characterId: Int!): loginResponse
 }
@@ -14,8 +19,13 @@ type Mutation {
 	): genericResponse
 }
 
-type genericResponse {
+type toastResponse {
 	response: String!
+	responseStatus: String!
+}
+
+type genericResponse {
+	response: Boolean!
 	responseStatus: String!
 }
 
