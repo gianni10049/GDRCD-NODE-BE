@@ -1,8 +1,10 @@
 let express = require('express');
+const db = require('./models');
 let { importSchema } = require('graphql-import');
 let { makeExecutableSchema } = require('@graphql-tools/schema');
 let resolvers = require('./resolver/index');
 const { graphqlHTTP } = require('express-graphql');
+const cors = require('cors');
 
 const GraphQlStart = async () => {
 	// Create Schema from files
@@ -21,9 +23,9 @@ const GraphQlStart = async () => {
 };
 
 //Init Graphql
-GraphQlStart().then((data) => {
+GraphQlStart().then(async (data) => {
 	let app = express();
-
+	app.use(cors());
 	app.use(
 		'/graphql',
 		graphqlHTTP({
@@ -32,6 +34,11 @@ GraphQlStart().then((data) => {
 			graphiql: true,
 		})
 	);
-	app.listen(4000);
-	console.log('server run on http://localhost:4000/graphql');
+
+	db.sequelize.sync().then(() => {
+		app.listen(4000);
+		console.log(
+			'DB started, GRAPHQL server runned on http://localhost:4000/graphql'
+		);
+	});
 });

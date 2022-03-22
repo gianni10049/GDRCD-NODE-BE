@@ -1,5 +1,46 @@
 type Query {
-	hello: String
-	hello1: String
-	rollDice(numDice: Int!, numSides: Int): [Int]
+	tokenControl(
+		token: String!
+		character_needed: Boolean
+		account_needed: Boolean
+	): genericResponse
+	login(username: String!, password: String!): loginResponse
+	recPass(email: String!): toastResponse
+	charactersList(token: String!): [characterData]
+	setCharacter(token: String!, characterId: Int!): loginResponse
+}
+
+type Mutation {
+	registration(
+		username: String!
+		email: String!
+		password: String!
+		password_confirm: String!
+	): genericResponse
+}
+
+type toastResponse {
+	response: String!
+	responseStatus: String!
+}
+
+type genericResponse {
+	response: Boolean!
+	responseStatus: String!
+}
+
+type loginResponse {
+	response: String!
+	token: String
+	responseStatus: String!
+}
+
+type characterData {
+	id: ID
+	name: String
+	surname: String
+	age: Int
+	miniavatar: String
+	profilePic: String
+	nickname: String
 }
