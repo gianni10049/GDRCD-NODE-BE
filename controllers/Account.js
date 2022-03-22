@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 let { Account } = require('./../models');
-const { createToken, sendMail, makeRandomString } = require('./Utils');
+const { Mails } = require('./Email');
+const { Utils } = require('./Utils');
+const { Token } = require('./Token');
 
 class AccountController {
 	static validateEmail = (email) => {
@@ -108,7 +110,7 @@ class AccountController {
 				if (check) {
 					account_data.password = undefined;
 
-					token = await createToken({ account: account_data });
+					token = await Token.createToken({ account: account_data });
 
 					response = 'Logged in!';
 					status = 'success';
@@ -142,7 +144,7 @@ class AccountController {
 			});
 
 			if (account) {
-				let password = makeRandomString(8);
+				let password = Utils.makeRandomString(8);
 
 				const hashedPassword = await bcrypt.hash(password, 5);
 
@@ -155,7 +157,7 @@ class AccountController {
 					}
 				);
 
-				await sendMail({
+				await Mails.sendMail({
 					subject: 'Recupero password account.',
 					to: [email],
 					html: `La tua nuova password è "${password}".`,

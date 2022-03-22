@@ -1,13 +1,11 @@
 let { Character } = require('./../models');
-let { verifyToken, createToken } = require('./Utils');
+let { Token } = require('./Token');
 
 class CharactersController {
 	static async getCharactersList(data) {
 		let { token } = data;
 
-		let tokenData = await verifyToken(token);
-
-		console.log(tokenData);
+		let tokenData = await Token.verifyToken(token);
 
 		if (tokenData.account) {
 			return await Character.findAll({
@@ -21,7 +19,7 @@ class CharactersController {
 	static async setCharacter(data) {
 		let { token, characterId } = data;
 
-		let tokenData = await verifyToken(token);
+		let tokenData = await Token.verifyToken(token);
 
 		if (tokenData.account) {
 			let account_id = tokenData.account.id;
@@ -33,7 +31,7 @@ class CharactersController {
 			});
 
 			if (character.account === account_id) {
-				let new_token = await createToken({
+				let new_token = await Token.createToken({
 					...tokenData,
 					character: character,
 				});
