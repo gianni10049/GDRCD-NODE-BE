@@ -3,6 +3,9 @@ let { Account } = require('./../models');
 const { Mails } = require('./Email');
 const { Utils } = require('./Utils');
 const { Token } = require('./Token');
+const { Op } = require('sequelize');
+
+console.log(Op);
 
 class AccountController {
 	static validateEmail = (email) => {
@@ -24,6 +27,9 @@ class AccountController {
 			let username_check = await Account.count({
 				where: {
 					username: username,
+					deletedAt: {
+						[Op.is]: null,
+					},
 				},
 			});
 
@@ -34,6 +40,9 @@ class AccountController {
 				let email_check = await Account.count({
 					where: {
 						email: email,
+						deletedAt: {
+							[Op.is]: null,
+						},
 					},
 				});
 
@@ -100,6 +109,9 @@ class AccountController {
 			let account_data = await Account.findOne({
 				where: {
 					username: username,
+					deletedAt: {
+						[Op.is]: null,
+					},
 				},
 			});
 
@@ -140,6 +152,9 @@ class AccountController {
 			let account = await Account.findOne({
 				where: {
 					email: email,
+					deletedAt: {
+						[Op.is]: null,
+					},
 				},
 			});
 
@@ -153,6 +168,9 @@ class AccountController {
 					{
 						where: {
 							id: account.id,
+							deletedAt: {
+								[Op.is]: null,
+							},
 						},
 					}
 				);

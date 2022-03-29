@@ -1,5 +1,6 @@
 let { Character } = require('./../models');
 let { Token } = require('./Token');
+const { Op } = require('sequelize');
 
 class CharactersController {
 	static async getCharactersList(data) {
@@ -11,6 +12,9 @@ class CharactersController {
 			return await Character.findAll({
 				where: {
 					account: tokenData.account.id,
+					deletedAt: {
+						[Op.is]: null,
+					},
 				},
 			});
 		}
@@ -27,6 +31,9 @@ class CharactersController {
 			let character = await Character.findOne({
 				where: {
 					id: characterId,
+					deletedAt: {
+						[Op.is]: null,
+					},
 				},
 			});
 

@@ -2,9 +2,7 @@ const jwt = require('jsonwebtoken');
 
 class Token {
 	static createToken = async (data) => {
-		return await jwt.sign(data, process.env.TOKEN_KEY, {
-			expiresIn: '24h',
-		});
+		return await jwt.sign(data, process.env.TOKEN_KEY);
 	};
 
 	static verifyToken = async (token) => {
