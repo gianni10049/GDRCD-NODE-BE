@@ -19,8 +19,8 @@ class AccountController {
 	static async registration(data) {
 		let { username, email, password, password_confirm } = data;
 
-		let response,
-			status = 'error';
+		let response = false,
+			status;
 
 		// If submitted username
 		if (username && password) {
@@ -69,27 +69,27 @@ class AccountController {
 									active: 1,
 								});
 
-								response = 'Registered!';
-								status = 'success';
+								response = true;
+								status = 'Registered!';
 							} else {
-								response =
+								status =
 									'Password error. One small letter, one big letter and one number needed.';
 							}
 						} else {
-							response =
+							status =
 								'Password length error. Minimum 8 characters.';
 						}
 					} else {
-						response = 'Password not the sames.';
+						status = 'Password not the sames.';
 					}
 				} else {
-					response = 'Email alredy used.';
+					status = 'Email alredy used.';
 				}
 			} else {
-				response = 'Username alredy used.';
+				status = 'Username alredy used.';
 			}
 		} else {
-			response = 'Username not provided.';
+			status = 'Username not provided.';
 		}
 
 		return {
