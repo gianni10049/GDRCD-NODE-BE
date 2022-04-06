@@ -7,7 +7,7 @@ type Query {
 	login(username: String!, password: String!): loginResponse
 	recPass(email: String!): toastResponse
 	charactersList(token: String!): [characterData]
-	setCharacter(token: String!, characterId: Int!): loginResponse
+	setCharacter(token: String!, characterId: String!): loginResponse
 }
 
 type Mutation {
@@ -40,7 +40,7 @@ type characterData {
 	name: String
 	surname: String
 	age: Int
-	miniavatar: String
+	mini_avatar: String
 	profilePic: String
 	nickname: String
 }

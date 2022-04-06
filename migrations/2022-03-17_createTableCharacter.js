@@ -28,7 +28,7 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.INTEGER,
 			},
-			miniavatar: {
+			mini_avatar: {
 				allowNull: true,
 				defaultValue: null,
 				type: Sequelize.STRING,

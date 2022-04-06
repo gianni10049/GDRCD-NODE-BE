@@ -33,7 +33,7 @@ module.exports = (sequelize, Sequelize) => {
 			age: {
 				type: Sequelize.INTEGER,
 			},
-			miniavatar: {
+			mini_avatar: {
 				type: Sequelize.STRING,
 			},
 			profilePic: {
