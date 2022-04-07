@@ -56,5 +56,32 @@ class CharactersController {
 			}
 		}
 	}
+
+	static async getCharacterData(characterId) {
+		return await Character.findOne({
+			where: {
+				id: characterId,
+				deletedAt: {
+					[Op.is]: null,
+				},
+			},
+		});
+	}
+
+	static async getCharacter(data) {
+		let { token, characterId } = data;
+
+		let tokenData = await Token.characterConnected(token);
+
+		if (tokenData.response) {
+			if (!characterId) {
+				characterId = tokenData.character.id;
+			}
+
+			if (characterId) {
+				return this.getCharacterData(characterId);
+			}
+		}
+	}
 }
 exports.CharactersController = CharactersController;

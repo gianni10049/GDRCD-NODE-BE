@@ -1,5 +1,5 @@
 type Query {
-	tokenControl(
+	routeControl(
 		token: String!
 		character_needed: Boolean
 		account_needed: Boolean
@@ -7,7 +7,8 @@ type Query {
 	login(username: String!, password: String!): loginResponse
 	recPass(email: String!): toastResponse
 	charactersList(token: String!): [characterData]
-	setCharacter(token: String!, characterId: String!): loginResponse
+	setCharacter(token: String!, characterId: ID!): loginResponse
+	getCharacter(token: String!, characterId: ID): characterData
 }
 
 type Mutation {
@@ -37,10 +38,15 @@ type loginResponse {
 
 type characterData {
 	id: ID
+	account: Int
 	name: String
+	nickname: String
 	surname: String
 	age: Int
 	mini_avatar: String
 	profilePic: String
-	nickname: String
+	active: Boolean
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
 }

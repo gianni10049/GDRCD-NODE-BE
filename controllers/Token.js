@@ -28,14 +28,12 @@ class Token {
 		let response = true,
 			responseStatus = '';
 
-		let control = await this.verifyToken(token);
+		if (character_needed) {
+			return this.characterConnected(token);
+		}
 
-		if (
-			(character_needed && !control.character) ||
-			(account_needed && !control.account)
-		) {
-			response = false;
-			responseStatus = 'Permesso negato.';
+		if (account_needed) {
+			return this.characterConnected(token);
 		}
 
 		return {
@@ -43,6 +41,42 @@ class Token {
 			responseStatus,
 		};
 	};
+
+	static characterConnected = async (token) => {
+		let control = await this.verifyToken(token);
+
+		let response = true,
+			responseStatus = '';
+
+		if (!control.character) {
+			response = false;
+			responseStatus = 'Permesso negato.';
+		}
+
+		return {
+			response,
+			responseStatus,
+			...control,
+		};
+	};
+
+	static async accountConnected(token) {
+		let control = await this.verifyToken(token);
+
+		let response = true,
+			responseStatus = '';
+
+		if (!control.account) {
+			response = false;
+			responseStatus = 'Permesso negato.';
+		}
+
+		return {
+			response,
+			responseStatus,
+			...control,
+		};
+	}
 }
 
 exports.Token = Token;
