@@ -8,7 +8,14 @@ module.exports = (sequelize, Sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate(models) {}
+		static associate(models) {
+			models.Character.hasMany(models.CharacterPermission, {
+				foreignKey: 'character',
+				name: 'id',
+				allowNull: false,
+				as: 'characterPermission',
+			});
+		}
 	}
 
 	Character.init(

@@ -2,40 +2,43 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
-	class Account extends Model {
+	class AccountPermission extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			models.Account.hasMany(models.Character, {
-				foreignKey: 'account',
-				name: 'id',
+			models.AccountPermission.hasOne(models.Account, {
+				foreignKey: 'id',
+				name: 'account',
 				allowNull: false,
-				as: 'charactersData',
+				as: 'accountData',
+			});
+			models.AccountPermission.hasOne(models.Permission, {
+				foreignKey: 'id',
+				name: 'permission',
+				allowNull: false,
+				as: 'permissionData',
 			});
 		}
 	}
 
-	Account.init(
+	AccountPermission.init(
 		{
 			id: {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 				autoIncrement: true,
 			},
-			username: {
-				type: Sequelize.STRING,
+			permission: {
+				type: Sequelize.INTEGER,
 			},
-			email: {
-				type: Sequelize.STRING,
+			account: {
+				type: Sequelize.INTEGER,
 			},
-			password: {
-				type: Sequelize.STRING,
-			},
-			active: {
-				type: Sequelize.BOOLEAN,
+			assigned_by: {
+				type: Sequelize.INTEGER,
 			},
 			createdAt: Sequelize.DATE,
 			updatedAt: Sequelize.DATE,
@@ -43,9 +46,9 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		{
 			sequelize,
-			tableName: 'account',
-			modelName: 'Account',
+			tableName: 'account_permission',
+			modelName: 'AccountPermission',
 		}
 	);
-	return Account;
+	return AccountPermission;
 };

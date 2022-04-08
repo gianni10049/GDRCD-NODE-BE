@@ -2,40 +2,27 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
-	class Account extends Model {
+	class PermissionGroupPivot extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate(models) {
-			models.Account.hasMany(models.Character, {
-				foreignKey: 'account',
-				name: 'id',
-				allowNull: false,
-				as: 'charactersData',
-			});
-		}
+		static associate(models) {}
 	}
 
-	Account.init(
+	PermissionGroupPivot.init(
 		{
 			id: {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 				autoIncrement: true,
 			},
-			username: {
-				type: Sequelize.STRING,
+			group: {
+				type: Sequelize.INTEGER,
 			},
-			email: {
-				type: Sequelize.STRING,
-			},
-			password: {
-				type: Sequelize.STRING,
-			},
-			active: {
-				type: Sequelize.BOOLEAN,
+			permission: {
+				type: Sequelize.INTEGER,
 			},
 			createdAt: Sequelize.DATE,
 			updatedAt: Sequelize.DATE,
@@ -43,9 +30,9 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		{
 			sequelize,
-			tableName: 'account',
-			modelName: 'Account',
+			tableName: 'permission_group_pivot',
+			modelName: 'PermissionGroupPivot',
 		}
 	);
-	return Account;
+	return PermissionGroupPivot;
 };
