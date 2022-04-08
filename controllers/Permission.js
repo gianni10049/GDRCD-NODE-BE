@@ -144,7 +144,7 @@ class PermissionController {
 								tokenData,
 								permissionId
 							)),
-						responseStatus: 'Done',
+						responseStatus: 'Permission Denied.',
 					};
 				} else {
 					return {
