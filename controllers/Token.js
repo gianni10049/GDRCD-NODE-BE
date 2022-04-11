@@ -33,7 +33,7 @@ class Token {
 		}
 
 		if (account_needed) {
-			return this.characterConnected(token);
+			return this.accountConnected(token);
 		}
 
 		return {
