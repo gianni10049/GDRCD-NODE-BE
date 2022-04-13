@@ -1,19 +1,19 @@
 let express = require('express');
 const db = require('./models');
-let { importSchema } = require('graphql-import');
-let { makeExecutableSchema } = require('@graphql-tools/schema');
 let resolvers = require('./resolver/index');
 const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
+const { loadSchema } = require('@graphql-tools/load');
+const { GraphQLFileLoader } = require('@graphql-tools/graphql-file-loader');
+const { loadSchemas } = require('./schema');
 
 const GraphQlStart = async () => {
-	// Create Schema from files
-	const typeDefs = importSchema('schema/types.gql');
-	const schema_resolvers = {};
-	const schema = makeExecutableSchema({ typeDefs, schema_resolvers });
-
 	// Import resolvers
 	let rootValue = await resolvers.resolvers();
+
+	const schema = await loadSchema(await loadSchemas(), {
+		loaders: [new GraphQLFileLoader()],
+	});
 
 	// Return data for graphql to start
 	return {
