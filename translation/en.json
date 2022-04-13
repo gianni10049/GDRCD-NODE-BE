@@ -1,0 +1,26 @@
+{
+  "general": {
+    "siteName": "Corrupta"
+  },
+  "registration": {
+    "usernameNot": "Username not provided",
+    "usernameUsed": "Username already used",
+    "emailUsed": "Email already used",
+    "passwordMatch": "Password not match",
+    "passwordLength": "Password length error. Minimum 8 characters",
+    "passwordFormat": "Password error. One small letter, one big letter and one number needed",
+    "done": "Registered!"
+  },
+  "login": {
+    "fulfill": "FulFill all input",
+    "usernameExistence": "Account not exist",
+    "passwordError": "Wrong Password",
+    "done": "Logged In!"
+  },
+  "recPass": {
+    "emailSubject": "Password Recovery",
+    "emailNot": "Email not provided",
+    "emailExistence": "Email not connected to any account",
+    "done": "Email sended!"
+  }
+}

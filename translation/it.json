@@ -1,0 +1,23 @@
+{
+  "registration": {
+    "usernameNot": "Username non inserito",
+    "usernameUsed": "Username già in uso",
+    "emailUsed": "Email già in uso",
+    "passwordMatch": "Le password fornite non corrispondono",
+    "passwordLength": "Password corta. Minimo 8 caratteri.",
+    "passwordFormat": "Errore password. Deve contenere una lettera piccola, una lettera grande ed un numero.",
+    "done": "Registrato!"
+  },
+  "login": {
+    "fulfill": "Riempi tutti i campi",
+    "usernameExistence": "Account inesistente",
+    "passwordError": "Errore password",
+    "done": "Login effettuato!"
+  },
+  "recPass": {
+    "emailSubject": "Recupero password account",
+    "emailNot": "Email non inserita",
+    "emailExistence": "Email non collegata a nessun account",
+    "done": "Email inviata!"
+  }
+}

@@ -4,8 +4,7 @@ const { Mails } = require('./Email');
 const { Utils } = require('./Utils');
 const { Token } = require('./Token');
 const { Op } = require('sequelize');
-
-console.log(Op);
+const { i18n } = require('./../i18n');
 
 class AccountController {
 	static validateEmail = (email) => {
@@ -70,26 +69,24 @@ class AccountController {
 								});
 
 								response = true;
-								status = 'Registered!';
+								status = i18n.t('registration.done');
 							} else {
-								status =
-									'Password error. One small letter, one big letter and one number needed.';
+								status = i18n.t('registration.passwordFormat');
 							}
 						} else {
-							status =
-								'Password length error. Minimum 8 characters.';
+							status = i18n.t('registration.passwordLength');
 						}
 					} else {
-						status = 'Password not the sames.';
+						status = i18n.t('registration.passwordMatch');
 					}
 				} else {
-					status = 'Email alredy used.';
+					status = i18n.t('registration.emailUsed');
 				}
 			} else {
-				status = 'Username alredy used.';
+				status = i18n.t('registration.usernameUsed');
 			}
 		} else {
-			status = 'Username not provided.';
+			status = i18n.t('registration.usernameNot');
 		}
 
 		return {
@@ -124,16 +121,16 @@ class AccountController {
 
 					token = await Token.createToken({ account: account_data });
 
-					response = 'Logged in!';
+					response = i18n.t('login.done');
 					status = 'success';
 				} else {
-					response = 'Wrong password.';
+					response = i18n.t('login.passwordError');
 				}
 			} else {
-				response = 'Username not exist.';
+				response = i18n.t('login.usernameExistence');
 			}
 		} else {
-			response = 'Fullfill all input.';
+			response = i18n.t('login.fulfill');
 		}
 
 		return {
@@ -176,18 +173,18 @@ class AccountController {
 				);
 
 				await Mails.sendMail({
-					subject: 'Recupero password account.',
+					subject: i18n.t('recPass.emailSubject'),
 					to: [email],
 					html: `La tua nuova password è "${password}".`,
 				});
 
-				response = 'Email sended successfully!';
+				response = i18n.t('recPass.done');
 				responseStatus = 'success';
 			} else {
-				response = 'Email not associated with any account.';
+				response = i18n.t('recPass.emailExistence');
 			}
 		} else {
-			response = 'Not email provided.';
+			response = i18n.t('recPass.emailNot');
 		}
 
 		return {
