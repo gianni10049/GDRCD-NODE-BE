@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
 				foreignKey: 'character',
 				name: 'id',
 				allowNull: false,
-				as: 'characterPermission',
+				as: 'characterPermissionData',
 			});
 		}
 	}

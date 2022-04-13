@@ -1,0 +1,14 @@
+type Query {
+	routeControl(
+		token: String!
+		character_needed: Boolean
+		account_needed: Boolean
+	): genericResponse
+	login(username: String!, password: String!): loginResponse
+	recPass(email: String!): toastResponse
+	charactersList(token: String!): [characterData]
+	setCharacter(token: String!, characterId: ID!): loginResponse
+	getCharacter(token: String!, characterId: ID): characterData
+	permissionControl(token: String!, permission: String!): genericResponse
+	getCharacterStats(token: String!, characterId: ID!): characterStatData
+}

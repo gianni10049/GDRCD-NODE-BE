@@ -1,0 +1,126 @@
+type accountData {
+	id: ID
+	username: String
+	email: String
+	password: String
+	active: Boolean
+	charactersData: characterData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type accountPermissionData {
+	id: ID
+	permission: Int
+	account: Int
+	assigned_by: Int
+	accountData: accountData
+	permissionData: permissionData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type accountPermissionGroupData {
+	id: ID
+	group: Int
+	account: Int
+	permissionGroupsData: permissionGroupData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type characterData {
+	id: ID
+	account: Int
+	name: String
+	nickname: String
+	surname: String
+	age: Int
+	mini_avatar: String
+	profilePic: String
+	characterPermissionData: characterPermissionData
+	active: Boolean
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type characterPermissionData {
+	id: ID
+	permission: Int
+	character: Int
+	assigned_by: Int
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type characterStatData {
+	id: ID
+	character: Int
+	stat: Int
+	characterData: characterData
+	statData: statData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type logMailData {
+	id: ID
+	from: String
+	to: String
+	subject: String
+	text: String
+	html: String
+	attachment: String
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type permissionData {
+	id: ID
+	name: String
+	description: String
+	permissionGroups: permissionGroupsPivotData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type permissionGroupData {
+	id: ID
+	group: Int
+	account: Int
+	permissionGroupsData: permissionGroupsPivotData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type permissionGroupsPivotData {
+	id: ID
+	group: Int
+	permission: Int
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type statData {
+	id: ID
+	name: String
+	description: String
+	max_lvl: Int
+	min_lvl: Int
+	registration: Boolean
+	usable: Boolean
+	upgradable: Boolean
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}

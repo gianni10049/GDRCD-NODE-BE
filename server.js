@@ -8,7 +8,7 @@ const cors = require('cors');
 
 const GraphQlStart = async () => {
 	// Create Schema from files
-	const typeDefs = importSchema('schema/types.gql');
+	const typeDefs = importSchema('schema/*.gql');
 	const schema_resolvers = {};
 	const schema = makeExecutableSchema({ typeDefs, schema_resolvers });
 

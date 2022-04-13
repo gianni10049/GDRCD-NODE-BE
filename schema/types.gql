@@ -1,26 +1,3 @@
-type Query {
-	routeControl(
-		token: String!
-		character_needed: Boolean
-		account_needed: Boolean
-	): genericResponse
-	login(username: String!, password: String!): loginResponse
-	recPass(email: String!): toastResponse
-	charactersList(token: String!): [characterData]
-	setCharacter(token: String!, characterId: ID!): loginResponse
-	getCharacter(token: String!, characterId: ID): characterData
-	permissionControl(token: String!, permission: String!): genericResponse
-}
-
-type Mutation {
-	registration(
-		username: String!
-		email: String!
-		password: String!
-		password_confirm: String!
-	): genericResponse
-}
-
 type toastResponse {
 	response: String!
 	responseStatus: String!
@@ -35,28 +12,4 @@ type loginResponse {
 	response: String!
 	token: String
 	responseStatus: String!
-}
-
-type characterData {
-	id: ID
-	account: Int
-	name: String
-	nickname: String
-	surname: String
-	age: Int
-	mini_avatar: String
-	profilePic: String
-	active: Boolean
-	createdAt: String
-	updatedAt: String
-	deletedAt: String
-}
-
-type PermissionGroup {
-	id: ID
-	group: Int
-	account: Int
-	createdAt: String
-	updatedAt: String
-	deletedAt: String
 }
