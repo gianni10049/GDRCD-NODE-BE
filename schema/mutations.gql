@@ -1,8 +1,0 @@
-type Mutation {
-	registration(
-		username: String!
-		email: String!
-		password: String!
-		password_confirm: String!
-	): genericResponse
-}
