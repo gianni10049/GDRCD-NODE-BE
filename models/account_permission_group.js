@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
 				foreignKey: 'id',
 				name: 'group',
 				allowNull: false,
-				as: 'permissionData',
+				as: 'permissionGroupsData',
 			});
 		}
 	}

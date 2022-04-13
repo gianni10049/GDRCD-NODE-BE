@@ -1,0 +1,15 @@
+type toastResponse {
+	response: String!
+	responseStatus: String!
+}
+
+type genericResponse {
+	response: Boolean!
+	responseStatus: String!
+}
+
+type loginResponse {
+	response: String!
+	token: String
+	responseStatus: String!
+}

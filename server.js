@@ -5,10 +5,11 @@ let { makeExecutableSchema } = require('@graphql-tools/schema');
 let resolvers = require('./resolver/index');
 const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
+const { loadSchemas } = require('./schema');
 
 const GraphQlStart = async () => {
 	// Create Schema from files
-	const typeDefs = importSchema('schema/types.gql');
+	const typeDefs = importSchema(await loadSchemas());
 	const schema_resolvers = {};
 	const schema = makeExecutableSchema({ typeDefs, schema_resolvers });
 
