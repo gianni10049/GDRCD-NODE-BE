@@ -10,6 +10,9 @@ const characters = {
 	setCharacter: async (data) => {
 		return await CharactersController.setCharacter(data);
 	},
+	getCharacterStats: async (data) => {
+		return await CharactersController.getCharacterStats(data);
+	},
 };
 
 exports.characters = characters;

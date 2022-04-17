@@ -10,5 +10,5 @@ type Query {
 	setCharacter(token: String!, characterId: ID!): loginResponse
 	getCharacter(token: String!, characterId: ID): characterData
 	permissionControl(token: String!, permission: String!): genericResponse
-	getCharacterStats(token: String!, characterId: ID!): characterStatData
+	getCharacterStats(token: String!, characterId: ID!): getCharacterStatsResponse
 }

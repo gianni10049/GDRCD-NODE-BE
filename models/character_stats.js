@@ -37,6 +37,9 @@ module.exports = (sequelize, Sequelize) => {
 			stat: {
 				type: Sequelize.INTEGER,
 			},
+			value: {
+				type: Sequelize.INTEGER,
+			},
 			createdAt: Sequelize.DATE,
 			updatedAt: Sequelize.DATE,
 			deletedAt: Sequelize.DATE,

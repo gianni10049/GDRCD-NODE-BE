@@ -19,5 +19,8 @@
     "emailNot": "Email non inserita",
     "emailExistence": "Email non collegata a nessun account",
     "done": "Email inviata!"
+  },
+  "getCharacterStats": {
+    "existence": "Personaggio inesistente"
   }
 }

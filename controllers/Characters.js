@@ -1,8 +1,20 @@
-let { Character } = require('./../models');
+let { Character, CharacterStats, Stats } = require('./../models');
 let { Token } = require('./Token');
 const { Op } = require('sequelize');
+const { i18n } = require('../i18n');
 
 class CharactersController {
+	static async characterExist(id) {
+		return Character.count({
+			where: {
+				id: id,
+				deletedAt: {
+					[Op.is]: null,
+				},
+			},
+		});
+	}
+
 	static async getCharactersList(data) {
 		let { token } = data;
 
@@ -82,6 +94,50 @@ class CharactersController {
 				return this.getCharacterData(characterId);
 			}
 		}
+	}
+
+	static async getCharacterStats(data) {
+		let { characterId } = data;
+
+		let response = false,
+			responseStatus = '',
+			characterStatsData = {};
+
+		if (await this.characterExist(characterId)) {
+			characterStatsData = await CharacterStats.findAll({
+				where: {
+					character: characterId,
+					deletedAt: {
+						[Op.is]: null,
+					},
+				},
+				include: [
+					{
+						model: Character,
+						as: 'characterData',
+						nest: true,
+						raw: true,
+					},
+					{
+						model: Stats,
+						as: 'statData',
+						nest: true,
+						raw: true,
+					},
+				],
+				order: [[{ model: Stats, as: 'statData' }, 'name', 'DESC']],
+			});
+
+			response = true;
+		} else {
+			responseStatus = i18n.t('getCharacterStats.existence');
+		}
+
+		return {
+			responseStatus,
+			response,
+			table: characterStatsData,
+		};
 	}
 }
 exports.CharactersController = CharactersController;

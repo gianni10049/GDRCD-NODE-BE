@@ -62,6 +62,7 @@ type characterStatData {
 	id: ID
 	character: Int
 	stat: Int
+	value: Int
 	characterData: characterData
 	statData: statData
 	createdAt: String
