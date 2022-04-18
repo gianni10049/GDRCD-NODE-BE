@@ -1,4 +1,10 @@
-let { Character, CharacterStats, Stats } = require('./../models');
+let {
+	Character,
+	CharacterStats,
+	Stats,
+	CharacterAbility,
+	Ability,
+} = require('./../models');
 let { Token } = require('./Token');
 const { Op } = require('sequelize');
 const { i18n } = require('../i18n');
@@ -97,46 +103,112 @@ class CharactersController {
 	}
 
 	static async getCharacterStats(data) {
-		let { characterId } = data;
+		let { token, characterId } = data;
 
 		let response = false,
 			responseStatus = '',
 			characterStatsData = {};
 
-		if (await this.characterExist(characterId)) {
-			characterStatsData = await CharacterStats.findAll({
-				where: {
-					character: characterId,
-					deletedAt: {
-						[Op.is]: null,
-					},
-				},
-				include: [
-					{
-						model: Character,
-						as: 'characterData',
-						nest: true,
-						raw: true,
-					},
-					{
-						model: Stats,
-						as: 'statData',
-						nest: true,
-						raw: true,
-					},
-				],
-				order: [[{ model: Stats, as: 'statData' }, 'name', 'DESC']],
-			});
+		let control = await Token.routeControl({
+			token: token,
+			account_needed: true,
+			character_needed: true,
+		});
 
-			response = true;
+		if (control.response) {
+			if (await this.characterExist(characterId)) {
+				characterStatsData = await CharacterStats.findAll({
+					where: {
+						character: characterId,
+						deletedAt: {
+							[Op.is]: null,
+						},
+					},
+					include: [
+						{
+							model: Character,
+							as: 'characterData',
+							nest: true,
+							raw: true,
+						},
+						{
+							model: Stats,
+							as: 'statData',
+							nest: true,
+							raw: true,
+						},
+					],
+					order: [[{ model: Stats, as: 'statData' }, 'name', 'DESC']],
+				});
+
+				response = true;
+			} else {
+				responseStatus = i18n.t('getCharacterStats.existence');
+			}
 		} else {
-			responseStatus = i18n.t('getCharacterStats.existence');
+			responseStatus = i18n.t('permissionError');
 		}
 
 		return {
 			responseStatus,
 			response,
 			table: characterStatsData,
+		};
+	}
+
+	static async getCharacterAbility(data) {
+		let { token, characterId } = data;
+
+		let response = false,
+			responseStatus = '',
+			characterAbilityData = {};
+
+		let control = await Token.routeControl({
+			token: token,
+			account_needed: true,
+			character_needed: true,
+		});
+
+		if (control.response) {
+			if (await this.characterExist(characterId)) {
+				characterAbilityData = await CharacterAbility.findAll({
+					where: {
+						character: characterId,
+						deletedAt: {
+							[Op.is]: null,
+						},
+					},
+					include: [
+						{
+							model: Character,
+							as: 'characterData',
+							nest: true,
+							raw: true,
+						},
+						{
+							model: Ability,
+							as: 'abilityData',
+							nest: true,
+							raw: true,
+						},
+					],
+					order: [
+						[{ model: Ability, as: 'abilityData' }, 'name', 'DESC'],
+					],
+				});
+
+				response = true;
+			} else {
+				responseStatus = i18n.t('getCharacterStats.existence');
+			}
+		} else {
+			responseStatus = i18n.t('permissionError');
+		}
+
+		return {
+			responseStatus,
+			response,
+			table: characterAbilityData,
 		};
 	}
 }

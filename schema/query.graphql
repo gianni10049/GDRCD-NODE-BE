@@ -11,4 +11,5 @@ type Query {
 	getCharacter(token: String!, characterId: ID): characterData
 	permissionControl(token: String!, permission: String!): genericResponse
 	getCharacterStats(token: String!, characterId: ID!): getCharacterStatsResponse
+	getCharacterAbility(token: String!, characterId: ID!): getCharacterAbilityResponse
 }

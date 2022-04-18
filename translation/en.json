@@ -2,6 +2,7 @@
   "general": {
     "siteName": "Corrupta"
   },
+  "permissionError": "Permission Denied",
   "registration": {
     "usernameNot": "Username not provided",
     "usernameUsed": "Username already used",

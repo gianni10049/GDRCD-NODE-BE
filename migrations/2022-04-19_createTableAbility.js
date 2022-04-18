@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		await queryInterface.createTable('stats', {
+		await queryInterface.createTable('ability', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
@@ -16,28 +16,23 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
-			max_lvl: {
+			stat: {
 				allowNull: false,
 				type: Sequelize.INTEGER,
 			},
-			min_lvl: {
+			castable: {
+				allowNull: false,
+				defaultValue: true,
+				type: Sequelize.BOOLEAN,
+			},
+			visible: {
+				allowNull: false,
+				defaultValue: true,
+				type: Sequelize.BOOLEAN,
+			},
+			createdBy: {
 				allowNull: false,
 				type: Sequelize.INTEGER,
-			},
-			registration: {
-				allowNull: false,
-				defaultValue: true,
-				type: Sequelize.BOOLEAN,
-			},
-			usable: {
-				allowNull: false,
-				defaultValue: true,
-				type: Sequelize.BOOLEAN,
-			},
-			upgradable: {
-				allowNull: false,
-				defaultValue: true,
-				type: Sequelize.BOOLEAN,
 			},
 			createdAt: {
 				allowNull: false,
@@ -54,7 +49,53 @@ module.exports = {
 			},
 		});
 
-		await queryInterface.createTable('character_stats', {
+		await queryInterface.createTable('ability_details', {
+			id: {
+				allowNull: false,
+				autoIncrement: true,
+				primaryKey: true,
+				type: Sequelize.INTEGER,
+			},
+			ability: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
+			level: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
+			description: {
+				allowNull: false,
+				type: Sequelize.TEXT,
+			},
+			price: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
+			bonus: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
+			createdBy: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
+			createdAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
+			},
+			deletedAt: {
+				allowNull: true,
+				type: Sequelize.DATE,
+				default: null,
+			},
+		});
+
+		await queryInterface.createTable('character_ability', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
@@ -65,7 +106,7 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.INTEGER,
 			},
-			stat: {
+			ability: {
 				allowNull: false,
 				type: Sequelize.INTEGER,
 			},
@@ -89,7 +130,7 @@ module.exports = {
 		});
 	},
 	down: async (queryInterface) => {
-		await queryInterface.dropTable('stats');
-		await queryInterface.dropTable('character_stats');
+		await queryInterface.dropTable('ability');
+		await queryInterface.dropTable('character_ability');
 	},
 };

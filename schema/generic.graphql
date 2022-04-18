@@ -19,3 +19,9 @@ type getCharacterStatsResponse {
 	response: Boolean
 	responseStatus: String
 }
+
+type getCharacterAbilityResponse {
+	table: [characterAbilityData],
+	response: Boolean
+	responseStatus: String
+}

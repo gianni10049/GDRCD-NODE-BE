@@ -1,4 +1,8 @@
 {
+  "general": {
+    "siteName": "Corrupta"
+  },
+  "permissionError": "Permesso negato",
   "registration": {
     "usernameNot": "Username non inserito",
     "usernameUsed": "Username già in uso",

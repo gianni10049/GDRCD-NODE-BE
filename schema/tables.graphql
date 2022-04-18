@@ -1,3 +1,30 @@
+type abilityData {
+	id: ID
+	name: String
+	description: String
+	stat: Int
+	castable: Boolean
+	visible: Boolean
+	createdBy: Int
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type abilityDetailData {
+	id: ID
+	ability: Int
+	level: Int
+	description: String
+	price: Int
+	bonus: Int
+	createdBy: Int
+	abilityData: abilityData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
 type accountData {
 	id: ID
 	username: String
@@ -43,6 +70,18 @@ type characterData {
 	profilePic: String
 	characterPermissionData: characterPermissionData
 	active: Boolean
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type characterAbilityData {
+	id: ID
+	character: Int
+	ability: Int
+	value: Int
+	characterData: characterData
+	abilityData: abilityData
 	createdAt: String
 	updatedAt: String
 	deletedAt: String
