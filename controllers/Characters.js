@@ -4,6 +4,7 @@ let {
 	Stats,
 	CharacterAbility,
 	Ability,
+	AbilityDetails,
 } = require('./../models');
 let { Token } = require('./Token');
 const { Op } = require('sequelize');
@@ -171,31 +172,32 @@ class CharactersController {
 
 		if (control.response) {
 			if (await this.characterExist(characterId)) {
-				characterAbilityData = await CharacterAbility.findAll({
-					where: {
-						character: characterId,
-						deletedAt: {
-							[Op.is]: null,
-						},
-					},
+				characterAbilityData = await Ability.findAll({
 					include: [
 						{
-							model: Character,
-							as: 'characterData',
+							model: CharacterAbility,
+							as: 'characterAbilityData',
 							nest: true,
 							raw: true,
+							required: false,
+							where: {
+								character: characterId,
+								deletedAt: {
+									[Op.is]: null,
+								},
+							},
 						},
 						{
-							model: Ability,
-							as: 'abilityData',
+							model: AbilityDetails,
+							as: 'abilityToDetailData',
 							nest: true,
 							raw: true,
 						},
 					],
-					order: [
-						[{ model: Ability, as: 'abilityData' }, 'name', 'DESC'],
-					],
+					order: [['name', 'DESC']],
 				});
+
+				console.log(characterAbilityData);
 
 				response = true;
 			} else {

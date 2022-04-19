@@ -8,7 +8,19 @@ module.exports = (sequelize, Sequelize) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate(models) {}
+		static associate(models) {
+			models.Ability.belongsToMany(models.CharacterAbility, {
+				foreignKey: 'ability',
+				through: 'character_ability',
+				as: 'characterAbilityData',
+			});
+			models.Ability.hasMany(models.AbilityDetails, {
+				foreignKey: 'ability',
+				name: 'id',
+				allowNull: false,
+				as: 'abilityToDetailData',
+			});
+		}
 	}
 
 	Ability.init(
@@ -22,6 +34,9 @@ module.exports = (sequelize, Sequelize) => {
 				type: Sequelize.STRING,
 			},
 			description: {
+				type: Sequelize.STRING,
+			},
+			icon: {
 				type: Sequelize.STRING,
 			},
 			stat: {

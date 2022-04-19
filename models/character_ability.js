@@ -15,10 +15,9 @@ module.exports = (sequelize, Sequelize) => {
 				allowNull: false,
 				as: 'characterData',
 			});
-			models.CharacterAbility.hasOne(models.Ability, {
+			models.CharacterAbility.belongsToMany(models.Ability, {
 				foreignKey: 'id',
-				name: 'ability',
-				allowNull: false,
+				through: 'character_ability',
 				as: 'abilityData',
 			});
 		}

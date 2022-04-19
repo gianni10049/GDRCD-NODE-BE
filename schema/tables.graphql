@@ -4,7 +4,11 @@ type abilityData {
 	description: String
 	stat: Int
 	castable: Boolean
+	max_level: Int
+	icon: String
 	visible: Boolean
+	characterAbilityData: [characterAbilityData]
+	abilityToDetailData: [abilityDetailData]
 	createdBy: Int
 	createdAt: String
 	updatedAt: String

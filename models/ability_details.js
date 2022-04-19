@@ -9,11 +9,9 @@ module.exports = (sequelize, Sequelize) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			models.AbilityDetails.hasOne(models.Ability, {
-				foreignKey: 'id',
-				name: 'ability',
-				allowNull: false,
-				as: 'abilityData',
+			models.AbilityDetails.belongsTo(models.Ability, {
+				foreignKey: 'ability',
+				as: 'abilityDetailsData',
 			});
 		}
 	}
