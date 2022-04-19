@@ -20,6 +20,10 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.INTEGER,
 			},
+			max_level: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
 			castable: {
 				allowNull: false,
 				defaultValue: true,
@@ -131,6 +135,7 @@ module.exports = {
 	},
 	down: async (queryInterface) => {
 		await queryInterface.dropTable('ability');
+		await queryInterface.dropTable('ability_details');
 		await queryInterface.dropTable('character_ability');
 	},
 };

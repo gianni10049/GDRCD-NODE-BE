@@ -27,6 +27,9 @@ module.exports = (sequelize, Sequelize) => {
 			stat: {
 				type: Sequelize.INTEGER,
 			},
+			max_level: {
+				type: Sequelize.INTEGER,
+			},
 			castable: {
 				type: Sequelize.BOOLEAN,
 			},
