@@ -9,6 +9,7 @@ type abilityData {
 	visible: Boolean
 	characterAbilityData: [characterAbilityData]
 	abilityToDetailData: [abilityDetailData]
+	statData: statData,
 	createdBy: Int
 	createdAt: String
 	updatedAt: String

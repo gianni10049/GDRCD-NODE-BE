@@ -188,13 +188,19 @@ class CharactersController {
 							},
 						},
 						{
+							model: Stats,
+							as: 'statData',
+							nest: true,
+							raw: true,
+						},
+						{
 							model: AbilityDetails,
 							as: 'abilityToDetailData',
 							nest: true,
 							raw: true,
 						},
 					],
-					order: [['name', 'DESC']],
+					order: [['stat', 'ASC']],
 				});
 
 				console.log(characterAbilityData);

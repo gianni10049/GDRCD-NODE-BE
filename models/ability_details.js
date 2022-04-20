@@ -12,6 +12,8 @@ module.exports = (sequelize, Sequelize) => {
 			models.AbilityDetails.belongsTo(models.Ability, {
 				foreignKey: 'ability',
 				as: 'abilityDetailsData',
+				onDelete: 'CASCADE',
+				onUpdate: 'CASCADE',
 			});
 		}
 	}
@@ -25,6 +27,12 @@ module.exports = (sequelize, Sequelize) => {
 			},
 			ability: {
 				type: Sequelize.INTEGER,
+				references: {
+					model: 'ability',
+					key: 'id',
+					onUpdate: 'cascade',
+					onDelete: 'cascade',
+				},
 			},
 			level: {
 				type: Sequelize.INTEGER,
