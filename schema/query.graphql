@@ -7,6 +7,7 @@ type Query {
 	login(username: String!, password: String!): loginResponse
 	recPass(email: String!): toastResponse
 	charactersList(token: String!): [characterData]
+	statsList(token:String!): [statData]
 	setCharacter(token: String!, characterId: ID!): loginResponse
 	getCharacter(token: String!, characterId: ID): characterData
 	permissionControl(token: String!, permission: String!): genericResponse

@@ -188,12 +188,6 @@ class CharactersController {
 							},
 						},
 						{
-							model: Stats,
-							as: 'statData',
-							nest: true,
-							raw: true,
-						},
-						{
 							model: AbilityDetails,
 							as: 'abilityToDetailData',
 							nest: true,
@@ -202,8 +196,6 @@ class CharactersController {
 					],
 					order: [['stat', 'ASC']],
 				});
-
-				console.log(characterAbilityData);
 
 				response = true;
 			} else {
