@@ -2,7 +2,7 @@ type abilityData {
 	id: ID
 	name: String
 	description: String
-	stat: Int
+	stat: ID
 	castable: Boolean
 	max_level: Int
 	icon: String
