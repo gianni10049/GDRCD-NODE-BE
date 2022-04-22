@@ -2,7 +2,7 @@ let { Stats } = require('./../models');
 const { Token } = require('./Token');
 
 class StatsController {
-	static async statsList(data) {
+	static async listStats(data) {
 		let { token } = data,
 			statDatas;
 

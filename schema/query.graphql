@@ -1,16 +1,30 @@
 type Query {
+
+
+	# General call
 	routeControl(
 		token: String!
 		character_needed: Boolean
 		account_needed: Boolean
 	): genericResponse
+	permissionControl(token: String!, permission: String!): genericResponse
+
+	# Homepage
 	login(username: String!, password: String!): loginResponse
 	recPass(email: String!): toastResponse
+
+	# CharSelect
 	charactersList(token: String!): [characterData]
-	statsList(token:String!): [statData]
 	setCharacter(token: String!, characterId: ID!): loginResponse
 	getCharacter(token: String!, characterId: ID): characterData
-	permissionControl(token: String!, permission: String!): genericResponse
+
+	# Ability
+
+
+	# Stats
+	listStats(token:String!): [statData]
+
+	#Character
 	getCharacterStats(token: String!, characterId: ID!): getCharacterStatsResponse
 	getCharacterAbility(token: String!, characterId: ID!): getCharacterAbilityResponse
 }

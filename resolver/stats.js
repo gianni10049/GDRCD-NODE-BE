@@ -1,8 +1,8 @@
 const { StatsController } = require('../controllers/Stats');
 
 const permission = {
-	statsList: async (data) => {
-		return await StatsController.statsList(data);
+	listStats: async (data) => {
+		return await StatsController.listStats(data);
 	},
 };
 
