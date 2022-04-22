@@ -41,7 +41,19 @@ module.exports = (sequelize, Sequelize) => {
 				type: Sequelize.STRING,
 			},
 			description: {
-				type: Sequelize.STRING,
+				type: Sequelize.VIRTUAL,
+				get() {
+					return {
+						eng: this.description_eng,
+						it: this.description_it,
+					};
+				},
+			},
+			description_it: {
+				type: Sequelize.TEXT,
+			},
+			description_eng: {
+				type: Sequelize.TEXT,
 			},
 			icon: {
 				type: Sequelize.STRING,

@@ -28,12 +28,24 @@ module.exports = (sequelize, Sequelize) => {
 				type: Sequelize.STRING,
 			},
 			description: {
-				type: Sequelize.STRING,
+				type: Sequelize.VIRTUAL,
+				get() {
+					return {
+						eng: this.description_eng,
+						it: this.description_it,
+					};
+				},
 			},
-			max_lvl: {
+			description_it: {
+				type: Sequelize.TEXT,
+			},
+			description_eng: {
+				type: Sequelize.TEXT,
+			},
+			max_level: {
 				type: Sequelize.INTEGER,
 			},
-			min_lvl: {
+			min_level: {
 				type: Sequelize.INTEGER,
 			},
 			registration: {

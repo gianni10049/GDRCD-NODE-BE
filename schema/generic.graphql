@@ -25,3 +25,8 @@ type getCharacterAbilityResponse {
 	response: Boolean
 	responseStatus: String
 }
+
+type descriptionsArray{
+	it:String,
+	eng:String
+}

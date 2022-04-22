@@ -1,7 +1,7 @@
 type abilityData {
 	id: ID
 	name: String
-	description: String
+	description: descriptionsArray
 	stat: ID
 	castable: Boolean
 	max_level: Int
@@ -159,9 +159,9 @@ type permissionGroupsPivotData {
 type statData {
 	id: ID
 	name: String
-	description: String
-	max_lvl: Int
-	min_lvl: Int
+	description: descriptionsArray
+	max_level: Int
+	min_level: Int
 	registration: Boolean
 	usable: Boolean
 	upgradable: Boolean

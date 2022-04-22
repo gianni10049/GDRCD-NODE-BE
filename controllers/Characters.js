@@ -197,6 +197,8 @@ class CharactersController {
 					order: [['stat', 'ASC']],
 				});
 
+				console.log(characterAbilityData);
+
 				response = true;
 			} else {
 				responseStatus = i18n.t('getCharacterStats.existence');
