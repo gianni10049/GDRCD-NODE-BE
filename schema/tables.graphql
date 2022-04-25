@@ -20,7 +20,7 @@ type abilityDetailData {
 	id: ID
 	ability: Int
 	level: Int
-	description: String
+	description: descriptionsArray
 	price: Int
 	bonus: Int
 	createdBy: Int

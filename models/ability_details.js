@@ -38,6 +38,18 @@ module.exports = (sequelize, Sequelize) => {
 				type: Sequelize.INTEGER,
 			},
 			description: {
+				type: Sequelize.VIRTUAL,
+				get() {
+					return {
+						eng: this.description_eng,
+						it: this.description_it,
+					};
+				},
+			},
+			description_it: {
+				type: Sequelize.TEXT,
+			},
+			description_eng: {
 				type: Sequelize.TEXT,
 			},
 			price: {

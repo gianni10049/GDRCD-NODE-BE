@@ -76,7 +76,11 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.INTEGER,
 			},
-			description: {
+			description_it: {
+				allowNull: false,
+				type: Sequelize.TEXT,
+			},
+			description_eng: {
 				allowNull: false,
 				type: Sequelize.TEXT,
 			},
