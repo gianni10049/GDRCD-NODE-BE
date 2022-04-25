@@ -118,28 +118,23 @@ class CharactersController {
 
 		if (control.response) {
 			if (await this.characterExist(characterId)) {
-				characterStatsData = await CharacterStats.findAll({
-					where: {
-						character: characterId,
-						deletedAt: {
-							[Op.is]: null,
-						},
-					},
+				characterStatsData = await Stats.findAll({
 					include: [
 						{
-							model: Character,
-							as: 'characterData',
+							model: CharacterStats,
+							as: 'characterStatData',
 							nest: true,
 							raw: true,
-						},
-						{
-							model: Stats,
-							as: 'statData',
-							nest: true,
-							raw: true,
+							required: false,
+							where: {
+								character: characterId,
+								deletedAt: {
+									[Op.is]: null,
+								},
+							},
 						},
 					],
-					order: [[{ model: Stats, as: 'statData' }, 'name', 'DESC']],
+					order: [['name', 'DESC']],
 				});
 
 				response = true;
@@ -196,8 +191,6 @@ class CharactersController {
 					],
 					order: [['stat', 'ASC']],
 				});
-
-				console.log(characterAbilityData);
 
 				response = true;
 			} else {

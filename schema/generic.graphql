@@ -15,7 +15,7 @@ type loginResponse {
 }
 
 type getCharacterStatsResponse {
-	table: [characterStatData],
+	table: [statData],
 	response: Boolean
 	responseStatus: String
 }

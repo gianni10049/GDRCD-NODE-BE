@@ -160,6 +160,7 @@ type statData {
 	id: ID
 	name: String
 	description: descriptionsArray
+	characterStatData: [characterStatData]
 	max_level: Int
 	min_level: Int
 	registration: Boolean
