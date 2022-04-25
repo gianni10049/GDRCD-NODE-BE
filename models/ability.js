@@ -23,9 +23,9 @@ module.exports = (sequelize, Sequelize) => {
 				onUpdate: 'CASCADE',
 			});
 			models.Ability.belongsTo(models.Stats, {
-				foreignKey: 'stat',
+				foreignKey: 'id',
+				name: 'stat',
 				as: 'statData',
-				through: 'ability_stat',
 			});
 		}
 	}

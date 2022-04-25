@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
 				allowNull: false,
 				as: 'characterData',
 			});
-			models.CharacterStats.hasOne(models.Stats, {
+			models.CharacterStats.belongsTo(models.Stats, {
 				foreignKey: 'id',
 				name: 'stat',
 				allowNull: false,

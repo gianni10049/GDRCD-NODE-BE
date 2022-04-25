@@ -435,7 +435,6 @@ module.exports = {
 		]);
 	},
 	down: async (queryInterface) => {
-		await queryInterface.dropTable('ability_stat');
 		await queryInterface.dropTable('ability_details');
 		await queryInterface.dropTable('character_ability');
 		await queryInterface.dropTable('ability');
