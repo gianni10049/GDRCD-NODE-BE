@@ -19,8 +19,6 @@ module.exports = (sequelize, Sequelize) => {
 				name: 'id',
 				allowNull: false,
 				as: 'abilityToDetailData',
-				onDelete: 'NO ACTION',
-				onUpdate: 'CASCADE',
 			});
 			models.Ability.belongsTo(models.Stats, {
 				foreignKey: 'id',

@@ -10,10 +10,9 @@ module.exports = (sequelize, Sequelize) => {
 		 */
 		static associate(models) {
 			models.AbilityDetails.belongsTo(models.Ability, {
-				foreignKey: 'ability',
-				as: 'abilityDetailsData',
-				onDelete: 'CASCADE',
-				onUpdate: 'CASCADE',
+				foreignKey: 'id',
+				name: 'ability',
+				as: 'abilityData',
 			});
 		}
 	}

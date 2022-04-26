@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 
 class AbilityController {
 	static async getAbility(data) {
-		let { token, abilityId } = data;
+		let { token, abilityId, characterId } = data;
 
 		let control = await Token.routeControl({
 			token: token,
@@ -14,8 +14,9 @@ class AbilityController {
 		});
 
 		if (control.response) {
-			let characterId = control.character.id;
-
+			if (!characterId) {
+				characterId = control.character.id;
+			}
 			return await Ability.findOne({
 				where: {
 					id: abilityId,
