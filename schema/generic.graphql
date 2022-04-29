@@ -26,6 +26,12 @@ type getCharacterAbilityResponse {
 	responseStatus: String
 }
 
+type getCharacterPointsResponse {
+	table: characterPointsData,
+	response: Boolean
+	responseStatus: String
+}
+
 type descriptionsArray{
 	it:String,
 	eng:String

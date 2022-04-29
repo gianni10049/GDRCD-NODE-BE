@@ -15,6 +15,11 @@ module.exports = (sequelize, Sequelize) => {
 				allowNull: false,
 				as: 'characterPermissionData',
 			});
+			models.Character.hasOne(models.CharacterPoints, {
+				foreignKey: 'character',
+				name: 'id',
+				as: 'characterPoints',
+			});
 		}
 	}
 

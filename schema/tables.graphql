@@ -74,6 +74,7 @@ type characterData {
 	mini_avatar: String
 	profilePic: String
 	characterPermissionData: characterPermissionData
+	characterPoints: characterPointsData
 	active: Boolean
 	createdAt: String
 	updatedAt: String
@@ -97,6 +98,19 @@ type characterPermissionData {
 	permission: Int
 	character: Int
 	assigned_by: Int
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type characterPointsData{
+	id: ID
+	character: ID
+	life: Int
+	stamina: Int
+	exp_total: Int
+	exp_usable: Int
+	stat_points: Int
 	createdAt: String
 	updatedAt: String
 	deletedAt: String

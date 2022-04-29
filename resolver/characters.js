@@ -16,6 +16,9 @@ const characters = {
 	getCharacterAbility: async (data) => {
 		return await CharactersController.getCharacterAbility(data);
 	},
+	getCharacterPoints: async (data) => {
+		return await CharactersController.getCharacterPoints(data);
+	},
 };
 
 exports.characters = characters;

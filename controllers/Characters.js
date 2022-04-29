@@ -5,6 +5,7 @@ let {
 	CharacterAbility,
 	Ability,
 	AbilityDetails,
+	CharacterPoints,
 } = require('./../models');
 let { Token } = require('./Token');
 const { Op } = require('sequelize');
@@ -204,6 +205,47 @@ class CharactersController {
 			responseStatus,
 			response,
 			table: characterAbilityData,
+		};
+	}
+
+	static async getCharacterPoints(data) {
+		let { token, characterId } = data;
+
+		let response = false,
+			responseStatus = '',
+			characterPoints = {};
+
+		let control = await Token.routeControl({
+			token: token,
+			account_needed: true,
+			character_needed: true,
+		});
+
+		if (control.response) {
+			if (await this.characterExist(characterId)) {
+				characterPoints = await CharacterPoints.findOne({
+					where: {
+						character: characterId,
+						deletedAt: {
+							[Op.is]: null,
+						},
+					},
+				});
+
+				response = true;
+			} else {
+				responseStatus = i18n.t('getCharacterStats.existence');
+			}
+		} else {
+			responseStatus = i18n.t('permissionError');
+		}
+
+		console.log(characterPoints);
+
+		return {
+			responseStatus,
+			response,
+			table: characterPoints,
 		};
 	}
 }
