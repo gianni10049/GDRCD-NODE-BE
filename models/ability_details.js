@@ -29,8 +29,6 @@ module.exports = (sequelize, Sequelize) => {
 				references: {
 					model: 'ability',
 					key: 'id',
-					onUpdate: 'cascade',
-					onDelete: 'cascade',
 				},
 			},
 			level: {
