@@ -27,6 +27,7 @@ type Query {
 	#Character
 	getCharacterStats(token: String!, characterId: ID!): getCharacterStatsResponse
 	getCharacterAbility(token: String!, characterId: ID!): getCharacterAbilityResponse
+	getCharacterActionPercentages(token: String!, characterId: ID!, action: String): getCharacterActionPercentagesResponse
 
 	#Character Points
 	getCharacterPoints(token: String!, characterId: ID!): getCharacterPointsResponse
