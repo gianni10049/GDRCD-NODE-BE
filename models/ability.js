@@ -21,8 +21,7 @@ module.exports = (sequelize, Sequelize) => {
 				as: 'abilityToDetailData',
 			});
 			models.Ability.belongsTo(models.Stats, {
-				foreignKey: 'id',
-				name: 'stat',
+				foreignKey: 'stat',
 				as: 'statData',
 			});
 		}
