@@ -26,5 +26,17 @@
   },
   "getCharacterStats": {
     "existence": "Personaggio inesistente"
+  },
+  "isMineCharacter": {
+    "existence": "Personaggio inesistente",
+    "notMine": "Personaggio non di proprietà"
+  },
+  "updateAbility": {
+    "existence": "Abilita inesistente",
+    "maxLevel": "Livello massimo raggiunto",
+    "priceError": "Impossibile derivare prezzo",
+    "pointsError": "Impossibile ottenere punteggi personaggio",
+    "expError": "Esperienza insufficiente",
+    "done": "Abilita aumentata!"
   }
 }

@@ -26,5 +26,17 @@
   },
   "getCharacterStats": {
     "existence": "Character not exist"
+  },
+  "isMineCharacter": {
+    "existence": "Character not exist",
+    "notMine": "Not character owner"
+  },
+  "updateAbility": {
+    "existence": "Ability not exist",
+    "maxLevel": "Max level reached",
+    "priceError": "Error on price calculation",
+    "pointsError": "Error on retrive character data",
+    "expError": "Insufficient experience",
+    "done": "Ability upgraded!"
   }
 }

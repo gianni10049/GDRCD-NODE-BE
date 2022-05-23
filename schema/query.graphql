@@ -8,6 +8,7 @@ type Query {
 		account_needed: Boolean
 	): genericResponse
 	permissionControl(token: String!, permission: String!): genericResponse
+	isMineCharacter(token:String!, characterId:ID!): genericResponse
 
 	# Homepage
 	login(username: String!, password: String!): loginResponse

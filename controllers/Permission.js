@@ -9,6 +9,8 @@ let {
 } = require('./../models');
 const { Token } = require('./Token');
 const { _ } = require('lodash');
+const { CharactersController } = require('./Characters');
+const { i18n } = require('../i18n');
 
 class PermissionController {
 	static async permissionExist(permission) {
@@ -39,7 +41,7 @@ class PermissionController {
 			include: [
 				{
 					model: PermissionGroup,
-					as: 'permissionData',
+					as: 'permissionGroupsData',
 					nest: true,
 					raw: true,
 					include: [
@@ -93,13 +95,13 @@ class PermissionController {
 	}
 
 	static async permissionGroupSuperuser(groups) {
-		return _.some(groups, (el) => el.permissionData?.admin);
+		return _.some(groups, (el) => el.permissionGroupsData?.admin);
 	}
 
 	static async permissionInGroups(groups, permission) {
 		return groups.some((el) => {
 			return _.some(
-				el.permissionData?.permissionGroupsData,
+				el.permissionGroupsData?.permissionGroupsData,
 				(el) => el.permission === permission
 			);
 		});
@@ -161,6 +163,34 @@ class PermissionController {
 				responseStatus: 'No account connected.',
 			};
 		}
+	}
+
+	static async isMineCharacter(data) {
+		let { characterId, token } = data;
+
+		let response = false,
+			responseStatus = '';
+
+		let tokenData = await Token.verifyToken(token);
+
+		if (tokenData.account && tokenData.character) {
+			if (await CharactersController.characterExist(characterId)) {
+				if (characterId === tokenData.character.id) {
+					response = true;
+				} else {
+					responseStatus = i18n.t('isMineCharacter.notMine');
+				}
+			} else {
+				responseStatus = i18n.t('isMineCharacter.existence');
+			}
+		} else {
+			responseStatus = i18n.t('permissionError');
+		}
+
+		return {
+			responseStatus,
+			response,
+		};
 	}
 }
 
