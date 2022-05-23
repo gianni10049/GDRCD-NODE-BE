@@ -11,6 +11,10 @@ class Utils {
 		}
 		return result;
 	}
+
+	static calcDefaultAbilityPrice = (level) => {
+		return level * 5;
+	};
 }
 
 exports.Utils = Utils;
