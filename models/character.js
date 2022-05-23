@@ -20,6 +20,11 @@ module.exports = (sequelize, Sequelize) => {
 				name: 'id',
 				as: 'characterPoints',
 			});
+			models.Character.hasOne(models.CharacterDamage, {
+				foreignKey: 'character',
+				name: 'id',
+				as: 'characterDamages',
+			});
 		}
 	}
 
