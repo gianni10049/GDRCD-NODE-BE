@@ -21,7 +21,6 @@ type Query {
 
 	# Ability
 	getAbility(token:String!, abilityId: ID!, characterId: ID): abilityData
-	updateAbility(token:String!,abilityId: ID!, characterId: ID): genericResponse
 
 	# Stats
 	listStats(token:String!): [statData]

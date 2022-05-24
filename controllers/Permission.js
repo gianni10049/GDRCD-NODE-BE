@@ -175,7 +175,7 @@ class PermissionController {
 
 		if (tokenData.account && tokenData.character) {
 			if (await CharactersController.characterExist(characterId)) {
-				if (characterId === tokenData.character.id) {
+				if (characterId == tokenData.character.id) {
 					response = true;
 				} else {
 					responseStatus = i18n.t('isMineCharacter.notMine');

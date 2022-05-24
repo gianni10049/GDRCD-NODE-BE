@@ -37,6 +37,9 @@ module.exports = (sequelize, Sequelize) => {
 			points: {
 				type: Sequelize.INTEGER,
 			},
+			title: {
+				type: Sequelize.STRING,
+			},
 			description: {
 				type: Sequelize.TEXT,
 			},
