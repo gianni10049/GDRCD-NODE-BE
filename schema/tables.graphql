@@ -122,8 +122,10 @@ type characterPointsData{
 	character: ID
 	life: Int
 	stamina: Int
+	weight: Int
 	exp_total: Int
 	exp_usable: Int
+	resources: Int
 	stat_points: Int
 	createdAt: String
 	updatedAt: String

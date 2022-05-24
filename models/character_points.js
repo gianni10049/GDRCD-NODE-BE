@@ -33,6 +33,12 @@ module.exports = (sequelize, Sequelize) => {
 			stamina: {
 				type: Sequelize.INTEGER,
 			},
+			weight: {
+				type: Sequelize.INTEGER,
+			},
+			resources: {
+				type: Sequelize.INTEGER,
+			},
 			exp_total: {
 				type: Sequelize.INTEGER,
 			},

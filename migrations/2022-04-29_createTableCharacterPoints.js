@@ -20,6 +20,14 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.INTEGER,
 			},
+			weight: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
+			resources: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
 			exp_total: {
 				allowNull: false,
 				type: Sequelize.INTEGER,
