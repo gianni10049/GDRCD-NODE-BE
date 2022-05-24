@@ -6,6 +6,8 @@ let {
 	Ability,
 	AbilityDetails,
 	CharacterPoints,
+	Parts,
+	CharacterDamage,
 } = require('./../models');
 let { Token } = require('./Token');
 const { Op } = require('sequelize');
@@ -439,6 +441,93 @@ class CharactersController {
 			response,
 			percentages: characterPercentage,
 			character: characterId,
+		};
+	}
+
+	static async getPartsList(data) {
+		let { token, characterId } = data;
+
+		let control = await Token.routeControl({
+			token: token,
+			account_needed: true,
+			character_needed: true,
+		});
+
+		let response = false,
+			responseStatus = '',
+			parts = [];
+
+		if (control.response) {
+			if (await this.characterExist(characterId)) {
+				parts = await Parts.findAll({
+					where: true,
+					include: [
+						{
+							model: CharacterDamage,
+							as: 'partDamages',
+							nest: true,
+							raw: true,
+							required: false,
+							where: {
+								character: characterId,
+								solved: false,
+								deletedAt: {
+									[Op.is]: null,
+								},
+							},
+						},
+					],
+				});
+			} else {
+				responseStatus = i18n.t('getCharacterStats.existence');
+			}
+		} else {
+			responseStatus = i18n.t('permissionError');
+		}
+
+		return {
+			responseStatus,
+			response,
+			table: parts,
+		};
+	}
+
+	static async getCharDamageByPart(data) {
+		let { token, characterId, partId } = data;
+
+		let control = await Token.routeControl({
+			token: token,
+			account_needed: true,
+			character_needed: true,
+		});
+
+		let response = false,
+			responseStatus = '',
+			damages = [];
+
+		if (control.response) {
+			if (await this.characterExist(characterId)) {
+				damages = await CharacterDamage.findAll({
+					where: {
+						character: characterId,
+						part: partId,
+						solved: false,
+						deletedAt: {
+							[Op.is]: null,
+						},
+					},
+				});
+			} else {
+				responseStatus = i18n.t('getCharacterStats.existence');
+			}
+		} else {
+			responseStatus = i18n.t('permissionError');
+		}
+
+		return {
+			responseStatus,
+			response,
+			damages: damages,
 		};
 	}
 }

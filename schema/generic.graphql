@@ -59,3 +59,21 @@ type singlePercentageValues{
 	total: Int,
 	max_value: Int
 }
+
+type getPartsList{
+	response: Int,
+	responseStatus: String,
+	table: [partsData]
+}
+
+type getDamagesResponse{
+	response: Int,
+	responseStatus: String,
+	damages: [characterDamageData]
+}
+
+type getDamageResponse{
+	response: Int,
+	responseStatus: String,
+	damage: characterDamageData
+}

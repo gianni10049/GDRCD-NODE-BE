@@ -38,5 +38,8 @@
     "pointsError": "Impossibile ottenere punteggi personaggio",
     "expError": "Esperienza insufficiente",
     "done": "Abilita aumentata!"
+  },
+  "setDamageSolved": {
+    "done": "Ferita risolta!"
   }
 }

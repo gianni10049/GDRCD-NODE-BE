@@ -93,6 +93,20 @@ type characterAbilityData {
 	deletedAt: String
 }
 
+type characterDamageData {
+	id: ID
+	part: ID
+	character: ID
+	points: Int
+	description: String
+	title: String
+	solved: Boolean
+	partData: partsData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
 type characterPermissionData {
 	id: ID
 	permission: Int
@@ -136,6 +150,19 @@ type logMailData {
 	text: String
 	html: String
 	attachment: String
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type partsData {
+	id: ID
+	name: String
+	description_it: String
+	description_eng: String
+	icon: String
+	max_points: Int
+	partDamages: [characterDamageData]
 	createdAt: String
 	updatedAt: String
 	deletedAt: String

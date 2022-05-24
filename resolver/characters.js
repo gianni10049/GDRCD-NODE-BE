@@ -22,6 +22,12 @@ const characters = {
 	getCharacterActionPercentages: async (data) => {
 		return await CharactersController.getCharacterActionPercentages(data);
 	},
+	getPartsList: async (data) => {
+		return await CharactersController.getPartsList(data);
+	},
+	getCharDamageByPart: async (data) => {
+		return await CharactersController.getCharDamageByPart(data);
+	},
 };
 
 exports.characters = characters;

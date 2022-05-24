@@ -32,4 +32,9 @@ type Query {
 
 	#Character Points
 	getCharacterPoints(token: String!, characterId: ID!): getCharacterPointsResponse
+
+	# Character Damages
+	getPartsList(token: String!, characterId: ID!): getPartsList
+	getCharDamageByPart(token: String!, characterId: ID!, partId: ID!): getDamagesResponse
+	getDamage(token:String, damageId:ID!):getDamageResponse
 }
