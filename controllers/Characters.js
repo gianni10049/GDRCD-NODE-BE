@@ -183,7 +183,7 @@ class CharactersController {
 	 * @param data
 	 * @return {Promise<Model[]>}
 	 */
-	static async getCharactersList(data) {
+	static async chactersListByAccount(data) {
 		let { token } = data;
 
 		let tokenData = await Token.verifyToken(token);
@@ -529,6 +529,22 @@ class CharactersController {
 			response,
 			damages: damages,
 		};
+	}
+
+	static async getCharactersList(data) {
+		let { token } = data;
+
+		let control = await Token.routeControl({
+			token: token,
+			account_needed: true,
+			character_needed: true,
+		});
+
+		if (control.response) {
+			return await Character.findAll({
+				where: true,
+			});
+		}
 	}
 }
 

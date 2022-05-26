@@ -1,9 +1,9 @@
 const { StatsController } = require('../controllers/Stats');
 
-const permission = {
+const stats = {
 	listStats: async (data) => {
 		return await StatsController.listStats(data);
 	},
 };
 
-exports.permission = permission;
+exports.stats = stats;

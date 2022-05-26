@@ -11,4 +11,7 @@ type Mutation {
 
 	# DAMAGE
 	setDamageSolved(token:String!,damageId: ID!): getDamageResponse
+
+	# BANK
+	sendMoney(token:String!, character: ID!, money: String!): genericResponse
 }

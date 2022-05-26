@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { i18n } = require('../i18n');
 
 class Token {
 	static createToken = async (data) => {
@@ -75,6 +76,40 @@ class Token {
 			response,
 			responseStatus,
 			...control,
+		};
+	}
+
+	static async getMe(data) {
+		let { token } = data;
+
+		let response = true,
+			responseStatus,
+			account,
+			character;
+
+		if (await this.routeControl({ token, account_needed: true })) {
+			let control = await this.verifyToken(token);
+
+			if (control.account) {
+				account = control.account;
+			}
+
+			if (control.character) {
+				character = control.character;
+			}
+
+			response = true;
+		} else {
+			responseStatus = i18n.t('permissionError');
+		}
+
+		return {
+			response,
+			responseStatus,
+			me: {
+				character,
+				account,
+			},
 		};
 	}
 }

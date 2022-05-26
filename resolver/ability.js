@@ -1,6 +1,6 @@
 const { AbilityController } = require('../controllers/Ability');
 
-const permission = {
+const ability = {
 	getAbility: async (data) => {
 		return await AbilityController.getAbility(data);
 	},
@@ -9,4 +9,4 @@ const permission = {
 	},
 };
 
-exports.permission = permission;
+exports.ability = ability;

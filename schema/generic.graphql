@@ -77,3 +77,14 @@ type getDamageResponse{
 	responseStatus: String,
 	damage: characterDamageData
 }
+
+type getMeResponse{
+	response: Int,
+	responseStatus: String,
+	me: authData
+}
+
+type authData{
+	account: accountData
+	character: characterData
+}

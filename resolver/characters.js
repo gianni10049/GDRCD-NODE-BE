@@ -4,8 +4,8 @@ const characters = {
 	getCharacter: async (data) => {
 		return await CharactersController.getCharacter(data);
 	},
-	charactersList: async (data) => {
-		return await CharactersController.getCharactersList(data);
+	chactersListByAccount: async (data) => {
+		return await CharactersController.chactersListByAccount(data);
 	},
 	setCharacter: async (data) => {
 		return await CharactersController.setCharacter(data);
@@ -27,6 +27,9 @@ const characters = {
 	},
 	getCharDamageByPart: async (data) => {
 		return await CharactersController.getCharDamageByPart(data);
+	},
+	getCharactersList: async (data) => {
+		return await CharactersController.getCharactersList(data);
 	},
 };
 

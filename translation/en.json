@@ -41,5 +41,9 @@
   },
   "setDamageSolved": {
     "done": "Damage Healed!"
+  },
+  "sendMoney": {
+    "noMoney": "Insufficient resources",
+    "done": "Resources sent!"
   }
 }

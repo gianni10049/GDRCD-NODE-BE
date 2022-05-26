@@ -41,5 +41,9 @@
   },
   "setDamageSolved": {
     "done": "Ferita risolta!"
+  },
+  "sendMoney": {
+    "noMoney": "Risorse insufficienti",
+    "done": "Risorse inviate!"
   }
 }
