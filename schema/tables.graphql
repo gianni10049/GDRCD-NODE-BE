@@ -166,6 +166,28 @@ type messagesData {
 	text: String
 	recipientData: characterData
 	senderData: characterData
+	readData: [messagesReadData]
+	deleteData: [messagesDeleteData]
+	new_on: Boolean
+	new_off: Boolean
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type messagesReadData{
+	id: ID
+	message: ID
+	character: ID
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type messagesDeleteData{
+	id: ID
+	message: ID
+	character: ID
 	createdAt: String
 	updatedAt: String
 	deletedAt: String

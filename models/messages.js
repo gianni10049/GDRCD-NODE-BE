@@ -17,6 +17,18 @@ module.exports = (sequelize, Sequelize) => {
 				foreignKey: 'sender',
 				as: 'senderData',
 			});
+			models.Messages.hasMany(models.MessagesRead, {
+				foreignKey: 'message',
+				name: 'id',
+				allowNull: true,
+				as: 'readData',
+			});
+			models.Messages.hasMany(models.MessagesDelete, {
+				foreignKey: 'message',
+				name: 'id',
+				allowNull: true,
+				as: 'deleteData',
+			});
 		}
 	}
 
