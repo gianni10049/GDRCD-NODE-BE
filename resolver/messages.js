@@ -10,6 +10,9 @@ const messages = {
 	sendMessage: async (data) => {
 		return await MessagesController.sendMessage(data);
 	},
+	deleteMessage: async (data) => {
+		return await MessagesController.deleteMessage(data);
+	},
 };
 
 exports.messages = messages;

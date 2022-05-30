@@ -1,5 +1,10 @@
 const { Token } = require('./Token');
-let { Messages, Character, MessagesRead } = require('./../models');
+let {
+	Messages,
+	Character,
+	MessagesRead,
+	MessagesDelete,
+} = require('./../models');
 const { Op } = require('sequelize');
 const { _ } = require('lodash');
 const { CharactersController } = require('./Characters');
@@ -66,41 +71,11 @@ class MessagesController {
 
 		if (control.response) {
 			if (await CharactersController.characterExist(recipient)) {
-				let results = await Messages.findAll({
-					where: {
-						[Op.or]: [
-							{
-								sender: control.character.id,
-								recipient: recipient,
-							},
-							{
-								recipient: control.character.id,
-								sender: recipient,
-							},
-						],
-						type: type,
-					},
-					include: [
-						{
-							model: Character,
-							as: 'senderData',
-							nest: true,
-							raw: true,
-						},
-						{
-							model: MessagesRead,
-							as: 'readData',
-							nest: true,
-							raw: true,
-							required: false,
-							where: {
-								character: control.character.id,
-							},
-						},
-					],
-					limit: 500,
-					order: [['createdAt', 'DESC']],
-				});
+				let results = await this.getMessagesQuery(
+					control.character.id,
+					recipient,
+					type
+				);
 
 				let new_mex = await this.getNewMessages(
 					control.character.id,
@@ -134,16 +109,75 @@ class MessagesController {
 					},
 				],
 				'$readData.id$': { [Op.eq]: null },
+				'$deleteData.id$': { [Op.eq]: null },
 				type: type,
 			},
-			include: {
-				model: MessagesRead,
-				as: 'readData',
-				required: false,
-				where: {
-					character: sender,
+			include: [
+				{
+					model: MessagesRead,
+					as: 'readData',
+					required: false,
+					where: {
+						character: sender,
+					},
 				},
+				{
+					model: MessagesDelete,
+					as: 'deleteData',
+					required: false,
+					where: {
+						character: sender,
+					},
+				},
+			],
+			order: [['createdAt', 'DESC']],
+		});
+	};
+
+	static getMessagesQuery = async (sender, recipient, type) => {
+		return await Messages.findAll({
+			where: {
+				[Op.or]: [
+					{
+						sender: sender,
+						recipient: recipient,
+					},
+					{
+						recipient: sender,
+						sender: recipient,
+					},
+				],
+				type: type,
+				'$deleteData.id$': { [Op.eq]: null },
 			},
+			include: [
+				{
+					model: Character,
+					as: 'senderData',
+					nest: true,
+					raw: true,
+				},
+				{
+					model: MessagesRead,
+					as: 'readData',
+					nest: true,
+					raw: true,
+					required: false,
+					where: {
+						character: sender,
+					},
+				},
+				{
+					model: MessagesDelete,
+					as: 'deleteData',
+					nest: true,
+					raw: true,
+					required: false,
+					where: {
+						character: sender,
+					},
+				},
+			],
 			order: [['createdAt', 'DESC']],
 		});
 	};
@@ -171,42 +205,46 @@ class MessagesController {
 					message: new_mex.id,
 				});
 
-				return await Messages.findAll({
-					where: {
-						[Op.or]: [
-							{
-								sender: control.character.id,
-								recipient: recipient,
-							},
-							{
-								recipient: control.character.id,
-								sender: recipient,
-							},
-						],
-						type: type,
-					},
-					include: [
-						{
-							model: Character,
-							as: 'senderData',
-							nest: true,
-							raw: true,
-						},
-						{
-							model: MessagesRead,
-							as: 'readData',
-							nest: true,
-							raw: true,
-							required: false,
-							where: {
-								character: control.character.id,
-							},
-						},
-					],
-					limit: 500,
-					order: [['createdAt', 'DESC']],
-				});
+				return await this.getMessagesQuery(
+					control.character.id,
+					recipient,
+					type
+				);
 			}
+		}
+	};
+
+	static deleteMessage = async (data) => {
+		let { token, message } = data;
+
+		let control = await Token.routeControl({
+			token: token,
+			account_needed: true,
+			character_needed: true,
+		});
+
+		if (control.response) {
+			let message_data = await Messages.findOne({
+				where: {
+					id: message,
+				},
+			});
+
+			await MessagesDelete.create({
+				message: message,
+				character: control.character.id,
+			});
+
+			let recipient =
+				message_data.recipient === control.character.id
+					? message_data.sender
+					: message_data.recipient;
+
+			return await this.getMessagesQuery(
+				control.character.id,
+				recipient,
+				message_data.type
+			);
 		}
 	};
 }
