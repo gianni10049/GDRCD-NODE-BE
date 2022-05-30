@@ -39,4 +39,8 @@ type Query {
 	getPartsList(token: String!, characterId: ID!): getPartsList
 	getCharDamageByPart(token: String!, characterId: ID!, partId: ID!): getDamagesResponse
 	getDamage(token:String, damageId:ID!):getDamageResponse
+
+	# Messages
+	getMessagesSenders(token:String!): [messagesData]
+	getMessages(token:String!, recipient:ID!, type: String!): [messagesData]
 }

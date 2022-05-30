@@ -15,6 +15,18 @@ module.exports = (sequelize, Sequelize) => {
 				allowNull: false,
 				as: 'characterPermissionData',
 			});
+			models.Character.hasMany(models.Messages, {
+				foreignKey: 'recipient',
+				name: 'id',
+				allowNull: false,
+				as: 'messagesRecipientData',
+			});
+			models.Character.hasMany(models.Messages, {
+				foreignKey: 'sender',
+				name: 'id',
+				allowNull: false,
+				as: 'messagesSenderData',
+			});
 			models.Character.hasOne(models.CharacterPoints, {
 				foreignKey: 'character',
 				name: 'id',
@@ -43,6 +55,12 @@ module.exports = (sequelize, Sequelize) => {
 			},
 			nickname: {
 				type: Sequelize.STRING,
+			},
+			fullname: {
+				type: Sequelize.VIRTUAL,
+				get() {
+					return `${this.name} ${this.surname}`;
+				},
 			},
 			surname: {
 				type: Sequelize.STRING,

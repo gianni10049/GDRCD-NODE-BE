@@ -70,6 +70,7 @@ type characterData {
 	name: String
 	nickname: String
 	surname: String
+	fullname: String
 	age: Int
 	mini_avatar: String
 	profilePic: String
@@ -152,6 +153,19 @@ type logMailData {
 	text: String
 	html: String
 	attachment: String
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type messagesData {
+	id: ID
+	sender: ID
+	recipient: ID
+	group: ID
+	text: String
+	recipientData: characterData
+	senderData: characterData
 	createdAt: String
 	updatedAt: String
 	deletedAt: String

@@ -14,4 +14,7 @@ type Mutation {
 
 	# BANK
 	sendMoney(token:String!, character: ID!, money: String!): genericResponse
+
+	# MESSAGE
+	sendMessage(token: String!,text: String!, recipient: ID!, type: String!): [messagesData]
 }

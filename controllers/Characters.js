@@ -543,6 +543,7 @@ class CharactersController {
 		if (control.response) {
 			return await Character.findAll({
 				where: true,
+				order: [['name', 'ASC']],
 			});
 		}
 	}
