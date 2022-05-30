@@ -18,4 +18,5 @@ type Mutation {
 	# MESSAGE
 	sendMessage(token: String!,text: String!, recipient: ID!, type: String!): [messagesData]
 	deleteMessage(token: String!,message: ID!): [messagesData]
+	deleteConv(token: String!,sender: ID!,type:String!): genericResponse
 }

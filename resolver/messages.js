@@ -13,6 +13,9 @@ const messages = {
 	deleteMessage: async (data) => {
 		return await MessagesController.deleteMessage(data);
 	},
+	deleteConv: async (data) => {
+		return await MessagesController.deleteConv(data);
+	},
 };
 
 exports.messages = messages;

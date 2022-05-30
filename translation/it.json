@@ -1,6 +1,7 @@
 {
   "general": {
-    "siteName": "Corrupta"
+    "siteName": "Corrupta",
+    "characterExistence": "Personaggio Inesistente"
   },
   "permissionError": "Permesso negato",
   "registration": {
@@ -45,5 +46,8 @@
   "sendMoney": {
     "noMoney": "Risorse insufficienti",
     "done": "Risorse inviate!"
+  },
+  "messages": {
+    "deleteConvDone": "Conversazione eliminata!"
   }
 }

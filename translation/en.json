@@ -1,6 +1,7 @@
 {
   "general": {
-    "siteName": "Corrupta"
+    "siteName": "Corrupta",
+    "characterExistence": "Character not exist"
   },
   "permissionError": "Permission Denied",
   "registration": {
@@ -45,5 +46,8 @@
   "sendMoney": {
     "noMoney": "Insufficient resources",
     "done": "Resources sent!"
+  },
+  "messages": {
+    "deleteConvDone": "Conversation deleted!"
   }
 }

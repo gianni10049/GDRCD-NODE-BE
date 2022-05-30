@@ -8,6 +8,7 @@ let {
 const { Op } = require('sequelize');
 const { _ } = require('lodash');
 const { CharactersController } = require('./Characters');
+const { i18n } = require('../i18n');
 
 class MessagesController {
 	static getMessagesSenders = async (data) => {
@@ -246,6 +247,45 @@ class MessagesController {
 				message_data.type
 			);
 		}
+	};
+
+	static deleteConv = async (data) => {
+		let { token, sender, type } = data;
+
+		let response = true,
+			responseStatus;
+
+		let control = await Token.routeControl({
+			token: token,
+			account_needed: true,
+			character_needed: true,
+		});
+
+		if (control.response) {
+			if (await CharactersController.characterExist(sender)) {
+				let messages = await this.getMessagesQuery(
+					control.character.id,
+					sender,
+					type
+				);
+
+				for (const message of messages) {
+					await MessagesDelete.create({
+						message: message.id,
+						character: control.character.id,
+					});
+				}
+
+				responseStatus = i18n.t('messages.deleteConvDone');
+				response = true;
+			} else {
+				responseStatus = i18n.t('general.characterExistence');
+			}
+		} else {
+			responseStatus = i18n.t('permissionError');
+		}
+
+		return { response, responseStatus };
 	};
 }
 
