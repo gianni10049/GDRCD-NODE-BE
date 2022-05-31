@@ -235,6 +235,28 @@ type permissionGroupsPivotData {
 	deletedAt: String
 }
 
+type radioFrequenciesData {
+	id: ID
+	name: String
+	frequency: Int
+	type: String
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type radioMessagesData {
+	id: ID
+	sender: ID
+	frequency: Int
+	text: String
+	type: String
+	senderData: characterData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
 type statData {
 	id: ID
 	name: String

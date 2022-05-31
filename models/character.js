@@ -27,6 +27,24 @@ module.exports = (sequelize, Sequelize) => {
 				allowNull: false,
 				as: 'messagesSenderData',
 			});
+			models.Character.hasMany(models.RadioMessages, {
+				foreignKey: 'sender',
+				name: 'id',
+				allowNull: false,
+				as: 'radioMessagesSenderData',
+			});
+			models.Character.hasMany(models.RadioFrequencies, {
+				foreignKey: 'owner',
+				name: 'id',
+				allowNull: false,
+				as: 'radioFrequencyOwnerData',
+			});
+			models.Character.hasMany(models.RadioFrequenciesMembers, {
+				foreignKey: 'character',
+				name: 'id',
+				allowNull: false,
+				as: 'radioFrequencyMembersData',
+			});
 			models.Character.hasOne(models.CharacterPoints, {
 				foreignKey: 'character',
 				name: 'id',

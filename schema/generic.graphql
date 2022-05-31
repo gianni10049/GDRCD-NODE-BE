@@ -88,3 +88,10 @@ type authData{
 	account: accountData
 	character: characterData
 }
+
+type getFrequencyMessagesResponse{
+	response: Boolean
+	responseStatus: String
+	messages: [radioMessagesData]
+	frequency: radioFrequenciesData
+}

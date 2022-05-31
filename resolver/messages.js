@@ -1,4 +1,5 @@
 const { MessagesController } = require('../controllers/Messages');
+const { RadioController } = require('../controllers/Radio');
 
 const messages = {
 	getMessagesSenders: async (data) => {
@@ -15,6 +16,15 @@ const messages = {
 	},
 	deleteConv: async (data) => {
 		return await MessagesController.deleteConv(data);
+	},
+	getFrequencies: async (data) => {
+		return await RadioController.getFrequencies(data);
+	},
+	getFrequencyMessages: async (data) => {
+		return await RadioController.getFrequencyMessages(data);
+	},
+	sendFrequencyMessage: async (data) => {
+		return await RadioController.sendFrequencyMessage(data);
 	},
 };
 

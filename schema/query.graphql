@@ -43,4 +43,8 @@ type Query {
 	# Messages
 	getMessagesSenders(token:String!): [messagesData]
 	getMessages(token:String!, recipient:ID!, type: String!): [messagesData]
+
+	# Radio
+	getFrequencies(token:String!): [radioFrequenciesData]
+	getFrequencyMessages(token:String!, frequency: Int!): getFrequencyMessagesResponse
 }
