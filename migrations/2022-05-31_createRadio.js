@@ -139,6 +139,7 @@ module.exports = {
 	},
 	down: async (queryInterface) => {
 		await queryInterface.dropTable('radio_frequencies');
+		await queryInterface.dropTable('radio_frequencies_members');
 		await queryInterface.dropTable('radio_messages');
 		await queryInterface.dropTable('radio_read');
 	},

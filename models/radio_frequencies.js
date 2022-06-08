@@ -36,7 +36,7 @@ module.exports = (sequelize, Sequelize) => {
 				autoIncrement: true,
 			},
 			name: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING,
 			},
 			frequency: {
 				type: Sequelize.INTEGER,
