@@ -1,15 +1,19 @@
 const { AccountController } = require('../controllers/Account');
 
-const homepage = {
-	registration: async (data) => {
-		return await AccountController.registration(data);
-	},
-	login: async (data) => {
+const homepage_query = {
+	login: async (tokenData, data = {}) => {
 		return await AccountController.login(data);
 	},
-	recPass: async (data) => {
+	recPass: async (tokenData, data = {}) => {
 		return await AccountController.recPass(data);
 	},
 };
 
-exports.homepage = homepage;
+const homepage_mutation = {
+	registration: async (tokenData, data = {}) => {
+		return await AccountController.registration(data);
+	},
+};
+
+exports.homepage_query = homepage_query;
+exports.homepage_mutation = homepage_mutation;

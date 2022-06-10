@@ -61,9 +61,7 @@ class CharactersController {
 	 * @return {Promise<{response: string, responseStatus: string}|{response: string, responseStatus: string, token: (*)}>}
 	 */
 	static async setCharacter(data) {
-		let { token, characterId } = data;
-
-		let tokenData = await Token.verifyToken(token);
+		let { tokenData, characterId } = data;
 
 		if (tokenData.account) {
 			let account_id = tokenData.account.id;
@@ -79,7 +77,7 @@ class CharactersController {
 
 			if (character.account === account_id) {
 				let new_token = await Token.createToken({
-					...tokenData,
+					...control,
 					character: character,
 				});
 
@@ -184,9 +182,7 @@ class CharactersController {
 	 * @return {Promise<Model[]>}
 	 */
 	static async chactersListByAccount(data) {
-		let { token } = data;
-
-		let tokenData = await Token.verifyToken(token);
+		let { tokenData } = data;
 
 		if (tokenData.account) {
 			return await Character.findAll({
@@ -206,18 +202,14 @@ class CharactersController {
 	 * @return {Promise<Model<*>>}
 	 */
 	static async getCharacter(data) {
-		let { token, characterId } = data;
+		let { tokenData, characterId } = data;
 
-		let tokenData = await Token.characterConnected(token);
+		if (!characterId) {
+			characterId = tokenData.character.id;
+		}
 
-		if (tokenData.response) {
-			if (!characterId) {
-				characterId = tokenData.character.id;
-			}
-
-			if (characterId) {
-				return this.queryCharacterData(characterId);
-			}
+		if (characterId) {
+			return this.queryCharacterData(characterId);
 		}
 	}
 
@@ -228,45 +220,35 @@ class CharactersController {
 	 * @return {Promise<{response: boolean, responseStatus: string, table: {}}>}
 	 */
 	static async getCharacterStats(data) {
-		let { token, characterId } = data;
+		let { characterId } = data;
 
 		let response = false,
 			responseStatus = '',
 			characterStatsData = {};
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
-
-		if (control.response) {
-			if (await this.characterExist(characterId)) {
-				characterStatsData = await Stats.findAll({
-					include: [
-						{
-							model: CharacterStats,
-							as: 'characterStatData',
-							nest: true,
-							raw: true,
-							required: false,
-							where: {
-								character: characterId,
-								deletedAt: {
-									[Op.is]: null,
-								},
+		if (await this.characterExist(characterId)) {
+			characterStatsData = await Stats.findAll({
+				include: [
+					{
+						model: CharacterStats,
+						as: 'characterStatData',
+						nest: true,
+						raw: true,
+						required: false,
+						where: {
+							character: characterId,
+							deletedAt: {
+								[Op.is]: null,
 							},
 						},
-					],
-					order: [['name', 'DESC']],
-				});
+					},
+				],
+				order: [['name', 'DESC']],
+			});
 
-				response = true;
-			} else {
-				responseStatus = i18n.t('getCharacterStats.existence');
-			}
+			response = true;
 		} else {
-			responseStatus = i18n.t('permissionError');
+			responseStatus = i18n.t('getCharacterStats.existence');
 		}
 
 		return {
@@ -283,51 +265,41 @@ class CharactersController {
 	 * @return {Promise<{response: boolean, responseStatus: string, table: {}}>}
 	 */
 	static async getCharacterAbility(data) {
-		let { token, characterId } = data;
+		let { characterId } = data;
 
 		let response = false,
 			responseStatus = '',
 			characterAbilityData = {};
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
-
-		if (control.response) {
-			if (await this.characterExist(characterId)) {
-				characterAbilityData = await Ability.findAll({
-					include: [
-						{
-							model: CharacterAbility,
-							as: 'characterAbilityData',
-							nest: true,
-							raw: true,
-							required: false,
-							where: {
-								character: characterId,
-								deletedAt: {
-									[Op.is]: null,
-								},
+		if (await this.characterExist(characterId)) {
+			characterAbilityData = await Ability.findAll({
+				include: [
+					{
+						model: CharacterAbility,
+						as: 'characterAbilityData',
+						nest: true,
+						raw: true,
+						required: false,
+						where: {
+							character: characterId,
+							deletedAt: {
+								[Op.is]: null,
 							},
 						},
-						{
-							model: AbilityDetails,
-							as: 'abilityToDetailData',
-							nest: true,
-							raw: true,
-						},
-					],
-					order: [['stat', 'ASC']],
-				});
+					},
+					{
+						model: AbilityDetails,
+						as: 'abilityToDetailData',
+						nest: true,
+						raw: true,
+					},
+				],
+				order: [['stat', 'ASC']],
+			});
 
-				response = true;
-			} else {
-				responseStatus = i18n.t('getCharacterStats.existence');
-			}
+			response = true;
 		} else {
-			responseStatus = i18n.t('permissionError');
+			responseStatus = i18n.t('getCharacterStats.existence');
 		}
 
 		return {
@@ -344,35 +316,25 @@ class CharactersController {
 	 * @return {Promise<{response: boolean, responseStatus: string, table: {}}>}
 	 */
 	static async getCharacterPoints(data) {
-		let { token, characterId } = data;
+		let { characterId } = data;
 
 		let response = false,
 			responseStatus = '',
 			characterPoints = {};
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
-
-		if (control.response) {
-			if (await this.characterExist(characterId)) {
-				characterPoints = await CharacterPoints.findOne({
-					where: {
-						character: characterId,
-						deletedAt: {
-							[Op.is]: null,
-						},
+		if (await this.characterExist(characterId)) {
+			characterPoints = await CharacterPoints.findOne({
+				where: {
+					character: characterId,
+					deletedAt: {
+						[Op.is]: null,
 					},
-				});
+				},
+			});
 
-				response = true;
-			} else {
-				responseStatus = i18n.t('getCharacterStats.existence');
-			}
+			response = true;
 		} else {
-			responseStatus = i18n.t('permissionError');
+			responseStatus = i18n.t('getCharacterStats.existence');
 		}
 
 		return {
@@ -389,51 +351,41 @@ class CharactersController {
 	 * @return {Promise<{response: boolean, percentages: [], responseStatus: string}>}
 	 */
 	static async getCharacterActionPercentages(data) {
-		let { token, characterId, action } = data;
-
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
+		let { characterId, action } = data;
 
 		let response = false,
 			responseStatus = '',
 			characterPercentage = [];
 
-		if (control.response) {
-			if (await this.characterExist(characterId)) {
-				let types = [
-					'life_calc',
-					'stamina_calc',
-					'find_calc',
-					'furtivity_calc',
-					'investigate_calc',
-					'initiative_calc',
-					'price_calc',
-					'research_calc',
-				];
+		if (await this.characterExist(characterId)) {
+			let types = [
+				'life_calc',
+				'stamina_calc',
+				'find_calc',
+				'furtivity_calc',
+				'investigate_calc',
+				'initiative_calc',
+				'price_calc',
+				'research_calc',
+			];
 
-				if (action) {
-					characterPercentage[action] = await this.calcPercentage(
-						action,
+			if (action) {
+				characterPercentage[action] = await this.calcPercentage(
+					action,
+					characterId
+				);
+			} else {
+				for (const type of types) {
+					characterPercentage[type] = await this.calcPercentage(
+						type,
 						characterId
 					);
-				} else {
-					for (const type of types) {
-						characterPercentage[type] = await this.calcPercentage(
-							type,
-							characterId
-						);
-					}
 				}
-
-				response = true;
-			} else {
-				responseStatus = i18n.t('getCharacterStats.existence');
 			}
+
+			response = true;
 		} else {
-			responseStatus = i18n.t('permissionError');
+			responseStatus = i18n.t('getCharacterStats.existence');
 		}
 
 		return {
@@ -445,44 +397,34 @@ class CharactersController {
 	}
 
 	static async getPartsList(data) {
-		let { token, characterId } = data;
-
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
+		let { characterId } = data;
 
 		let response = false,
 			responseStatus = '',
 			parts = [];
 
-		if (control.response) {
-			if (await this.characterExist(characterId)) {
-				parts = await Parts.findAll({
-					where: true,
-					include: [
-						{
-							model: CharacterDamage,
-							as: 'partDamages',
-							nest: true,
-							raw: true,
-							required: false,
-							where: {
-								character: characterId,
-								solved: false,
-								deletedAt: {
-									[Op.is]: null,
-								},
+		if (await this.characterExist(characterId)) {
+			parts = await Parts.findAll({
+				where: true,
+				include: [
+					{
+						model: CharacterDamage,
+						as: 'partDamages',
+						nest: true,
+						raw: true,
+						required: false,
+						where: {
+							character: characterId,
+							solved: false,
+							deletedAt: {
+								[Op.is]: null,
 							},
 						},
-					],
-				});
-			} else {
-				responseStatus = i18n.t('getCharacterStats.existence');
-			}
+					},
+				],
+			});
 		} else {
-			responseStatus = i18n.t('permissionError');
+			responseStatus = i18n.t('getCharacterStats.existence');
 		}
 
 		return {
@@ -493,35 +435,25 @@ class CharactersController {
 	}
 
 	static async getCharDamageByPart(data) {
-		let { token, characterId, partId } = data;
-
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
+		let { characterId, partId } = data;
 
 		let response = false,
 			responseStatus = '',
 			damages = [];
 
-		if (control.response) {
-			if (await this.characterExist(characterId)) {
-				damages = await CharacterDamage.findAll({
-					where: {
-						character: characterId,
-						part: partId,
-						solved: false,
-						deletedAt: {
-							[Op.is]: null,
-						},
+		if (await this.characterExist(characterId)) {
+			damages = await CharacterDamage.findAll({
+				where: {
+					character: characterId,
+					part: partId,
+					solved: false,
+					deletedAt: {
+						[Op.is]: null,
 					},
-				});
-			} else {
-				responseStatus = i18n.t('getCharacterStats.existence');
-			}
+				},
+			});
 		} else {
-			responseStatus = i18n.t('permissionError');
+			responseStatus = i18n.t('getCharacterStats.existence');
 		}
 
 		return {
@@ -531,21 +463,11 @@ class CharactersController {
 		};
 	}
 
-	static async getCharactersList(data) {
-		let { token } = data;
-
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
+	static async getCharactersList() {
+		return await Character.findAll({
+			where: true,
+			order: [['name', 'ASC']],
 		});
-
-		if (control.response) {
-			return await Character.findAll({
-				where: true,
-				order: [['name', 'ASC']],
-			});
-		}
 	}
 }
 

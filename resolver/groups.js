@@ -1,12 +1,13 @@
 const { GroupsController } = require('../controllers/Groups');
 
-const groups = {
-	getGroups: async (data) => {
-		return await GroupsController.getGroups(data);
+const groups_character = {
+	getGroups: async () => {
+		return await GroupsController.getGroups();
 	},
-	getGroup: async (data) => {
+	getGroup: async (tokenData, data = {}) => {
+		data.tokenData = tokenData;
 		return await GroupsController.getGroup(data);
 	},
 };
 
-exports.groups = groups;
+exports.groups_character = groups_character;

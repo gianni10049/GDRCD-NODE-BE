@@ -1,0 +1,18 @@
+type CharacterConnectedMutation{
+    # CHARACTER ABILITY
+    updateAbility(abilityId: ID!, characterId: ID): genericResponse
+
+    # DAMAGE
+    setDamageSolved(damageId: ID!): getDamageResponse
+
+    # BANK
+    sendMoney(character: ID!, money: String!): genericResponse
+
+    # MESSAGE
+    sendMessage(text: String!, recipient: ID!, type: String!): [messagesData]
+    deleteMessage(message: ID!): [messagesData]
+    deleteConv(sender: ID!,type:String!): genericResponse
+
+    # Radio
+    sendFrequencyMessage(text: String!, frequency: Int!): [radioMessagesData]
+}

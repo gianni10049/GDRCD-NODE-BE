@@ -1,4 +1,3 @@
-const { Token } = require('./Token');
 let {
 	Groups,
 	GroupsTypes,
@@ -21,77 +20,58 @@ class GroupsController {
 		});
 	}
 
-	static async getGroups(data) {
-		let { token } = data;
-
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
-
-		if (control.response) {
-			return await Groups.findAll({
-				where: true,
-				deletedAt: {
-					[Op.is]: null,
+	static async getGroups() {
+		return await Groups.findAll({
+			where: true,
+			deletedAt: {
+				[Op.is]: null,
+			},
+			visible: true,
+			include: [
+				{
+					model: GroupsRoles,
+					as: 'rolesData',
 				},
-				visible: true,
-				include: [
-					{
-						model: GroupsRoles,
-						as: 'rolesData',
-					},
-					{
-						model: GroupsTypes,
-						as: 'groupTypeData',
-					},
-				],
-				order: [['type', 'ASC']],
-			});
-		}
+				{
+					model: GroupsTypes,
+					as: 'groupTypeData',
+				},
+			],
+			order: [['type', 'ASC']],
+		});
 	}
+
 	static async getGroup(data) {
-		let { token, id } = data;
+		let { id } = data;
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
-
-		if (control.response) {
-			return await Groups.findOne({
-				where: { id: id },
-				deletedAt: {
-					[Op.is]: null,
+		return await Groups.findOne({
+			where: { id: id },
+			deletedAt: {
+				[Op.is]: null,
+			},
+			visible: true,
+			include: [
+				{
+					model: GroupsRoles,
+					as: 'rolesData',
+					required: false,
+					include: [
+						{
+							model: GroupsMembers,
+							as: 'groupMembers',
+							required: false,
+							include: [{ model: Character, as: 'memberData' }],
+						},
+					],
 				},
-				visible: true,
-				include: [
-					{
-						model: GroupsRoles,
-						as: 'rolesData',
-						required: false,
-						include: [
-							{
-								model: GroupsMembers,
-								as: 'groupMembers',
-								required: false,
-								include: [
-									{ model: Character, as: 'memberData' },
-								],
-							},
-						],
-					},
-					{
-						model: GroupsTypes,
-						as: 'groupTypeData',
-						required: false,
-					},
-				],
-				order: [['type', 'ASC']],
-			});
-		}
+				{
+					model: GroupsTypes,
+					as: 'groupTypeData',
+					required: false,
+				},
+			],
+			order: [['type', 'ASC']],
+		});
 	}
 }
 

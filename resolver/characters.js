@@ -1,36 +1,52 @@
 const { CharactersController } = require('../controllers/Characters');
 
-const characters = {
-	getCharacter: async (data) => {
-		return await CharactersController.getCharacter(data);
-	},
-	chactersListByAccount: async (data) => {
-		return await CharactersController.chactersListByAccount(data);
-	},
-	setCharacter: async (data) => {
-		return await CharactersController.setCharacter(data);
-	},
-	getCharacterStats: async (data) => {
+const character_character = {
+	getCharacterStats: async (tokenData, data = {}) => {
+		data.tokenData = tokenData;
 		return await CharactersController.getCharacterStats(data);
 	},
-	getCharacterAbility: async (data) => {
+	getCharacterAbility: async (tokenData, data = {}) => {
+		data.tokenData = tokenData;
 		return await CharactersController.getCharacterAbility(data);
 	},
-	getCharacterPoints: async (data) => {
+	getCharacterPoints: async (tokenData, data = {}) => {
+		data.tokenData = tokenData;
 		return await CharactersController.getCharacterPoints(data);
 	},
-	getCharacterActionPercentages: async (data) => {
+	getCharacterActionPercentages: async (tokenData, data = {}) => {
+		data.tokenData = tokenData;
 		return await CharactersController.getCharacterActionPercentages(data);
 	},
-	getPartsList: async (data) => {
+	getPartsList: async (tokenData, data = {}) => {
+		data.tokenData = tokenData;
 		return await CharactersController.getPartsList(data);
 	},
-	getCharDamageByPart: async (data) => {
+	getCharDamageByPart: async (tokenData, data = {}) => {
+		data.tokenData = tokenData;
 		return await CharactersController.getCharDamageByPart(data);
-	},
-	getCharactersList: async (data) => {
-		return await CharactersController.getCharactersList(data);
 	},
 };
 
-exports.characters = characters;
+const characters_characterMutation = {};
+
+const characters_account = {
+	chactersListByAccount: async (tokenData, data) => {
+		data.tokenData = tokenData;
+		return await CharactersController.chactersListByAccount(data);
+	},
+	getCharacter: async (tokenData, data) => {
+		data.tokenData = tokenData;
+		return await CharactersController.getCharacter(data);
+	},
+	setCharacter: async (tokenData, data) => {
+		data.tokenData = tokenData;
+		return await CharactersController.setCharacter(data);
+	},
+	getCharactersList: async () => {
+		return await CharactersController.getCharactersList();
+	},
+};
+
+exports.character_character = character_character;
+exports.characters_characterMutation = characters_characterMutation;
+exports.characters_account = characters_account;

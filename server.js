@@ -4,6 +4,7 @@ let resolvers = require('./resolver/index');
 const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
 const { loadSchema } = require('@graphql-tools/load');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
 const { GraphQLFileLoader } = require('@graphql-tools/graphql-file-loader');
 const { loadSchemas } = require('./schema');
 
@@ -15,9 +16,14 @@ const GraphQlStart = async () => {
 		loaders: [new GraphQLFileLoader()],
 	});
 
+	const schema_def = makeExecutableSchema({
+		typeDefs: schema,
+		resolvers: rootValue,
+	});
+
 	// Return data for graphql to start
 	return {
-		schema,
+		schema_def,
 		root: rootValue,
 	};
 };
@@ -29,7 +35,7 @@ GraphQlStart().then(async (data) => {
 	app.use(
 		'/graphql',
 		graphqlHTTP({
-			schema: data.schema,
+			schema: data.schema_def,
 			rootValue: data.root,
 			graphiql: true,
 		})

@@ -1,0 +1,38 @@
+type CharacterConnected{
+
+    # General
+    isMineCharacter( characterId:ID!): genericResponse
+    getMe: getMeResponse
+    permissionControl(permission: String!): genericResponse
+
+    # Ability
+    getAbility(abilityId: ID!, characterId: ID): abilityData
+
+    # Stats
+    listStats: [statData]
+
+    #Character
+    getCharacterStats(characterId: ID!): getCharacterStatsResponse
+    getCharacterAbility(characterId: ID!): getCharacterAbilityResponse
+    getCharacterActionPercentages(characterId: ID!, action: String): getCharacterActionPercentagesResponse
+
+    #Character Points
+    getCharacterPoints(characterId: ID!): getCharacterPointsResponse
+
+    # Character Damages
+    getPartsList(characterId: ID!): getPartsList
+    getCharDamageByPart(characterId: ID!, partId: ID!): getDamagesResponse
+    getDamage(damageId:ID!):getDamageResponse
+
+    # Messages
+    getMessagesSenders: [messagesData]
+    getMessages( recipient:ID!, type: String!): [messagesData]
+
+    # Radio
+    getFrequencies: [radioFrequenciesData]
+    getFrequencyMessages( frequency: Int!): getFrequencyMessagesResponse
+
+    # Groups
+    getGroups: [groupData]
+    getGroup( id:ID!): groupData
+}

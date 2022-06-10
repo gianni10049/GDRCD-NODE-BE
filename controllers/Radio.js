@@ -1,4 +1,3 @@
-const { Token } = require('./Token');
 let {
 	RadioMessages,
 	RadioFrequencies,
@@ -34,6 +33,7 @@ class RadioController {
 			order: [['createdAt', 'DESC']],
 		});
 	};
+
 	static getFrequencyNotReadedMessagesQuery = async (
 		frequency,
 		character
@@ -88,31 +88,23 @@ class RadioController {
 	};
 
 	static getFrequencies = async (data) => {
-		let { token } = data;
+		let { tokenData } = data;
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
+		let frequencies = await this.getFrequenciesQuery();
+		let new_frequencies = [];
 
-		if (control.response) {
-			let frequencies = await this.getFrequenciesQuery();
-			let new_frequencies = [];
-
-			for (let frequency of frequencies) {
-				if (
-					await this.frequencyPermission(
-						frequency.frequency,
-						control.character.id
-					)
-				) {
-					new_frequencies.push(frequency);
-				}
+		for (let frequency of frequencies) {
+			if (
+				await this.frequencyPermission(
+					frequency.frequency,
+					tokenData.character.id
+				)
+			) {
+				new_frequencies.push(frequency);
 			}
-
-			return new_frequencies;
 		}
+
+		return new_frequencies;
 	};
 
 	static frequencyPermission = async (frequency, me) => {
@@ -152,35 +144,21 @@ class RadioController {
 	};
 
 	static getFrequencyMessages = async (data) => {
-		let { token, frequency } = data;
-
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
+		let { tokenData, frequency } = data;
 
 		let response = false,
 			responseStatus = '',
 			frequency_data,
 			messages;
 
-		if (control.response) {
-			if (
-				await this.frequencyPermission(frequency, control.character.id)
-			) {
-				frequency_data = await this.getFrequencyDataQuery(frequency);
+		if (await this.frequencyPermission(frequency, tokenData.character.id)) {
+			frequency_data = await this.getFrequencyDataQuery(frequency);
 
-				messages = await this.getFrequencyMessagesQuery(frequency);
+			messages = await this.getFrequencyMessagesQuery(frequency);
 
-				this.updateReads(frequency, control.character.id).then(
-					() => {}
-				);
+			this.updateReads(frequency, tokenData.character.id).then(() => {});
 
-				response = true;
-			} else {
-				responseStatus = i18n.t('permissionError');
-			}
+			response = true;
 		} else {
 			responseStatus = i18n.t('permissionError');
 		}
@@ -194,26 +172,16 @@ class RadioController {
 	};
 
 	static sendFrequencyMessage = async (data) => {
-		let { token, text, frequency } = data;
+		let { tokenData, text, frequency } = data;
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
+		await RadioMessages.create({
+			sender: tokenData.character.id,
+			frequency: frequency,
+			text: text,
+			type: 'normal',
 		});
 
-		if (control.response) {
-			console.log(frequency);
-
-			await RadioMessages.create({
-				sender: control.character.id,
-				frequency: frequency,
-				text: text,
-				type: 'normal',
-			});
-
-			return await this.getFrequencyMessagesQuery(frequency);
-		}
+		return await this.getFrequencyMessagesQuery(frequency);
 	};
 
 	static updateReads = async (frequency, character) => {

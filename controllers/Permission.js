@@ -7,7 +7,6 @@ let {
 	Account,
 	CharacterPermission,
 } = require('./../models');
-const { Token } = require('./Token');
 const { _ } = require('lodash');
 const { CharactersController } = require('./Characters');
 const { i18n } = require('../i18n');
@@ -118,9 +117,7 @@ class PermissionController {
 	}
 
 	static async permissionControl(data) {
-		let { permission, token } = data;
-
-		let tokenData = await Token.verifyToken(token);
+		let { permission, tokenData } = data;
 
 		if (tokenData.account) {
 			let permissionExist = await this.permissionExist(permission);
@@ -166,16 +163,14 @@ class PermissionController {
 	}
 
 	static async isMineCharacter(data) {
-		let { characterId, token } = data;
+		let { characterId, tokenData } = data;
 
 		let response = false,
 			responseStatus = '';
 
-		let tokenData = await Token.verifyToken(token);
-
 		if (tokenData.account && tokenData.character) {
 			if (await CharactersController.characterExist(characterId)) {
-				if (characterId == tokenData.character.id) {
+				if (characterId === tokenData.character.id) {
 					response = true;
 				} else {
 					responseStatus = i18n.t('isMineCharacter.notMine');

@@ -1,4 +1,3 @@
-const { Token } = require('./Token');
 let {
 	Messages,
 	Character,
@@ -12,87 +11,71 @@ const { i18n } = require('../i18n');
 
 class MessagesController {
 	static getMessagesSenders = async (data) => {
-		let { token } = data;
+		let { tokenData } = data;
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
+		let messages = await Messages.findAll({
+			where: {
+				recipient: tokenData.character.id,
+			},
+			include: [
+				{
+					model: Character,
+					as: 'senderData',
+					nest: true,
+					raw: true,
+				},
+			],
+			order: [['createdAt', 'DESC']],
 		});
 
-		if (control.response) {
-			let messages = await Messages.findAll({
-				where: {
-					recipient: control.character.id,
-				},
-				include: [
-					{
-						model: Character,
-						as: 'senderData',
-						nest: true,
-						raw: true,
-					},
-				],
-				order: [['createdAt', 'DESC']],
-			});
+		let uniqueRecipient = _.uniqBy(messages, 'sender');
 
-			let uniqueRecipient = _.uniqBy(messages, 'sender');
+		return await uniqueRecipient.map(async (message) => {
+			let new_obj = message;
+			let sender = message.sender;
 
-			return await uniqueRecipient.map(async (message) => {
-				let new_obj = message;
-				let sender = message.sender;
+			let new_mex_on = await this.getNewMessages(
+				tokenData.character.id,
+				sender,
+				'on'
+			);
+			let new_mex_off = await this.getNewMessages(
+				tokenData.character.id,
+				sender,
+				'off'
+			);
 
-				let new_mex_on = await this.getNewMessages(
-					control.character.id,
-					sender,
-					'on'
-				);
-				let new_mex_off = await this.getNewMessages(
-					control.character.id,
-					sender,
-					'off'
-				);
+			new_obj.new_on = new_mex_on.length > 0;
+			new_obj.new_off = new_mex_off.length > 0;
 
-				new_obj.new_on = new_mex_on.length > 0;
-				new_obj.new_off = new_mex_off.length > 0;
-
-				return new_obj;
-			});
-		}
+			return new_obj;
+		});
 	};
 
 	static getMessages = async (data) => {
-		let { token, recipient, type } = data;
+		let { tokenData, recipient, type } = data;
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
+		if (await CharactersController.characterExist(recipient)) {
+			let results = await this.getMessagesQuery(
+				tokenData.character.id,
+				recipient,
+				type
+			);
 
-		if (control.response) {
-			if (await CharactersController.characterExist(recipient)) {
-				let results = await this.getMessagesQuery(
-					control.character.id,
-					recipient,
-					type
-				);
+			let new_mex = await this.getNewMessages(
+				tokenData.character.id,
+				recipient,
+				type
+			);
 
-				let new_mex = await this.getNewMessages(
-					control.character.id,
-					recipient,
-					type
-				);
-
-				await new_mex.map(async (message) => {
-					await MessagesRead.create({
-						message: message.id,
-						character: control.character.id,
-					});
+			await new_mex.map(async (message) => {
+				await MessagesRead.create({
+					message: message.id,
+					character: tokenData.character.id,
 				});
+			});
 
-				return results;
-			}
+			return results;
 		}
 	};
 
@@ -184,105 +167,79 @@ class MessagesController {
 	};
 
 	static sendMessage = async (data) => {
-		let { token, recipient, text, type } = data;
+		let { tokenData, recipient, text, type } = data;
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
-
-		if (control.response) {
-			if (await CharactersController.characterExist(recipient)) {
-				let new_mex = await Messages.create({
-					sender: control.character.id,
-					recipient: recipient,
-					text: text,
-					type: type,
-				});
-
-				await MessagesRead.create({
-					character: control.character.id,
-					message: new_mex.id,
-				});
-
-				return await this.getMessagesQuery(
-					control.character.id,
-					recipient,
-					type
-				);
-			}
-		}
-	};
-
-	static deleteMessage = async (data) => {
-		let { token, message } = data;
-
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
-
-		if (control.response) {
-			let message_data = await Messages.findOne({
-				where: {
-					id: message,
-				},
+		if (await CharactersController.characterExist(recipient)) {
+			let new_mex = await Messages.create({
+				sender: tokenData.character.id,
+				recipient: recipient,
+				text: text,
+				type: type,
 			});
 
-			await MessagesDelete.create({
-				message: message,
-				character: control.character.id,
+			await MessagesRead.create({
+				character: tokenData.character.id,
+				message: new_mex.id,
 			});
-
-			let recipient =
-				message_data.recipient === control.character.id
-					? message_data.sender
-					: message_data.recipient;
 
 			return await this.getMessagesQuery(
-				control.character.id,
+				tokenData.character.id,
 				recipient,
-				message_data.type
+				type
 			);
 		}
 	};
 
+	static deleteMessage = async (data) => {
+		let { tokenData, message } = data;
+
+		let message_data = await Messages.findOne({
+			where: {
+				id: message,
+			},
+		});
+
+		await MessagesDelete.create({
+			message: message,
+			character: tokenData.character.id,
+		});
+
+		let recipient =
+			message_data.recipient === tokenData.character.id
+				? message_data.sender
+				: message_data.recipient;
+
+		return await this.getMessagesQuery(
+			tokenData.character.id,
+			recipient,
+			message_data.type
+		);
+	};
+
 	static deleteConv = async (data) => {
-		let { token, sender, type } = data;
+		let { tokenData, sender, type } = data;
 
 		let response = true,
 			responseStatus;
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
-		});
+		if (await CharactersController.characterExist(sender)) {
+			let messages = await this.getMessagesQuery(
+				tokenData.character.id,
+				sender,
+				type
+			);
 
-		if (control.response) {
-			if (await CharactersController.characterExist(sender)) {
-				let messages = await this.getMessagesQuery(
-					control.character.id,
-					sender,
-					type
-				);
-
-				for (const message of messages) {
-					await MessagesDelete.create({
-						message: message.id,
-						character: control.character.id,
-					});
-				}
-
-				responseStatus = i18n.t('messages.deleteConvDone');
-				response = true;
-			} else {
-				responseStatus = i18n.t('general.characterExistence');
+			for (const message of messages) {
+				await MessagesDelete.create({
+					message: message.id,
+					character: tokenData.character.id,
+				});
 			}
+
+			responseStatus = i18n.t('messages.deleteConvDone');
+			response = true;
 		} else {
-			responseStatus = i18n.t('permissionError');
+			responseStatus = i18n.t('general.characterExistence');
 		}
 
 		return { response, responseStatus };

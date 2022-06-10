@@ -9,10 +9,35 @@ let resolvers = async () => {
 	for (let path of paths) {
 		let schema_data = require('./' + path);
 
-		resolvers = {
-			...resolvers,
-			...(await getFilesFromPath(schema_data)),
-		};
+		Object.keys(schema_data).forEach((el) => {
+			let type = el.split('_');
+			let key = '';
+
+			if (type[1]) {
+				switch (type[1]) {
+					case 'query':
+						key = 'Query';
+						break;
+					case 'mutation':
+						key = 'Mutation';
+						break;
+					case 'character':
+						key = 'CharacterConnected';
+						break;
+					case 'characterMutation':
+						key = 'CharacterConnectedMutation';
+						break;
+					case 'account':
+						key = 'AccountConnected';
+						break;
+				}
+
+				resolvers[key] = {
+					...resolvers[key],
+					...schema_data[el],
+				};
+			}
+		});
 	}
 
 	return resolvers;
@@ -31,20 +56,6 @@ const loadPaths = async () => {
 
 		return paths;
 	});
-};
-
-// Get All Files from a path
-const getFilesFromPath = async (schema_data) => {
-	let resolvers = [];
-
-	for (let schema of Object.keys(schema_data)) {
-		resolvers = {
-			...resolvers,
-			...schema_data[schema],
-		};
-	}
-
-	return resolvers;
 };
 
 exports.resolvers = resolvers;
