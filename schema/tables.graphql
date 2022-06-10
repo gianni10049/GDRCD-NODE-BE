@@ -145,6 +145,59 @@ type characterStatData {
 	deletedAt: String
 }
 
+type groupData{
+	id: ID
+	name: String
+	description:String
+	logo:String
+	external_url:String
+	type: ID
+	rolesData: [groupsRoles]
+	groupTypeData: groupsTypes
+	visible: Boolean
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type groupsMembers{
+	id: ID
+	role: ID
+	character: ID
+	manager: Boolean
+	rolesData: groupsRoles
+	memberData: characterData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type groupsRoles{
+	id: ID
+	group: ID
+	name:String
+	description:String
+	logo:String
+	visible: Boolean
+	earn:Int
+	groupMembers: [groupsMembers]
+	groupData: groupData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type groupsTypes{
+	id: ID
+	name:String
+	description:String
+	logo:String
+	groupData: [groupData]
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
 type logMailData {
 	id: ID
 	from: String

@@ -55,6 +55,11 @@ module.exports = (sequelize, Sequelize) => {
 				name: 'id',
 				as: 'characterDamages',
 			});
+			models.Character.hasOne(models.GroupsMembers, {
+				foreignKey: 'character',
+				name: 'id',
+				as: 'groupMembers',
+			});
 		}
 	}
 

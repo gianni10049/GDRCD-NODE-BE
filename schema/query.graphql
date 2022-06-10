@@ -47,4 +47,9 @@ type Query {
 	# Radio
 	getFrequencies(token:String!): [radioFrequenciesData]
 	getFrequencyMessages(token:String!, frequency: Int!): getFrequencyMessagesResponse
+
+	# Groups
+	getGroups(token:String!): [groupData]
+	getGroup(token:String! id:ID!): groupData
+
 }
