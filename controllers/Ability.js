@@ -1,4 +1,3 @@
-const { Token } = require('./Token');
 const {
 	Ability,
 	AbilityDetails,
@@ -82,22 +81,14 @@ class AbilityController {
 	}
 
 	static async getAbilityLeveDetails(data) {
-		let { token, abilityId, level } = data;
+		let { abilityId, level } = data;
 
-		let control = await Token.routeControl({
-			token: token,
-			account_needed: true,
-			character_needed: true,
+		return await AbilityDetails.findOne({
+			where: {
+				ability: abilityId,
+				level: level,
+			},
 		});
-
-		if (control.response) {
-			return await AbilityDetails.findOne({
-				where: {
-					ability: abilityId,
-					level: level,
-				},
-			});
-		}
 	}
 
 	static async updateAbility(data) {
@@ -107,13 +98,13 @@ class AbilityController {
 			responseStatus = '';
 
 		let permission = await PermissionController.isMineCharacter({
-			token: tokenData.token,
+			tokenData: tokenData,
 			characterId: characterId,
 		});
 
 		if (!permission.response) {
 			permission = await PermissionController.permissionControl({
-				token: tokenData.token,
+				tokenData: tokenData,
 				permission: 'MANAGE_ABI_OTHER',
 			});
 		}

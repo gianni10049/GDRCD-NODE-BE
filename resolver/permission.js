@@ -30,6 +30,9 @@ const permission_query = {
 			? control
 			: new Error(i18n.t('permissionError'));
 	},
+};
+
+const permission_mutation = {
 	characterConnectedMutation: async (parent, data = {}) => {
 		let { token } = data;
 
@@ -58,3 +61,4 @@ const permission_character = {
 
 exports.permission_query = permission_query;
 exports.permission_character = permission_character;
+exports.permission_mutation = permission_mutation;

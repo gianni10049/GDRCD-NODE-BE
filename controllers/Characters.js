@@ -77,7 +77,7 @@ class CharactersController {
 
 			if (character.account === account_id) {
 				let new_token = await Token.createToken({
-					...control,
+					...tokenData,
 					character: character,
 				});
 

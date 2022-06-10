@@ -26,14 +26,14 @@ class DamageController {
 
 	// # TODO Aggiungere controllo esistenza danno
 	static setDamageSolved = async (data) => {
-		let { damageId } = data;
+		let { tokenData, damageId } = data;
 
 		let response = false,
 			responseStatus,
 			damage;
 
 		let permission_control = await PermissionController.permissionControl({
-			token,
+			tokenData,
 			permission: 'MANAGE_DAMAGEs',
 		});
 

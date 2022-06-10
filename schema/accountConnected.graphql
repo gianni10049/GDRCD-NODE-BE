@@ -2,8 +2,8 @@
 type AccountConnected{
 
     # CharSelect
-    chactersListByAccount(token: String!): [characterData]
-    setCharacter(token: String!, characterId: ID!): loginResponse
-    getCharacter(token: String!, characterId: ID): characterData
-    getCharactersList(token: String!): [characterData]
+    chactersListByAccount: [characterData]
+    setCharacter(characterId: ID!): loginResponse
+    getCharacter(characterId: ID): characterData
+    getCharactersList: [characterData]
 }

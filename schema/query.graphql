@@ -1,7 +1,6 @@
 type Query {
     accountConnected(token:String!): AccountConnected
     characterConnected(token:String!): CharacterConnected
-    characterConnectedMutation(token:String!): CharacterConnectedMutation
 
     # General call
     routeControl(
