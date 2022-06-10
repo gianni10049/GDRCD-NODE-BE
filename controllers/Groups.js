@@ -73,6 +73,77 @@ class GroupsController {
 			order: [['type', 'ASC']],
 		});
 	}
+
+	static async isGroupMember(group, character) {
+		let data = await Groups.findOne({
+			where: { id: group },
+			deletedAt: {
+				[Op.is]: null,
+			},
+			visible: true,
+			include: [
+				{
+					model: GroupsRoles,
+					as: 'rolesData',
+					include: [
+						{
+							model: GroupsMembers,
+							as: 'groupMembers',
+							include: [{ model: Character, as: 'memberData' }],
+						},
+					],
+				},
+			],
+			order: [['type', 'ASC']],
+		});
+
+		let members = [];
+
+		data?.rolesData?.forEach((role) => {
+			role?.groupMembers?.forEach((member) => {
+				members.push(member.character);
+			});
+		});
+
+		return [...new Set(members)].includes(character);
+	}
+
+	static async isGroupManager(group, character) {
+		let data = await Groups.findOne({
+			where: { id: group },
+			deletedAt: {
+				[Op.is]: null,
+			},
+			visible: true,
+			include: [
+				{
+					model: GroupsRoles,
+					as: 'rolesData',
+					include: [
+						{
+							model: GroupsMembers,
+							as: 'groupMembers',
+							include: [{ model: Character, as: 'memberData' }],
+							where: {
+								manager: true,
+							},
+						},
+					],
+				},
+			],
+			order: [['type', 'ASC']],
+		});
+
+		let managers = [];
+
+		data?.rolesData?.forEach((role) => {
+			role?.groupMembers?.forEach((member) => {
+				managers.push(member.character);
+			});
+		});
+
+		return [...new Set(managers)].includes(character);
+	}
 }
 
 exports.GroupsController = GroupsController;

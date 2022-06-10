@@ -7,6 +7,7 @@ let {
 const { Op, Sequelize } = require('sequelize');
 const { i18n } = require('../i18n');
 const { Character } = require('../models');
+const { GroupsController } = require('./Groups');
 
 class RadioController {
 	static getFrequencyMessagesQuery = async (frequency) => {
@@ -112,9 +113,11 @@ class RadioController {
 
 		if (frequency_data) {
 			switch (frequency_data.type) {
-				case 'groups':
-					// # TODO Aggiungere regole gruppi
-					return false;
+				case 'group':
+					return await GroupsController.isGroupMember(
+						frequency_data.owner,
+						me
+					);
 				case 'private':
 					if (frequency_data.owner === me) {
 						return true;
