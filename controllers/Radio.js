@@ -84,7 +84,18 @@ class RadioController {
 					[Op.is]: null,
 				},
 			},
-			order: [['type', 'ASC']],
+			order: [
+				[
+					Sequelize.literal(
+						'CASE ' +
+							"WHEN `type` like 'public' THEN 1 " +
+							"WHEN `type` like 'group' THEN 2 " +
+							"WHEN `type` like 'private' THEN 3 " +
+							' ELSE 4 END'
+					),
+					'ASC',
+				],
+			],
 		});
 	};
 
