@@ -24,9 +24,43 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
+			owner: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
 			visible: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
+			},
+			createdAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
+			},
+			deletedAt: {
+				allowNull: true,
+				type: Sequelize.DATE,
+				default: null,
+			},
+		});
+
+		await queryInterface.createTable('forums_members', {
+			id: {
+				allowNull: false,
+				autoIncrement: true,
+				primaryKey: true,
+				type: Sequelize.INTEGER,
+			},
+			character: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
+			forum: {
+				allowNull: false,
+				type: Sequelize.TEXT,
 			},
 			createdAt: {
 				allowNull: false,
@@ -159,6 +193,7 @@ module.exports = {
 	},
 	down: async (queryInterface) => {
 		await queryInterface.dropTable('forums');
+		await queryInterface.dropTable('forums_members');
 		await queryInterface.dropTable('forums_posts');
 		await queryInterface.dropTable('forums_comments');
 		await queryInterface.dropTable('forums_reads');

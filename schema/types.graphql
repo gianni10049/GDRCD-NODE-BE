@@ -1,97 +1,109 @@
 type toastResponse {
-	response: String!
-	responseStatus: String!
+    response: String!
+    responseStatus: String!
 }
 
 type genericResponse {
-	response: Boolean!
-	responseStatus: String!
+    response: Boolean!
+    responseStatus: String!
 }
 
 type loginResponse {
-	response: String!
-	token: String
-	responseStatus: String!
+    response: String!
+    token: String
+    responseStatus: String!
 }
 
 type getCharacterStatsResponse {
-	table: [statData],
-	response: Boolean
-	responseStatus: String
+    table: [statData],
+    response: Boolean
+    responseStatus: String
 }
 
 type getCharacterAbilityResponse {
-	table: [abilityData],
-	response: Boolean
-	responseStatus: String
+    table: [abilityData],
+    response: Boolean
+    responseStatus: String
 }
 
 type getCharacterPointsResponse {
-	table: characterPointsData,
-	response: Boolean
-	responseStatus: String
+    table: characterPointsData,
+    response: Boolean
+    responseStatus: String
 }
 
 type descriptionsArray{
-	it:String,
-	eng:String
+    it:String,
+    eng:String
 }
 
 type getCharacterActionPercentagesResponse{
-	response: Boolean
-	responseStatus: String
-	percentages: percentagesArray,
-	character: Int
+    response: Boolean
+    responseStatus: String
+    percentages: percentagesArray,
+    character: Int
 }
 
 type percentagesArray{
-	life_calc: singlePercentageValues,
-	stamina_calc: singlePercentageValues,
-	find_calc: singlePercentageValues,
-	furtivity_calc: singlePercentageValues,
-	investigate_calc: singlePercentageValues,
-	initiative_calc: singlePercentageValues,
-	price_calc: singlePercentageValues,
-	research_calc: singlePercentageValues,
+    life_calc: singlePercentageValues,
+    stamina_calc: singlePercentageValues,
+    find_calc: singlePercentageValues,
+    furtivity_calc: singlePercentageValues,
+    investigate_calc: singlePercentageValues,
+    initiative_calc: singlePercentageValues,
+    price_calc: singlePercentageValues,
+    research_calc: singlePercentageValues,
 }
 
 type singlePercentageValues{
-	total: Int,
-	max_value: Int
+    total: Int,
+    max_value: Int
 }
 
 type getPartsList{
-	response: Int,
-	responseStatus: String,
-	table: [partsData]
+    response: Int,
+    responseStatus: String,
+    table: [partsData]
 }
 
 type getDamagesResponse{
-	response: Int,
-	responseStatus: String,
-	damages: [characterDamageData]
+    response: Int,
+    responseStatus: String,
+    damages: [characterDamageData]
 }
 
 type getDamageResponse{
-	response: Int,
-	responseStatus: String,
-	damage: characterDamageData
+    response: Int,
+    responseStatus: String,
+    damage: characterDamageData
 }
 
 type getMeResponse{
-	response: Int,
-	responseStatus: String,
-	me: authData
+    response: Int,
+    responseStatus: String,
+    me: authData
 }
 
 type authData{
-	account: accountData
-	character: characterData
+    account: accountData
+    character: characterData
 }
 
 type getFrequencyMessagesResponse{
-	response: Boolean
-	responseStatus: String
-	messages: [radioMessagesData]
-	frequency: radioFrequenciesData
+    response: Boolean
+    responseStatus: String
+    messages: [radioMessagesData]
+    frequency: radioFrequenciesData
+}
+
+type ForumsPostListResponse{
+    posts: [forumsPostsData]
+    total_pages: Int!
+    total_results: Int!
+}
+
+type ForumsPostDataResponse{
+    post: forumsPostsData
+    total_pages: Int!
+    total_results: Int!
 }

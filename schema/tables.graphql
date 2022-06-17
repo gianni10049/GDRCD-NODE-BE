@@ -145,6 +145,57 @@ type characterStatData {
 	deletedAt: String
 }
 
+type forumsData{
+	id: ID
+	name: String
+	description: String
+	logo: String
+	type :String
+	visible: Boolean
+	total_results: Int
+	total_pages: Int
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type forumsCommentsData{
+	id: ID
+	post: ID
+	character: ID
+	text: String
+	characterData: characterData
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type forumsPostsData{
+	id: ID
+	character: ID
+	forum: ID
+	title: String
+	text: String
+	closed: Boolean
+	important: Boolean
+	visible: Boolean
+	characterData: characterData
+	commentsData: [forumsCommentsData]
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type forumsReadsData{
+	id: ID
+	post: ID
+	character: ID
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+
 type groupData{
 	id: ID
 	name: String

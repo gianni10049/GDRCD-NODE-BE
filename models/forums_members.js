@@ -2,25 +2,26 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
-	class ForumsComments extends Model {
+	class ForumsMembers extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			models.ForumsComments.belongsTo(models.ForumsPosts, {
-				foreignKey: 'post',
-				as: 'postData',
+			models.ForumsMembers.belongsTo(models.Forums, {
+				foreignKey: 'forum',
+				as: 'forumData',
 			});
-			models.ForumsComments.belongsTo(models.Character, {
-				foreignKey: 'character',
+			models.ForumsMembers.hasOne(models.Character, {
+				foreignKey: 'id',
+				name: 'character',
 				as: 'characterData',
 			});
 		}
 	}
 
-	ForumsComments.init(
+	ForumsMembers.init(
 		{
 			id: {
 				primaryKey: true,
@@ -30,11 +31,8 @@ module.exports = (sequelize, Sequelize) => {
 			character: {
 				type: Sequelize.INTEGER,
 			},
-			post: {
+			forum: {
 				type: Sequelize.INTEGER,
-			},
-			text: {
-				type: Sequelize.STRING,
 			},
 			createdAt: Sequelize.DATE,
 			updatedAt: Sequelize.DATE,
@@ -42,9 +40,9 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		{
 			sequelize,
-			tableName: 'forums_comments',
-			modelName: 'ForumsComments',
+			tableName: 'forums_members',
+			modelName: 'ForumsMembers',
 		}
 	);
-	return ForumsComments;
+	return ForumsMembers;
 };

@@ -25,6 +25,10 @@ module.exports = (sequelize, Sequelize) => {
 				allowNull: true,
 				as: 'readsData',
 			});
+			models.ForumsPosts.belongsTo(models.Character, {
+				foreignKey: 'character',
+				as: 'characterData',
+			});
 		}
 	}
 

@@ -60,6 +60,16 @@ module.exports = (sequelize, Sequelize) => {
 				name: 'id',
 				as: 'groupMembers',
 			});
+			models.Character.hasOne(models.ForumsPosts, {
+				foreignKey: 'character',
+				name: 'id',
+				as: 'postsData',
+			});
+			models.Character.hasOne(models.ForumsComments, {
+				foreignKey: 'character',
+				name: 'id',
+				as: 'commentsData',
+			});
 		}
 	}
 

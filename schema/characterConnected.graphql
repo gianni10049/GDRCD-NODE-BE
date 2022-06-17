@@ -35,4 +35,9 @@ type CharacterConnected{
     # Groups
     getGroups: [groupData]
     getGroup( id:ID!): groupData
+
+    # Forum
+    getForums: [forumsData]
+    getPosts(forum:ID!, page: Int!): ForumsPostListResponse
+    getPost(post:ID!,page:Int!): ForumsPostDataResponse
 }

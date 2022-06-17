@@ -15,4 +15,10 @@ type CharacterConnectedMutation{
 
     # Radio
     sendFrequencyMessage(text: String!, frequency: Int!): [radioMessagesData]
+
+    # Forum
+    newPost(forum:ID!,title:String!,text:String!): ForumsPostListResponse
+    newComment(post:ID!,text:String!): ForumsPostDataResponse
+    updatePostClose(post:ID!):ForumsPostDataResponse
+    updatePostImportant(post:ID!):ForumsPostDataResponse
 }

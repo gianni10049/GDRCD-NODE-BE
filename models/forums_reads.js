@@ -13,6 +13,11 @@ module.exports = (sequelize, Sequelize) => {
 				foreignKey: 'post',
 				as: 'postData',
 			});
+			models.ForumsReads.hasOne(models.Character, {
+				foreignKey: 'id',
+				name: 'character',
+				as: 'characterData',
+			});
 		}
 	}
 
