@@ -4,6 +4,7 @@ let {
 	ForumsMembers,
 	Character,
 	ForumsComments,
+	ForumsReads,
 } = require('./../models');
 const { Op, Sequelize } = require('sequelize');
 const { GroupsController } = require('./Groups');
@@ -38,14 +39,20 @@ class ForumsController {
 	}
 
 	static async getForumsQuery() {
-
-		let data = await Forums.findAll({
+		return await Forums.findAll({
 			where: {
 				deletedAt: {
 					[Op.is]: null,
 				},
 				visible: true,
 			},
+			include: [
+				{
+					model: ForumsPosts,
+					as: 'postsData',
+					required: false,
+				},
+			],
 			order: [
 				[
 					Sequelize.literal(
@@ -59,25 +66,6 @@ class ForumsController {
 				],
 			],
 		});
-		let results = [];
-
-		for (let forum of data) {
-			forum.total_results = await ForumsPosts.count({
-				where: {
-					forum: forum.id,
-					deletedAt: {
-						[Op.is]: null,
-					},
-					visible: true,
-				},
-			});
-
-			forum.total_pages = Math.ceil(forum.total_results / limit_results_forum);
-
-			results.push(forum);
-		}
-
-		return results;
 	}
 
 	static async getForum(data) {
@@ -114,7 +102,43 @@ class ForumsController {
 			}
 		}
 
-		return allowed_forums;
+		let results = [];
+
+		for (let forum of allowed_forums) {
+			forum.total_results = forum.postsData.length;
+
+			forum.total_pages = Math.ceil(forum.total_results / limit_results_forum);
+
+			forum.to_read = false;
+
+			for (let post of forum.postsData) {
+				let control_read = await ForumsPosts.findAll({
+					include: [{
+						model: ForumsReads,
+						as: 'readsData',
+						required:false,
+						where:{
+							character: tokenData.character.id
+						}
+					}],
+					where:{
+						'$readsData.id$':null,
+						id: post.id
+					}
+				});
+
+				if(Object.keys(control_read).length > 0){
+					forum.to_read = true;
+					break;
+				}
+
+			}
+
+
+			results.push(forum);
+		}
+
+		return results;
 	}
 
 	static async forumsPermission(forum, me) {
@@ -144,7 +168,7 @@ class ForumsController {
 	/*** POSTS ***/
 
 	static async getForumPostsQuery(forum, page = 1) {
-		let data = await ForumsPosts.findAll({
+		return await ForumsPosts.findAll({
 			where: {
 				forum,
 				deletedAt: {
@@ -169,23 +193,6 @@ class ForumsController {
 			offset: ((page - 1) * limit_results_forum),
 			limit: limit_results_forum,
 		});
-
-		let total = await ForumsPosts.findAll({
-			where: {
-				forum,
-				deletedAt: {
-					[Op.is]: null,
-				},
-				visible: true,
-			},
-		});
-
-
-		return {
-			posts: data,
-			total_pages: Math.ceil(total.length / limit_results_forum),
-			total_results: total.length,
-		};
 	}
 
 	static async getPostQuery(post, page) {
@@ -235,13 +242,71 @@ class ForumsController {
 	}
 
 	static async getPosts(data) {
-		let { forum, page } = data;
+		let { forum, page, tokenData } = data;
 
-		return await this.getForumPostsQuery(forum, page);
+		let posts =  await this.getForumPostsQuery(forum, page);
+		let total = await ForumsPosts.findAll({
+			where: {
+				forum,
+				deletedAt: {
+					[Op.is]: null,
+				},
+				visible: true,
+			},
+		});
+
+		let results = [];
+
+		for (let post of posts) {
+			post.to_read = false;
+
+			let control_read = await ForumsPosts.findAll({
+				include: [{
+					model: ForumsReads,
+					as: 'readsData',
+					required:false,
+					where:{
+						character: tokenData.character.id
+					}
+				}],
+				where:{
+					'$readsData.id$':null,
+					id: post.id
+				}
+			});
+
+			if(Object?.keys(control_read)?.length > 0){
+				post.to_read = true;
+			}
+
+			results.push(post);
+		}
+
+		return {
+			posts: results,
+			total_pages: Math.ceil(total.length / limit_results_forum),
+			total_results: total.length,
+		};
 	}
 
 	static async getPost(data) {
-		let { post, page } = data;
+		let { post, page, tokenData } = data;
+
+		await ForumsReads.findOne({
+			where:{
+				character: tokenData.character.id,
+				post
+			}
+		}).then((obj) => {
+
+			if(!obj){
+				ForumsReads.create({
+					character: tokenData.character.id,
+					post
+				})
+			}
+		})
+
 
 		return await this.getPostQuery(post, page);
 	}
@@ -271,6 +336,12 @@ class ForumsController {
 			character: tokenData?.character?.id,
 		});
 
+		await ForumsReads.destroy({
+			where: {
+				post: post
+			}
+		})
+
 		return await this.getPostQuery(post, 1);
 	}
 
@@ -282,16 +353,16 @@ class ForumsController {
 			permission: 'MANAGE_POSTS',
 		});
 
-		if(permission.response) {
+		if (permission.response) {
 			let post_data = await ForumsPosts.findOne({
 				where: {
-					id:post
-				}
-			})
+					id: post,
+				},
+			});
 
 			await ForumsPosts.update({
-				closed:!post_data.closed
-			},{where:{id:post}});
+				closed: !post_data.closed,
+			}, { where: { id: post } });
 
 			return await this.getPostQuery(post, 1);
 		}
@@ -305,16 +376,16 @@ class ForumsController {
 			permission: 'MANAGE_POSTS',
 		});
 
-		if(permission.response) {
+		if (permission.response) {
 			let post_data = await ForumsPosts.findOne({
 				where: {
-					id:post
-				}
-			})
+					id: post,
+				},
+			});
 
 			await ForumsPosts.update({
-				important:!post_data.important
-			},{where:{id:post}});
+				important: !post_data.important,
+			}, { where: { id: post } });
 
 			return await this.getPostQuery(post, 1);
 		}

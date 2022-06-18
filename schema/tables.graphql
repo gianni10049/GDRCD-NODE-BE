@@ -154,6 +154,7 @@ type forumsData{
 	visible: Boolean
 	total_results: Int
 	total_pages: Int
+	to_read: Boolean
 	createdAt: String
 	updatedAt: String
 	deletedAt: String
@@ -181,6 +182,8 @@ type forumsPostsData{
 	visible: Boolean
 	characterData: characterData
 	commentsData: [forumsCommentsData]
+	readsData:[forumsReadsData]
+	to_read: Boolean
 	createdAt: String
 	updatedAt: String
 	deletedAt: String
