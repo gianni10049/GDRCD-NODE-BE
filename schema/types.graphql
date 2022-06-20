@@ -41,7 +41,7 @@ type getCharacterActionPercentagesResponse{
     response: Boolean
     responseStatus: String
     percentages: percentagesArray,
-    character: Int
+    character: ID!
 }
 
 type percentagesArray{
