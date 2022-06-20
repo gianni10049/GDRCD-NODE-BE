@@ -13,6 +13,12 @@ let { Token } = require('./Token');
 const { Op } = require('sequelize');
 const { i18n } = require('../i18n');
 
+const default_stamina = 100;
+const default_life = 100;
+const default_resources = 150;
+const initial_exp = 500;
+const initial_stat_points = 5;
+
 class CharactersController {
 	/*** TABLE HELPER ***/
 
@@ -34,6 +40,25 @@ class CharactersController {
 	}
 
 	/**** CONTROLS ****/
+
+	/**
+	 * @fn characterExist
+	 * @note Control if a character exist
+	 * @return {Promise<Promise<[]> | Promise<number>>}
+	 * @param name
+	 * @param surname
+	 */
+	static async nameAvailable(name, surname) {
+		return Character.count({
+			where: {
+				name,
+				surname,
+				deletedAt: {
+					[Op.is]: null,
+				},
+			},
+		});
+	}
 
 	/**
 	 * @fn characterExist
@@ -164,7 +189,7 @@ class CharactersController {
 		});
 
 		let percentage_value = Math.floor(
-			(max_value / 100) * ((total / total_reachable_points) * 100)
+			(max_value / 100) * ((total / total_reachable_points) * 100),
 		);
 
 		return {
@@ -373,13 +398,13 @@ class CharactersController {
 			if (action) {
 				characterPercentage[action] = await this.calcPercentage(
 					action,
-					characterId
+					characterId,
 				);
 			} else {
 				for (const type of types) {
 					characterPercentage[type] = await this.calcPercentage(
 						type,
-						characterId
+						characterId,
 					);
 				}
 			}
@@ -394,6 +419,53 @@ class CharactersController {
 			response,
 			percentages: characterPercentage,
 			character: characterId,
+		};
+	}
+
+	static async createCharacter(data) {
+
+		let { name, surname, age, tokenData } = data;
+
+		let response = false,
+			responseStatus;
+
+		if (!await this.nameAvailable(name, surname)) {
+
+			if (age >= 18 && age <= 60) {
+
+				// TODO Controllo numero massimo personaggi
+				let character = await Character.create({
+					account: tokenData.account.id,
+					name,
+					surname,
+					nickname:null,
+					age,
+					active: 1,
+				});
+
+				await CharacterPoints.create({
+					character: character.id,
+					life: default_life,
+					stamina: default_stamina,
+					resources: default_resources,
+					weight: 0,
+					exp_total: 0,
+					exp_usable: initial_exp,
+					stat_points: initial_stat_points,
+				});
+
+				responseStatus = i18n.t('createCharacter.done');
+				response = true;
+			} else {
+				responseStatus = i18n.t('createCharacter.ageError');
+			}
+		} else {
+			responseStatus = i18n.t('createCharacter.nameUnavailable');
+		}
+
+		return {
+			responseStatus,
+			response,
 		};
 	}
 

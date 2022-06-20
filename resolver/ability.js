@@ -1,5 +1,12 @@
 const { AbilityController } = require('../controllers/Ability');
 
+const ability_account = {
+	listAbilities: async (tokenData, data = {}) => {
+		data.tokenData = tokenData;
+		return await AbilityController.listAbilities(data);
+	},
+};
+
 const ability_character = {
 	getAbility: async (tokenData, data = {}) => {
 		data.tokenData = tokenData;
@@ -13,8 +20,6 @@ const ability_characterMutation = {
 		return await AbilityController.updateAbility(data);
 	},
 };
-
-const ability_account = {};
 
 exports.ability_character = ability_character;
 exports.ability_characterMutation = ability_characterMutation;

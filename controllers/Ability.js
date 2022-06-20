@@ -29,6 +29,25 @@ class AbilityController {
 		});
 	}
 
+	static async listAbilities() {
+		return await Ability.findAll({
+			include: [
+				{
+					model: AbilityDetails,
+					as: 'abilityToDetailData',
+					nest: true,
+					raw: true,
+				},
+				{
+					model: Stats,
+					as: 'statData',
+					nest: true,
+					raw: true,
+				},
+			]
+		});
+	}
+
 	static async getAbility(data) {
 		let { tokenData, abilityId, characterId } = data;
 

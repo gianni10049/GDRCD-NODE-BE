@@ -1,0 +1,8 @@
+
+type AccountConnectedMutation{
+    # CharSelect
+    setCharacter(characterId: ID!): loginResponse
+
+    # CharCreate
+    createCharacter(name: String! surname:String! age: Int!): genericResponse
+}

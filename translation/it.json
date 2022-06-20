@@ -49,5 +49,10 @@
   },
   "messages": {
     "deleteConvDone": "Conversazione eliminata!"
+  },
+  "createCharacter": {
+    "nameUnavailable": "Combinazione nome e cognome non disponibile",
+    "ageError": "Età non compresa tra i 18 ed i 60 anni",
+    "done": "Personaggio creato con successo!"
   }
 }

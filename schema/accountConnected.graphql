@@ -6,7 +6,9 @@ type AccountConnected{
 
     # CharSelect
     chactersListByAccount: [characterData]
-    setCharacter(characterId: ID!): loginResponse
     getCharacter(characterId: ID): characterData
     getCharactersList: [characterData]
+
+    # Abilities
+    listAbilities: [abilityData]
 }

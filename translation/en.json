@@ -49,5 +49,10 @@
   },
   "messages": {
     "deleteConvDone": "Conversation deleted!"
+  },
+  "createCharacter": {
+    "nameUnavailable": "Name combination unavailable",
+    "ageError": "Age not in range 18-60",
+    "done": "Character successfully created!"
   }
 }

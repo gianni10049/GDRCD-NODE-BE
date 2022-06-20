@@ -30,6 +30,9 @@ let resolvers = async () => {
 					case 'account':
 						key = 'AccountConnected';
 						break;
+					case 'accountMutation':
+						key = 'AccountConnectedMutation';
+						break;
 				}
 
 				resolvers[key] = {

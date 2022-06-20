@@ -6,4 +6,5 @@ type Mutation {
         password_confirm: String!
     ): genericResponse
     characterConnectedMutation(token:String!): CharacterConnectedMutation
+    accountConnectedMutation(token:String!): AccountConnectedMutation
 }

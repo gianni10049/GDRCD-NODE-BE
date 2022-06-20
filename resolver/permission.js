@@ -16,7 +16,6 @@ const permission_query = {
 			? control
 			: new Error(i18n.t('permissionError'));
 	},
-
 	characterConnected: async (parent, data = {}) => {
 		let { token } = data;
 
@@ -40,6 +39,20 @@ const permission_mutation = {
 			token: token,
 			account_needed: true,
 			character_needed: true,
+		});
+
+		return control.response
+			? control
+			: new Error(i18n.t('permissionError'));
+	},
+
+	accountConnectedMutation: async (parent, data = {}) => {
+		let { token } = data;
+
+		let control = await Token.routeControl({
+			token: token,
+			account_needed: true,
+			character_needed: false,
 		});
 
 		return control.response

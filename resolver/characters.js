@@ -38,15 +38,23 @@ const characters_account = {
 		data.tokenData = tokenData;
 		return await CharactersController.getCharacter(data);
 	},
+	getCharactersList: async () => {
+		return await CharactersController.getCharactersList();
+	}
+};
+
+const characters_accountMutation = {
 	setCharacter: async (tokenData, data) => {
 		data.tokenData = tokenData;
 		return await CharactersController.setCharacter(data);
 	},
-	getCharactersList: async () => {
-		return await CharactersController.getCharactersList();
+	createCharacter: async (tokenData, data) => {
+		data.tokenData = tokenData;
+		return await CharactersController.createCharacter(data);
 	},
 };
 
 exports.character_character = character_character;
 exports.characters_characterMutation = characters_characterMutation;
 exports.characters_account = characters_account;
+exports.characters_accountMutation = characters_accountMutation;
