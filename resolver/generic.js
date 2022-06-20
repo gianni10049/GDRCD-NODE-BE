@@ -8,7 +8,7 @@ const generic_query = {
 	},
 };
 
-const generic_character = {
+const generic_account = {
 	getMe: async (tokenData, data = {}) => {
 		data.tokenData = tokenData;
 		return await Token.getMe(data);
@@ -23,5 +23,5 @@ const generic_characterMutation = {
 };
 
 exports.generic_query = generic_query;
-exports.generic_character = generic_character;
+exports.generic_account = generic_account;
 exports.generic_characterMutation = generic_characterMutation;

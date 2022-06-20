@@ -2,7 +2,6 @@ type CharacterConnected{
 
     # General
     isMineCharacter( characterId:ID!): genericResponse
-    getMe: getMeResponse
     permissionControl(permission: String!): genericResponse
 
     # Ability

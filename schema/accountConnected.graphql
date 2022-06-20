@@ -1,6 +1,9 @@
 
 type AccountConnected{
 
+    #Generic
+    getMe: getMeResponse
+
     # CharSelect
     chactersListByAccount: [characterData]
     setCharacter(characterId: ID!): loginResponse
