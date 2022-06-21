@@ -8,7 +8,7 @@ class StatsController {
 		return await Stats.findAll();
 	}
 
-	static async updateStat(args) {
+	static async upgradeStat(args) {
 		let { tokenData, character, stat } = args;
 
 		let response = false,
@@ -70,9 +70,9 @@ class StatsController {
 							});
 
 							response = true;
-							responseStatus = i18n.t('updateStat.done');
+							responseStatus = i18n.t('upgradeStat.done');
 						} else {
-							responseStatus = i18n.t('updateStat.maxLevel');
+							responseStatus = i18n.t('upgradeStat.maxLevel');
 						}
 					} else {
 						await CharacterStats.create({
@@ -90,14 +90,14 @@ class StatsController {
 						});
 
 						response = true;
-						responseStatus = i18n.t('updateStat.done');
+						responseStatus = i18n.t('upgradeStat.done');
 					}
 				} else {
-					responseStatus = i18n.t('updateStat.pointsNeeded');
+					responseStatus = i18n.t('upgradeStat.pointsNeeded');
 				}
 
 			} else {
-				responseStatus = i18n.t('updateStat.NoPoints');
+				responseStatus = i18n.t('upgradeStat.NoPoints');
 			}
 		}
 		else{

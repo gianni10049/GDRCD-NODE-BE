@@ -8,9 +8,9 @@ const stats_character = {
 };
 
 const stats_characterMutation = {
-	updateStat: async (tokenData, data = {}) => {
+	upgradeStat: async (tokenData, data = {}) => {
 		data.tokenData = tokenData;
-		return await StatsController.updateStat(data);
+		return await StatsController.upgradeStat(data);
 	},
 };
 

@@ -1,6 +1,6 @@
 type CharacterConnectedMutation{
     #Character Stats
-    updateStat(character:ID!,stat:ID!): genericResponse
+    upgradeStat(character:ID!,stat:ID!): genericResponse
 
     # CHARACTER ABILITY
     updateAbility(abilityId: ID!, characterId: ID): genericResponse

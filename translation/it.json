@@ -55,7 +55,7 @@
     "ageError": "Età non compresa tra i 18 ed i 60 anni",
     "done": "Personaggio creato con successo!"
   },
-  "updateStat": {
+  "upgradeStat": {
     "NoPoints": "Punti non trovati, contattare lo staff.",
     "pointsNeeded": "Non hai abbastanza punti.",
     "maxLevel": "Livello massimo raggiunto.",
