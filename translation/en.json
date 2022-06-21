@@ -54,5 +54,11 @@
     "nameUnavailable": "Name combination unavailable",
     "ageError": "Age not in range 18-60",
     "done": "Character successfully created!"
+  },
+  "updateStat": {
+    "NoPoints": "Points not find, contact the staff.",
+    "pointsNeeded": "Not enought points.",
+    "maxLevel": "Max level reached.",
+    "done": "Statistic updated!"
   }
 }
