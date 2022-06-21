@@ -34,7 +34,7 @@ class DamageController {
 
 		let permission_control = await PermissionController.permissionControl({
 			tokenData,
-			permission: 'MANAGE_DAMAGEs',
+			permission: 'MANAGE_DAMAGES',
 		});
 
 		if (permission_control.response) {
