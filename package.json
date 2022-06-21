@@ -8,7 +8,8 @@
     "mig-roll": "yarn sequelize db:migrate:undo",
     "seeding": "yarn sequelize-cli db:seed:all",
     "seed-roll": "yarn sequelize-cli db:seed:undo:all",
-    "seed-reinit": "yarn sequelize-cli db:seed:undo:all && yarn sequelize-cli db:seed:all"
+    "seed-reinit": "yarn sequelize-cli db:seed:undo:all && yarn sequelize-cli db:seed:all",
+    "seed-specific": "yarn sequelize-cli db:seed --seed "
   },
   "keywords": [],
   "author": "",
