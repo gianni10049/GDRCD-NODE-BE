@@ -2,52 +2,33 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
-	class Forums extends Model {
+	class ForumsCategories extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			models.Forums.hasMany(models.ForumsPosts, {
-				foreignKey: 'forum',
-				name: 'id',
-				allowNull: true,
-				as: 'postsData',
-			});
-			models.Forums.belongsTo(models.ForumsCategories, {
+			models.ForumsCategories.hasMany(models.Forums, {
 				foreignKey: 'category',
-				as: 'categoryData',
+				name: 'id',
+				allowNull: false,
+				as: 'forumData',
 			});
 		}
 	}
 
-	Forums.init(
+	ForumsCategories.init(
 		{
 			id: {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 				autoIncrement: true,
 			},
-			name: {
+			title: {
 				type: Sequelize.STRING,
 			},
-			description: {
-				type: Sequelize.STRING,
-			},
-			logo: {
-				type: Sequelize.STRING,
-			},
-			category: {
-				type: Sequelize.INTEGER,
-			},
-			type: {
-				type: Sequelize.STRING,
-			},
-			owner: {
-				type: Sequelize.INTEGER,
-			},
-			visible: {
+			order: {
 				type: Sequelize.INTEGER,
 			},
 			createdAt: Sequelize.DATE,
@@ -56,9 +37,9 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		{
 			sequelize,
-			tableName: 'forums',
-			modelName: 'Forums',
+			tableName: 'forums_categories',
+			modelName: 'ForumsCategories',
 		}
 	);
-	return Forums;
+	return ForumsCategories;
 };

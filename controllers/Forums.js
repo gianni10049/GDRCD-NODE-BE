@@ -5,8 +5,9 @@ let {
 	Character,
 	ForumsComments,
 	ForumsReads,
+	ForumsCategories,
 } = require('./../models');
-const { Op, Sequelize } = require('sequelize');
+const { Op } = require('sequelize');
 const { GroupsController } = require('./Groups');
 const { PermissionController } = require('./Permission');
 const limit_results_post = 5;
@@ -52,18 +53,14 @@ class ForumsController {
 					as: 'postsData',
 					required: false,
 				},
+				{
+					model: ForumsCategories,
+					as: 'categoryData',
+					required: true,
+				},
 			],
 			order: [
-				[
-					Sequelize.literal(
-						'CASE ' +
-						'WHEN `type` like \'public\' THEN 1 ' +
-						'WHEN `type` like \'group\' THEN 2 ' +
-						'WHEN `type` like \'private\' THEN 3 ' +
-						' ELSE 4 END',
-					),
-					'ASC',
-				],
+				[{ model: ForumsCategories, as: 'categoryData' }, 'title', 'ASC']
 			],
 		});
 	}

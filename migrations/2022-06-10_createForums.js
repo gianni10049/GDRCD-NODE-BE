@@ -1,6 +1,37 @@
 'use strict';
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
+
+		await queryInterface.createTable('forums_categories', {
+			id: {
+				allowNull: false,
+				autoIncrement: true,
+				primaryKey: true,
+				type: Sequelize.INTEGER,
+			},
+			title: {
+				allowNull: false,
+				type: Sequelize.STRING,
+			},
+			order: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
+			createdAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				allowNull: false,
+				type: Sequelize.DATE,
+			},
+			deletedAt: {
+				allowNull: true,
+				type: Sequelize.DATE,
+				default: null,
+			},
+		});
+
 		await queryInterface.createTable('forums', {
 			id: {
 				allowNull: false,
@@ -20,25 +51,32 @@ module.exports = {
 				allowNull: true,
 				type: Sequelize.STRING,
 			},
+			category:{
+				allowNull: false,
+				type: Sequelize.INTEGER,
+			},
 			type: {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
 			owner: {
-				allowNull: false,
+				allowNull: true,
 				type: Sequelize.INTEGER,
 			},
 			visible: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
+				defaultValue: true,
 			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
@@ -192,10 +230,11 @@ module.exports = {
 		});
 	},
 	down: async (queryInterface) => {
+		await queryInterface.dropTable('forums_categories');
 		await queryInterface.dropTable('forums');
 		await queryInterface.dropTable('forums_members');
-		await queryInterface.dropTable('forums_posts');
 		await queryInterface.dropTable('forums_comments');
+		await queryInterface.dropTable('forums_posts');
 		await queryInterface.dropTable('forums_reads');
 	},
 };
