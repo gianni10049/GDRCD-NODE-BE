@@ -331,6 +331,7 @@ type objectsData {
 	findable: Boolean
 	transportable: Boolean
 	sellable: Boolean
+	price: Int
 	createdBy: Int
 	createdAt: String
 	updatedAt: String

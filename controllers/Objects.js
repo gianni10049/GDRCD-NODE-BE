@@ -17,8 +17,7 @@ class ObjectsController {
 				id: id,
 				deletedAt: {
 					[Op.is]: null,
-				},
-				visible: true,
+				}
 			},
 		});
 	}
@@ -50,8 +49,7 @@ class ObjectsController {
 				id: id,
 				deletedAt: {
 					[Op.is]: null,
-				},
-				visible: true,
+				}
 			},
 		});
 	}

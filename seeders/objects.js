@@ -68,6 +68,7 @@ module.exports = {
 				findable: true,
 				transportable: true,
 				sellable: true,
+				price: 100,
 				createdBy: 1
 			},
 		]);

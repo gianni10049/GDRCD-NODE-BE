@@ -90,6 +90,11 @@ module.exports = {
 				type: Sequelize.BOOLEAN,
 				defaultValue: false,
 			},
+			price: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+				defaultValue: 0
+			},
 			createdBy: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
