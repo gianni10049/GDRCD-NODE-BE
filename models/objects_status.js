@@ -9,7 +9,11 @@ module.exports = (sequelize, Sequelize) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-
+			models.ObjectsStatus.hasMany(models.ObjectsList, {
+				foreignKey: 'status',
+				name: 'id',
+				as: 'listData',
+			});
 		}
 	}
 

@@ -9,15 +9,18 @@ module.exports = (sequelize, Sequelize) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			models.Objects.hasOne(models.ObjectsTypes, {
-				foreignKey: 'id',
-				name: 'type',
+			models.Objects.belongsTo(models.ObjectsTypes, {
+				foreignKey: 'type',
 				as: 'typeData',
 			});
-			models.Objects.hasOne(models.ObjectsQualities, {
-				foreignKey: 'id',
-				name: 'quality',
+			models.Objects.belongsTo(models.ObjectsQualities, {
+				foreignKey: 'quality',
 				as: 'qualityData',
+			});
+			models.Objects.hasMany(models.ObjectsList, {
+				foreignKey: 'object',
+				name: 'id',
+				as: 'listData',
 			});
 		}
 	}
@@ -79,6 +82,12 @@ module.exports = (sequelize, Sequelize) => {
 			},
 			marketable: {
 				type: Sequelize.BOOLEAN,
+			},
+			price:{
+				type: Sequelize.INTEGER,
+			},
+			createdBy:{
+				type: Sequelize.INTEGER,
 			},
 			createdAt: Sequelize.DATE,
 			updatedAt: Sequelize.DATE,

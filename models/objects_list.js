@@ -9,24 +9,20 @@ module.exports = (sequelize, Sequelize) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			models.ObjectsList.hasOne(models.Objects, {
-				foreignKey: 'id',
-				name: 'object',
-				as: 'objectData',
-			});
-			models.ObjectsList.hasOne(models.ObjectsQualities, {
-				foreignKey: 'id',
-				name: 'quality',
+			models.ObjectsList.belongsTo(models.ObjectsQualities, {
+				foreignKey: 'quality',
 				as: 'qualityData',
 			});
-			models.ObjectsList.hasOne(models.ObjectsStatus, {
-				foreignKey: 'id',
-				name: 'status',
+			models.ObjectsList.belongsTo(models.ObjectsStatus, {
+				foreignKey: 'status',
 				as: 'statusData',
 			});
-			models.ObjectsList.hasOne(models.Parts, {
-				foreignKey: 'id',
-				name: 'worn_part',
+			models.ObjectsList.belongsTo(models.Objects, {
+				foreignKey: 'object',
+				as: 'objectData',
+			});
+			models.ObjectsList.belongsTo(models.Parts, {
+				foreignKey: 'worn_part',
 				as: 'partData',
 			});
 		}

@@ -14,6 +14,11 @@ module.exports = (sequelize, Sequelize) => {
 				name: 'id',
 				as: 'partDamages',
 			});
+			models.Parts.hasMany(models.ObjectsList, {
+				foreignKey: 'part',
+				name: 'worn_part',
+				as: 'objectsListData',
+			});
 		}
 	}
 
