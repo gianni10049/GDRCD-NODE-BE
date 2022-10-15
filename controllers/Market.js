@@ -1,7 +1,6 @@
 let {
 	MarketBuy,
 	Objects,
-	ObjectsStatus,
 	ObjectsTypes,
 	ObjectsQualities,
 } = require('./../models');
@@ -63,11 +62,6 @@ class MarketController {
 					as: 'objectData',
 					required: true,
 					include: [
-						{
-							model: ObjectsStatus,
-							as: 'statusData',
-							required: true,
-						},
 						{
 							model: ObjectsTypes,
 							as: 'typeData',
