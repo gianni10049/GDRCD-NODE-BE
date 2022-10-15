@@ -342,6 +342,7 @@ type objectsData {
 	findable: Boolean
 	transportable: Boolean
 	sellable: Boolean
+	marketable: Boolean
 	price: Int
 	createdBy: Int
 	createdAt: String
