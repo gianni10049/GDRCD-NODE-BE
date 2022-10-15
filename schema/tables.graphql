@@ -311,6 +311,85 @@ type messagesDeleteData{
 	deletedAt: String
 }
 
+type objectsData {
+	id: ID
+	type: Int
+	typeData: objectTypeData
+	quality: Int
+	qualityData: objectQualitiesData
+	name: String
+	description: String
+	img: String
+	charges: Int
+	wearable: Boolean
+	concealable: Boolean
+	customizable: Boolean
+	usable: Boolean
+	cumulative: Boolean
+	droppable: Boolean
+	creatable: Boolean
+	findable: Boolean
+	transportable: Boolean
+	sellable: Boolean
+	createdBy: Int
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type objectsListData{
+	id: ID
+	owner_type: Int
+	owner: Int
+	object: Int
+	objectData: objectsData
+	quality: Int
+	qualityData: objectQualitiesData
+	status: Int
+	statusData: objectStatusData
+	usury: Int
+	alias: String
+	img: String
+	comment: String
+	comment_master: String
+	charges: Int
+	worn: Boolean
+	worn_part: Int
+	partData: partsData
+	hidden: Boolean
+	expiry: String
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type objectQualitiesData{
+	id: ID
+	name: String
+	description: String
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type objectStatusData{
+	id: ID
+	name: String
+	description: String
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
+type objectTypeData{
+	id: ID
+	name: String
+	description: String
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
 type partsData {
 	id: ID
 	name: String

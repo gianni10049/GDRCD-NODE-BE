@@ -39,4 +39,8 @@ type CharacterConnected{
     getForums: [forumsData]
     getPosts(forum:ID!, page: Int!): ForumsPostListResponse
     getPost(post:ID!,page:Int!): ForumsPostDataResponse
+
+    # Objects
+    getObjectData(id: ID!): objectsData
+    getObjectListData(id: ID!): objectsListData
 }
