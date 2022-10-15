@@ -26,20 +26,22 @@ module.exports = {
 			},
 			max_points: {
 				type: Sequelize.INTEGER,
-				default: 10,
+				defaultValue: 10,
 			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -71,21 +73,23 @@ module.exports = {
 				type: Sequelize.TEXT,
 			},
 			solved: {
-				default: false,
+				defaultValue: false,
 				type: Sequelize.BOOLEAN,
 			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 	},

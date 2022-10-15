@@ -19,15 +19,17 @@ module.exports = {
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -47,22 +49,24 @@ module.exports = {
 				type: Sequelize.STRING,
 			},
 			admin: {
-				default: false,
+				defaultValue: false,
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
 			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -84,15 +88,17 @@ module.exports = {
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -114,15 +120,17 @@ module.exports = {
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -142,23 +150,26 @@ module.exports = {
 				type: Sequelize.INTEGER,
 			},
 			assigned_by: {
-				default: null,
+				defaultValue: null,
 				type: Sequelize.INTEGER,
 			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
+
 		await queryInterface.createTable('character_permission', {
 			id: {
 				allowNull: false,
@@ -175,21 +186,23 @@ module.exports = {
 				type: Sequelize.INTEGER,
 			},
 			assigned_by: {
-				default: null,
+				defaultValue: null,
 				type: Sequelize.INTEGER,
 			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 	},

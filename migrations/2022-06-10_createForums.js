@@ -20,15 +20,17 @@ module.exports = {
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -81,7 +83,7 @@ module.exports = {
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -103,15 +105,17 @@ module.exports = {
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -153,15 +157,17 @@ module.exports = {
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -187,15 +193,17 @@ module.exports = {
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -217,15 +225,17 @@ module.exports = {
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
 			},
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 	},

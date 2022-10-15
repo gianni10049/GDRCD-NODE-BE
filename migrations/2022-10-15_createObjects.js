@@ -16,12 +16,12 @@ module.exports = {
 			description: {
 				allowNull: true,
 				type: Sequelize.TEXT,
-				default: null,
+				defaultValue: null,
 			},
 			img: {
 				allowNull: true,
 				type: Sequelize.STRING,
-				default: null,
+				defaultValue: null,
 			},
 			type: {
 				type: Sequelize.INTEGER,
@@ -38,57 +38,62 @@ module.exports = {
 			wearable: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			concealable: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			customizable: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			usable: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			cumulative: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			droppable: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			creatable: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			findable: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			transportable: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			sellable: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
+			},
+			marketable: {
+				allowNull: false,
+				type: Sequelize.BOOLEAN,
+				defaultValue: false,
 			},
 			createdBy: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			createdAt: {
 				allowNull: false,
@@ -103,7 +108,7 @@ module.exports = {
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -117,12 +122,12 @@ module.exports = {
 			owner_type:{
 				allowNull: false,
 				type: Sequelize.INTEGER,
-				default: 1,
+				defaultValue: 1,
 			},
 			owner:{
 				allowNull: false,
 				type: Sequelize.INTEGER,
-				default: 1,
+				defaultValue: 1,
 			},
 			object: {
 				allowNull: false,
@@ -139,27 +144,27 @@ module.exports = {
 			usury: {
 				allowNull: false,
 				type: Sequelize.INTEGER,
-				default: 100,
+				defaultValue: 100,
 			},
 			alias: {
 				allowNull: true,
 				type: Sequelize.STRING,
-				default: null,
+				defaultValue: null,
 			},
 			img: {
 				allowNull: true,
 				type: Sequelize.STRING,
-				default: null,
+				defaultValue: null,
 			},
 			comment: {
 				allowNull: true,
 				type: Sequelize.TEXT,
-				default: null,
+				defaultValue: null,
 			},
 			comment_master: {
 				allowNull: true,
 				type: Sequelize.TEXT,
-				default: null,
+				defaultValue: null,
 			},
 			charges: {
 				allowNull: false,
@@ -168,22 +173,22 @@ module.exports = {
 			worn: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			worn_part: {
 				allowNull: true,
 				type: Sequelize.INTEGER,
-				default: null,
+				defaultValue: null,
 			},
 			hidden: {
 				allowNull: false,
 				type: Sequelize.BOOLEAN,
-				default: false,
+				defaultValue: false,
 			},
 			expiry: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 			createdAt: {
 				allowNull: false,
@@ -198,7 +203,7 @@ module.exports = {
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -216,7 +221,7 @@ module.exports = {
 			description: {
 				allowNull: true,
 				type: Sequelize.TEXT,
-				default: null,
+				defaultValue: null,
 			},
 			createdAt: {
 				allowNull: false,
@@ -231,7 +236,7 @@ module.exports = {
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -249,7 +254,7 @@ module.exports = {
 			description: {
 				allowNull: true,
 				type: Sequelize.TEXT,
-				default: null,
+				defaultValue: null,
 			},
 			createdAt: {
 				allowNull: false,
@@ -264,7 +269,7 @@ module.exports = {
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 
@@ -282,7 +287,7 @@ module.exports = {
 			description: {
 				allowNull: true,
 				type: Sequelize.TEXT,
-				default: null,
+				defaultValue: null,
 			},
 			createdAt: {
 				allowNull: false,
@@ -297,7 +302,7 @@ module.exports = {
 			deletedAt: {
 				allowNull: true,
 				type: Sequelize.DATE,
-				default: null,
+				defaultValue: null,
 			},
 		});
 

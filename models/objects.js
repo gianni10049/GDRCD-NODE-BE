@@ -77,6 +77,9 @@ module.exports = (sequelize, Sequelize) => {
 			sellable: {
 				type: Sequelize.BOOLEAN,
 			},
+			marketable: {
+				type: Sequelize.BOOLEAN,
+			},
 			createdAt: Sequelize.DATE,
 			updatedAt: Sequelize.DATE,
 			deletedAt: Sequelize.DATE,
