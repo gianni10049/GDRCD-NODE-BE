@@ -181,7 +181,7 @@ class CharactersController {
 		total_reachable_points = 10 * number_of_ability;
 
 		await characterAbilityData.map((ability) => {
-			let stat = ability.statData;
+			let stat = ability?.statData;
 			let stat_value = stat?.characterStatData[0]?.value ?? 0;
 			let abi_value = ability?.characterAbilityData[0]?.value ?? 0;
 
