@@ -31,7 +31,7 @@ module.exports = {
 			},
 			{
 				name: 'chest',
-				description_it: 'Schiena',
+				description_it: 'Busto',
 				description_eng: 'ENG',
 				icon: 'Chest',
 				max_points: 10,
@@ -40,7 +40,7 @@ module.exports = {
 			},
 			{
 				name: 'leftLeg',
-				description_it: 'Schiena',
+				description_it: 'Gamba Sinistra',
 				description_eng: 'ENG',
 				icon: 'LeftLeg',
 				max_points: 10,
@@ -49,7 +49,7 @@ module.exports = {
 			},
 			{
 				name: 'rightLeg',
-				description_it: 'Schiena',
+				description_it: 'Gamba Destra',
 				description_eng: 'ENG',
 				icon: 'RightLeg',
 				max_points: 10,
