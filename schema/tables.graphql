@@ -276,6 +276,17 @@ type logMailData {
 	deletedAt: String
 }
 
+type marketData{
+	id: ID
+	object: ID
+	objectData: objectsData
+	total: Int
+	remained: Int
+	createdAt: String
+	updatedAt: String
+	deletedAt: String
+}
+
 type messagesData {
 	id: ID
 	sender: ID
