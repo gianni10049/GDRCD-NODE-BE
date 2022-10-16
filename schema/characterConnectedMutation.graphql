@@ -27,4 +27,5 @@ type CharacterConnectedMutation{
 
     # Market
     marketBuyItem(id:ID!): marketBuyItemResponse
+    marketSellItem(id:ID!): marketSellItemResponse
 }

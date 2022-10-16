@@ -45,5 +45,6 @@ type CharacterConnected{
     getObjectListData(id: ID!): objectsListData
 
     # Markets
-    getMarketBuyList: [marketData]
+    getMarketBuyList: [marketBuyData]
+    getMarketSellList: [marketSellData]
 }

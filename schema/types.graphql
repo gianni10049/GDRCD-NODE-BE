@@ -111,5 +111,11 @@ type ForumsPostDataResponse{
 type marketBuyItemResponse{
     response: Boolean
     responseStatus: String
-    list: [marketData]
+    list: [marketBuyData]
+}
+
+type marketSellItemResponse{
+    response: Boolean
+    responseStatus: String
+    list: [marketSellData]
 }

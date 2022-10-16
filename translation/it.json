@@ -68,5 +68,13 @@
     "noMarketable": "Oggetto non acquistabile",
     "noCharacterPoints": "Punti personaggio insufficienti",
     "success": "Oggetto acquistato!"
+  },
+  "marketSellItem": {
+    "noExistence": "Oggetto inesistente nel mercato",
+    "noResources": "Non hai abbastanza risorse",
+    "noMarketable": "Oggetto non acquistabile",
+    "noCharacterPoints": "Punti personaggio insufficienti",
+    "noSellToSelf": "Non puoi vendere ad un tuo personaggio",
+    "success": "Oggetto acquistato!"
   }
 }

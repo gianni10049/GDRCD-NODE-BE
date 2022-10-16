@@ -2,46 +2,35 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
-	class Parts extends Model {
+	class MarketSell extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			models.Parts.hasMany(models.CharacterDamage, {
-				foreignKey: 'part',
-				name: 'id',
-				as: 'partDamages',
-			});
-			models.Parts.hasMany(models.ObjectsList, {
-				foreignKey: 'worn_part',
-				name: 'id',
-				as: 'objectsListData',
+			models.MarketSell.hasOne(models.ObjectsList, {
+				foreignKey: 'id',
+				name: 'object',
+				as: 'objectListData',
 			});
 		}
 	}
 
-	Parts.init(
+	MarketSell.init(
 		{
 			id: {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 				autoIncrement: true,
 			},
-			name: {
-				type: Sequelize.STRING,
+			object: {
+				type: Sequelize.INTEGER,
 			},
-			description_it: {
-				type: Sequelize.TEXT,
+			price: {
+				type: Sequelize.INTEGER,
 			},
-			description_eng: {
-				type: Sequelize.TEXT,
-			},
-			icon: {
-				type: Sequelize.STRING,
-			},
-			max_points: {
+			selled_to: {
 				type: Sequelize.INTEGER,
 			},
 			createdAt: Sequelize.DATE,
@@ -50,9 +39,9 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		{
 			sequelize,
-			tableName: 'parts',
-			modelName: 'Parts',
-		}
+			tableName: 'market_sell',
+			modelName: 'MarketSell',
+		},
 	);
-	return Parts;
+	return MarketSell;
 };

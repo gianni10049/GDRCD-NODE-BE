@@ -68,5 +68,13 @@
     "noMarketable": "Item not available",
     "noCharacterPoints": "Insufficient character points",
     "success": "Item bought!"
+  },
+  "marketSellItem": {
+    "noExistence": "Item not exist",
+    "noResources": "Insufficient resources",
+    "noMarketable": "Item not available",
+    "noCharacterPoints": "Insufficient character points",
+    "noSellToSelf": "You can't sell to yourself",
+    "success": "Item bought!"
   }
 }
