@@ -60,5 +60,13 @@
     "pointsNeeded": "Not enought points.",
     "maxLevel": "Max level reached.",
     "done": "Statistic updated!"
+  },
+  "marketBuyItem": {
+    "noExistence": "Item not exist",
+    "noResources": "Insufficient resources",
+    "noRemained": "Item out of stock",
+    "noMarketable": "Item not available",
+    "noCharacterPoints": "Insufficient character points",
+    "success": "Item bought!"
   }
 }

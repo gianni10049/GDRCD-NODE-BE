@@ -24,4 +24,7 @@ type CharacterConnectedMutation{
     newComment(post:ID!,text:String!): ForumsPostDataResponse
     updatePostClose(post:ID!):ForumsPostDataResponse
     updatePostImportant(post:ID!):ForumsPostDataResponse
+
+    # Market
+    marketBuyItem(id:ID!): marketBuyItemResponse
 }

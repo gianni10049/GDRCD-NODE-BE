@@ -107,3 +107,9 @@ type ForumsPostDataResponse{
     total_pages: Int!
     total_results: Int!
 }
+
+type marketBuyItemResponse{
+    response: Boolean
+    responseStatus: String
+    list: [marketData]
+}

@@ -7,4 +7,12 @@ const groups_character = {
 	}
 };
 
+const groups_characterMutation = {
+	marketBuyItem: async (tokenData,data ={}) => {
+		data.tokenData = tokenData;
+		return await MarketController.marketBuyItem(data);
+	},
+};
+
 exports.groups_character = groups_character;
+exports.groups_characterMutation = groups_characterMutation;

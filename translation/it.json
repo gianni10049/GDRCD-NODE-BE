@@ -60,5 +60,13 @@
     "pointsNeeded": "Non hai abbastanza punti.",
     "maxLevel": "Livello massimo raggiunto.",
     "done": "Statistica aggiornata!"
+  },
+  "marketBuyItem": {
+    "noExistence": "Oggetto inesistente nel mercato",
+    "noResources": "Non hai abbastanza risorse",
+    "noRemained": "Oggetti esauriti",
+    "noMarketable": "Oggetto non acquistabile",
+    "noCharacterPoints": "Punti personaggio insufficienti",
+    "success": "Oggetto acquistato!"
   }
 }
