@@ -10,6 +10,14 @@ type abilityData {
 	characterAbilityData: [characterAbilityData]
 	abilityToDetailData: [abilityDetailData]
 	statData: statData,
+	life_calc: Boolean
+	stamina_calc: Boolean
+	find_calc: Boolean
+	furtivity_calc: Boolean
+	investigate_calc: Boolean
+	initiative_calc: Boolean
+	price_calc: Boolean
+	research_calc: Boolean
 	createdBy: Int
 	createdAt: String
 	updatedAt: String

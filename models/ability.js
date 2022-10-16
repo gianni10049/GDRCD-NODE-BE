@@ -67,6 +67,30 @@ module.exports = (sequelize, Sequelize) => {
 			visible: {
 				type: Sequelize.BOOLEAN,
 			},
+			life_calc:{
+				type: Sequelize.BOOLEAN,
+			},
+			stamina_calc:{
+				type: Sequelize.BOOLEAN,
+			},
+			find_calc:{
+				type: Sequelize.BOOLEAN,
+			},
+			furtivity_calc:{
+				type: Sequelize.BOOLEAN,
+			},
+			investigate_calc:{
+				type: Sequelize.BOOLEAN,
+			},
+			initiative_calc:{
+				type: Sequelize.BOOLEAN,
+			},
+			price_calc:{
+				type: Sequelize.BOOLEAN,
+			},
+			research_calc:{
+				type: Sequelize.BOOLEAN,
+			},
 			createdBy: {
 				type: Sequelize.INTEGER,
 			},
