@@ -30,7 +30,7 @@ class MessagesController {
 
 		let uniqueRecipient = _.uniqBy(messages, 'sender');
 
-		return await uniqueRecipient.map(async (message) => {
+		return uniqueRecipient.map(async (message) => {
 			let new_obj = message;
 			let sender = message.sender;
 
