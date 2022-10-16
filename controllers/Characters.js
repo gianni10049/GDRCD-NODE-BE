@@ -335,6 +335,17 @@ class CharactersController {
 		};
 	}
 
+	static async getCharacterPointsQuery(id){
+		return await CharacterPoints.findOne({
+			where: {
+				character: id,
+				deletedAt: {
+					[Op.is]: null,
+				},
+			},
+		});
+	}
+
 	/**
 	 * @fn getCharacterPoints
 	 * @note Obtain character points
@@ -349,14 +360,7 @@ class CharactersController {
 			characterPoints = {};
 
 		if (await this.characterExist(characterId)) {
-			characterPoints = await CharacterPoints.findOne({
-				where: {
-					character: characterId,
-					deletedAt: {
-						[Op.is]: null,
-					},
-				},
-			});
+			characterPoints = await this.getCharacterPointsQuery(characterId);
 
 			response = true;
 		} else {
