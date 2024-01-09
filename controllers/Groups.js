@@ -22,7 +22,6 @@ class GroupsController {
 
 	static async getGroups() {
 		return await Groups.findAll({
-			where: true,
 			deletedAt: {
 				[Op.is]: null,
 			},

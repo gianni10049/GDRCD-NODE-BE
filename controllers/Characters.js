@@ -482,7 +482,6 @@ class CharactersController {
 
 		if (await this.characterExist(characterId)) {
 			parts = await Parts.findAll({
-				where: true,
 				include: [
 					{
 						model: CharacterDamage,
@@ -542,7 +541,6 @@ class CharactersController {
 
 	static async getCharactersList() {
 		return await Character.findAll({
-			where: true,
 			order: [['name', 'ASC']],
 		});
 	}

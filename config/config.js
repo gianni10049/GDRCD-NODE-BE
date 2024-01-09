@@ -12,6 +12,10 @@ module.exports = {
 		'database': process.env.MYSQL_DB,
 		'host': process.env.MYSQL_HOST,
 		'dialect': 'mysql',
+		logging: false,
+		dialectOptions: {
+			socketPath: "/tmp/mysql.sock"
+		},
 		pool: {
 			max: 5,
 			min: 0,
